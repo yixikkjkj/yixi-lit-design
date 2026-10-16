@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yixi-lit-design 组件示例</title>
+    <link rel="stylesheet" href="../dist/yixi-lit.css" />
+    <script type="module" src="../dist/yixi-lit.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 32px 48px 120px;
+        background: var(--ld-bg-page);
+        font-family: var(--ld-font-family);
+        color: var(--ld-text-primary);
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 48px 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--ld-border-color-light);
+      }
+      .card {
+        background: var(--ld-bg-container);
+        border-radius: var(--ld-radius-l);
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .demo-target {
+        padding: 48px 16px;
+        background: var(--ld-bg-fill);
+        border-radius: var(--ld-radius-m);
+        margin-bottom: 8px;
+      }
+      .w-300 {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>yixi-lit-design 组件示例</h1>
+    <p>本页加载 <code>dist/yixi-lit.js</code> 与 <code>dist/yixi-lit.css</code>，展示全部组件的交互效果。</p>
+    <div class="row">
+      <span>深色模式</span>
+      <ld-switch id="theme-switch" size="s"></ld-switch>
+    </div>
+
+    <h2>Icon 图标</h2>
+    <div class="card row">
+      <ld-icon name="search-line"></ld-icon>
+      <ld-icon name="heart-line" size="20" color="#d54941"></ld-icon>
+      <ld-icon name="star-fill" size="24" color="#e37318"></ld-icon>
+      <ld-icon name="settings-3-line" size="28"></ld-icon>
+    </div>
+
+    <h2>Button 按钮</h2>
+    <div class="card">
+      <div class="row">
+        <ld-button variant="primary">主要按钮</ld-button>
+        <ld-button>默认按钮</ld-button>
+        <ld-button variant="dashed">虚线按钮</ld-button>
+        <ld-button variant="text">文字按钮</ld-button>
+      </div>
+      <div class="row">
+        <ld-button variant="primary" icon="search-line">图标按钮</ld-button>
+        <ld-button variant="primary" loading>加载中</ld-button>
+        <ld-button variant="primary" disabled>禁用</ld-button>
+        <ld-button variant="primary" shape="round">圆角按钮</ld-button>
+      </div>
+      <div class="row">
+        <ld-button size="s">小按钮</ld-button>
+        <ld-button size="m">中按钮</ld-button>
+        <ld-button size="l">大按钮</ld-button>
+      </div>
+    </div>
+
+    <h2>Link 链接</h2>
+    <div class="card row">
+      <ld-link href="#" variant="primary">主要链接</ld-link>
+      <ld-link href="#" variant="success">成功链接</ld-link>
+      <ld-link href="#" variant="warning">警告链接</ld-link>
+      <ld-link href="#" variant="danger">危险链接</ld-link>
+      <ld-link href="#" underline="always" icon="external-link-line">常显下划线</ld-link>
+      <ld-link disabled>禁用链接</ld-link>
+    </div>
+
+    <h2>Breadcrumb 面包屑</h2>
+    <div class="card">
+      <ld-breadcrumb separator="arrow-right-s-line">
+        <ld-breadcrumb-item href="#">首页</ld-breadcrumb-item>
+        <ld-breadcrumb-item href="#">组件</ld-breadcrumb-item>
+        <ld-breadcrumb-item>面包屑</ld-breadcrumb-item>
+      </ld-breadcrumb>
+    </div>
+
+    <h2>Divider 分割线</h2>
+    <div class="card">
+      <p>上方为普通分割线</p>
+      <ld-divider></ld-divider>
+      <p>带文案的分割线：</p>
+      <ld-divider content-position="left">左侧标题</ld-divider>
+      <ld-divider dashed content-position="right">右侧标题</ld-divider>
+      <p>
+        行内分割：<span>已发布</span>
+        <ld-divider direction="vertical"></ld-divider>
+        <span>2026-10-16</span>
+        <ld-divider direction="vertical" dashed></ld-divider>
+        <span>运营中心</span>
+      </p>
+    </div>
+
+    <h2>Tabs 选项卡</h2>
+    <div class="card">
+      <ld-tabs active="a">
+        <ld-tab label="基础信息" name="a">基础信息面板内容</ld-tab>
+        <ld-tab label="规格参数" name="b">规格参数面板内容</ld-tab>
+        <ld-tab label="用户评价" name="c" disabled>禁用面板</ld-tab>
+      </ld-tabs>
+      <br />
+      <ld-tabs active="x" type="card">
+        <ld-tab label="标签一" name="x">卡片式面板一</ld-tab>
+        <ld-tab label="标签二" name="y">卡片式面板二</ld-tab>
+      </ld-tabs>
+    </div>
+
+    <h2>Steps 步骤条</h2>
+    <div class="card">
+      <ld-steps current="1">
+        <ld-step title="提交申请" description="2026-10-14 已提交"></ld-step>
+        <ld-step title="资质审核" description="预计 1 个工作日"></ld-step>
+        <ld-step title="完成入驻"></ld-step>
+      </ld-steps>
+      <ld-divider></ld-divider>
+      <ld-steps current="2" direction="vertical">
+        <ld-step title="下单" description="订单已创建"></ld-step>
+        <ld-step title="出库" description="仓库拣货中"></ld-step>
+        <ld-step title="签收"></ld-step>
+      </ld-steps>
+    </div>
+
+    <h2>Input 输入框 / Password 密码输入框</h2>
+    <div class="card">
+      <div class="row">
+        <ld-input class="w-300" placeholder="基础输入框"></ld-input>
+        <ld-input class="w-300" placeholder="可清空" clearable value="可以清空我"></ld-input>
+      </div>
+      <div class="row">
+        <ld-input class="w-300" placeholder="带字数统计" maxlength="20"></ld-input>
+        <ld-input class="w-300" placeholder="错误状态" status="error" value="校验不通过"></ld-input>
+      </div>
+      <div class="row">
+        <ld-password-input class="w-300" placeholder="请输入密码"></ld-password-input>
+        <ld-input class="w-300" placeholder="禁用" disabled></ld-input>
+      </div>
+      <div class="row">
+        <ld-textarea class="w-300" placeholder="请输入备注" maxlength="100" tips="不超过 100 字"></ld-textarea>
+        <ld-textarea class="w-300" autosize rows="2" placeholder="高度随内容自适应"></ld-textarea>
+      </div>
+    </div>
+
+    <h2>Checkbox 多选 / Radio 单选</h2>
+    <div class="card">
+      <div class="row">
+        <ld-checkbox-group value="a">
+          <ld-checkbox value="a">选项 A</ld-checkbox>
+          <ld-checkbox value="b">选项 B</ld-checkbox>
+          <ld-checkbox value="c" disabled>禁用项</ld-checkbox>
+        </ld-checkbox-group>
+      </div>
+      <div class="row">
+        <ld-checkbox indeterminate>半选状态</ld-checkbox>
+      </div>
+      <div class="row">
+        <ld-radio-group value="x">
+          <ld-radio value="x">单选 X</ld-radio>
+          <ld-radio value="y">单选 Y</ld-radio>
+          <ld-radio value="z" disabled>禁用项</ld-radio>
+        </ld-radio-group>
+      </div>
+    </div>
+
+    <h2>Select 选择器 / DatePicker 日期选择器 / Switch 开关</h2>
+    <div class="card">
+      <div class="row">
+        <ld-select class="w-300" placeholder="请选择城市" clearable>
+          <ld-option value="bj">北京</ld-option>
+          <ld-option value="sh">上海</ld-option>
+          <ld-option value="gz">广州</ld-option>
+          <ld-option value="sz">深圳</ld-option>
+          <ld-option value="hk" disabled>海口（禁用）</ld-option>
+        </ld-select>
+        <ld-date-picker class="w-300" placeholder="请选择日期" clearable></ld-date-picker>
+      </div>
+      <div class="row">
+        <ld-switch checked></ld-switch>
+        <ld-switch></ld-switch>
+        <ld-switch loading></ld-switch>
+        <ld-switch size="s" checked></ld-switch>
+        <ld-switch disabled checked></ld-switch>
+      </div>
+    </div>
+
+    <h2>Dropdown 下拉菜单</h2>
+    <div class="card row">
+      <ld-dropdown>
+        <ld-button slot="trigger">更多操作</ld-button>
+        <ld-dropdown-item value="edit" icon="edit-line">编辑</ld-dropdown-item>
+        <ld-dropdown-item value="copy" icon="file-copy-line">复制</ld-dropdown-item>
+        <ld-dropdown-item value="move" icon="folder-transfer-line" divider>移动到</ld-dropdown-item>
+        <ld-dropdown-item value="remove" variant="error" icon="delete-bin-line">删除</ld-dropdown-item>
+      </ld-dropdown>
+      <ld-dropdown trigger="hover" placement="bottom-end">
+        <ld-button slot="trigger">悬浮展开</ld-button>
+        <ld-dropdown-item value="1">选项一</ld-dropdown-item>
+        <ld-dropdown-item value="2">选项二</ld-dropdown-item>
+        <ld-dropdown-item value="3" disabled>禁用项</ld-dropdown-item>
+      </ld-dropdown>
+      <ld-dropdown placement="top-start">
+        <ld-button slot="trigger">向上弹出</ld-button>
+        <ld-dropdown-item value="a">向上选项 A</ld-dropdown-item>
+        <ld-dropdown-item value="b">向上选项 B</ld-dropdown-item>
+      </ld-dropdown>
+    </div>
+
+    <h2>Tag 标签 / Badge 徽标</h2>
+    <div class="card">
+      <div class="row">
+        <ld-tag>默认标签</ld-tag>
+        <ld-tag variant="primary">主要</ld-tag>
+        <ld-tag variant="success">成功</ld-tag>
+        <ld-tag variant="warning">警告</ld-tag>
+        <ld-tag variant="danger">危险</ld-tag>
+        <ld-tag variant="primary" theme="dark">深色</ld-tag>
+        <ld-tag variant="primary" theme="outline">描边</ld-tag>
+        <ld-tag variant="success" closable>可关闭</ld-tag>
+      </div>
+      <div class="row">
+        <ld-badge value="8"><ld-button>消息</ld-button></ld-badge>
+        <ld-badge value="120" max="99"><ld-button>通知</ld-button></ld-badge>
+        <ld-badge dot><ld-icon name="bell-line" size="24"></ld-icon></ld-badge>
+        <ld-badge value="热" standalone></ld-badge>
+      </div>
+    </div>
+
+    <h2>Collapse 折叠面板</h2>
+    <div class="card">
+      <ld-collapse active="1">
+        <ld-collapse-item title="面板一" name="1">面板一的内容区域。</ld-collapse-item>
+        <ld-collapse-item title="面板二" name="2">面板二的内容区域。</ld-collapse-item>
+        <ld-collapse-item title="禁用面板" name="3" disabled>不可展开。</ld-collapse-item>
+      </ld-collapse>
+    </div>
+
+    <h2>Card 卡片 / Avatar 头像</h2>
+    <div class="card">
+      <div class="row" style="align-items: stretch">
+        <div style="width: 360px">
+          <ld-card title="订单概览" subtitle="更新于 10 分钟前">
+            <p style="margin: 0">本月共成交 1,286 单，环比增长 12.4%。</p>
+            <div slot="extra"><ld-tag variant="success" theme="light">正常</ld-tag></div>
+            <div slot="footer">
+              <ld-button>取消</ld-button>
+              <ld-button variant="primary">查看详情</ld-button>
+            </div>
+          </ld-card>
+        </div>
+        <div style="width: 360px">
+          <ld-card hoverable title="可悬浮卡片" header-bordered>
+            <p style="margin: 0">悬浮时整张卡片抬起并投下阴影。</p>
+          </ld-card>
+        </div>
+      </div>
+      <ld-divider></ld-divider>
+      <div class="row">
+        <ld-avatar src="https://avatars.githubusercontent.com/u/9919?s=64" alt="用户"></ld-avatar>
+        <ld-avatar>腾</ld-avatar>
+        <ld-avatar icon="user-line" size="l" shape="round"></ld-avatar>
+        <ld-avatar size="s" icon="user-line"></ld-avatar>
+        <ld-avatar-group max="3">
+          <ld-avatar>甲</ld-avatar>
+          <ld-avatar>乙</ld-avatar>
+          <ld-avatar>丙</ld-avatar>
+          <ld-avatar>丁</ld-avatar>
+          <ld-avatar>戊</ld-avatar>
+        </ld-avatar-group>
+      </div>
+    </div>
+
+    <h2>Loading 加载 / Progress 进度条</h2>
+    <div class="card">
+      <div class="row">
+        <ld-loading></ld-loading>
+        <ld-loading size="l" text="加载中"></ld-loading>
+        <ld-loading style="width: 200px; padding: 24px 0">
+          <div>被遮罩的内容区域</div>
+        </ld-loading>
+      </div>
+      <div class="row" style="flex-direction: column; align-items: stretch">
+        <ld-progress percentage="40"></ld-progress>
+        <ld-progress percentage="70" status="success"></ld-progress>
+        <ld-progress percentage="30" status="danger"></ld-progress>
+        <ld-progress percentage="60" text-inside stroke-width="16"></ld-progress>
+      </div>
+    </div>
+
+    <h2>Tooltip 文字提示 / Message 全局提示 / Drawer 抽屉</h2>
+    <div class="card">
+      <div class="row">
+        <ld-tooltip content="顶部提示"><ld-button>上</ld-button></ld-tooltip>
+        <ld-tooltip content="底部提示" placement="bottom"><ld-button>下</ld-button></ld-tooltip>
+        <ld-tooltip content="左侧提示" placement="left"><ld-button>左</ld-button></ld-tooltip>
+        <ld-tooltip content="右侧提示" placement="right"><ld-button>右</ld-button></ld-tooltip>
+        <ld-tooltip content="点击触发的提示" trigger="click"><ld-button>点击</ld-button></ld-tooltip>
+      </div>
+      <div class="row">
+        <ld-button id="msg-success">成功提示</ld-button>
+        <ld-button id="msg-warning">警告提示</ld-button>
+        <ld-button id="msg-danger">错误提示</ld-button>
+        <ld-button id="msg-info">普通提示</ld-button>
+      </div>
+      <div class="row">
+        <ld-button variant="primary" id="open-drawer">打开抽屉</ld-button>
+        <ld-button variant="primary" id="open-drawer-left">左侧抽屉</ld-button>
+      </div>
+    </div>
+
+    <ld-drawer id="drawer" title="抽屉标题">
+      <p>这是抽屉的内容区域，可以放任意内容。</p>
+      <ld-input placeholder="抽屉里的输入框"></ld-input>
+      <div slot="footer">
+        <ld-button id="drawer-cancel">取消</ld-button>
+        <ld-button variant="primary" id="drawer-ok">确定</ld-button>
+      </div>
+    </ld-drawer>
+    <ld-drawer id="drawer-left" title="左侧抽屉" placement="left" size="400px">
+      <p>从左侧滑出的抽屉。</p>
+    </ld-drawer>
+
+    <h2>Alert 警告提示 / Dialog 对话框</h2>
+    <div class="card">
+      <ld-alert theme="info" title="这是一条普通提示" closable>
+        组件库的样式全部由 CSS 变量驱动，覆盖变量即可换肤。
+      </ld-alert>
+      <br />
+      <ld-alert theme="success" title="提交成功"></ld-alert>
+      <br />
+      <ld-alert theme="warning" title="库存不足">
+        仅剩 3 件，请尽快下单。
+        <span slot="operation" style="cursor: pointer">去补货</span>
+      </ld-alert>
+      <br />
+      <ld-alert theme="danger" title="支付失败">
+        银行卡余额不足，请更换支付方式。
+      </ld-alert>
+      <br />
+      <div class="row">
+        <ld-button variant="primary" id="open-dialog">打开对话框</ld-button>
+        <ld-button id="open-dialog-danger">删除确认</ld-button>
+      </div>
+    </div>
+
+    <ld-dialog id="dialog" title="编辑资料">
+      <p style="margin: 0 0 16px">修改后的资料将同步到所有平台。</p>
+      <ld-input placeholder="昵称"></ld-input>
+      <div slot="footer">
+        <ld-button id="dialog-cancel">取消</ld-button>
+        <ld-button variant="primary" id="dialog-ok">保存</ld-button>
+      </div>
+    </ld-dialog>
+
+    <ld-dialog id="dialog-danger" title="确认删除" theme="danger" width="420px">
+      删除后不可恢复，确定继续吗？
+      <div slot="footer">
+        <ld-button id="dialog-danger-cancel">取消</ld-button>
+        <ld-button variant="primary" id="dialog-danger-ok">确定删除</ld-button>
+      </div>
+    </ld-dialog>
+
+    <h2>Pagination 分页</h2>
+    <div class="card">
+      <ld-pagination total="56"></ld-pagination>
+      <br />
+      <ld-pagination total="500" page-size="20" current="6"></ld-pagination>
+      <br />
+      <ld-pagination total="1000" page-sizes="10,20,50" show-jumper></ld-pagination>
+    </div>
+
+    <h2>Anchor 锚点（滚动本页查看右侧高亮）</h2>
+    <div style="position: fixed; right: 24px; top: 120px">
+      <ld-anchor>
+        <ld-anchor-link href="#sec-a" label="区块 A"></ld-anchor-link>
+        <ld-anchor-link href="#sec-b" label="区块 B"></ld-anchor-link>
+        <ld-anchor-link href="#sec-c" label="区块 C"></ld-anchor-link>
+      </ld-anchor>
+    </div>
+    <div id="sec-a" class="demo-target"><strong>区块 A</strong>（滚动经过时锚点高亮）</div>
+    <div id="sec-b" class="demo-target"><strong>区块 B</strong></div>
+    <div id="sec-c" class="demo-target"><strong>区块 C</strong></div>
+
+    <ld-back-top></ld-back-top>
+
+    <script type="module">
+      import { message } from '../dist/yixi-lit.js';
+
+      document.getElementById('msg-success').addEventListener('ld-click', () => message.success('操作成功'));
+      document.getElementById('msg-warning').addEventListener('ld-click', () => message.warning('请注意检查输入'));
+      document.getElementById('msg-danger').addEventListener('ld-click', () => message.danger('操作失败，请重试'));
+      document.getElementById('msg-info').addEventListener('ld-click', () => message.info('这是一条普通提示'));
+
+      const drawer = document.getElementById('drawer');
+      document.getElementById('open-drawer').addEventListener('ld-click', () => (drawer.open = true));
+      document.getElementById('drawer-cancel').addEventListener('ld-click', () => (drawer.open = false));
+      document.getElementById('drawer-ok').addEventListener('ld-click', () => {
+        drawer.open = false;
+        message.success('已确认');
+      });
+      const drawerLeft = document.getElementById('drawer-left');
+      document.getElementById('open-drawer-left').addEventListener('ld-click', () => (drawerLeft.open = true));
+
+      // 深色模式切换
+      const themeSwitch = document.getElementById('theme-switch');
+      themeSwitch.addEventListener('ld-change', (e) => {
+        document.documentElement.dataset.ldTheme = e.detail.checked ? 'dark' : '';
+      });
+
+      // 对话框
+      const dialog = document.getElementById('dialog');
+      const dialogDanger = document.getElementById('dialog-danger');
+      document.getElementById('open-dialog').addEventListener('ld-click', () => (dialog.open = true));
+      document.getElementById('dialog-cancel').addEventListener('ld-click', () => (dialog.open = false));
+      document.getElementById('dialog-ok').addEventListener('ld-click', () => {
+        dialog.open = false;
+        message.success('资料已保存');
+      });
+      document.getElementById('open-dialog-danger').addEventListener('ld-click', () => (dialogDanger.open = true));
+      document.getElementById('dialog-danger-cancel').addEventListener('ld-click', () => (dialogDanger.open = false));
+      document.getElementById('dialog-danger-ok').addEventListener('ld-click', () => {
+        dialogDanger.open = false;
+        message.danger('已删除');
+      });
+
+      // 下拉菜单选中
+      document.addEventListener('ld-select', (e) => {
+        if (e.target.tagName === 'LD-DROPDOWN-ITEM') {
+          message.info(`选中了「${e.detail.value}」`);
+        }
+      });
+
+      document.addEventListener('ld-change', (e) => {
+        console.log('[ld-change]', e.target.tagName, e.detail);
+      });
+    </script>
+  </body>
+</html>

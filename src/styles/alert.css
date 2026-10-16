@@ -1,0 +1,106 @@
+/* 警告提示
+ * 规格对齐设计稿：圆角 6 / 内边距 16 24 / 图标 20
+ * 底色取各语义色的第 2 级，图标取语义主色 */
+ld-alert {
+  display: block;
+}
+
+.ld-alert {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-space-s);
+  padding: var(--ld-comp-padding-tb-l) var(--ld-comp-padding-lr-xl);
+  border-radius: var(--ld-radius-medium);
+}
+
+/* 主题底色 */
+.ld-alert--info {
+  background: var(--ld-brand-color-2);
+}
+.ld-alert--success {
+  background: var(--ld-success-color-2);
+}
+.ld-alert--warning {
+  background: var(--ld-warning-color-2);
+}
+.ld-alert--danger {
+  background: var(--ld-error-color-2);
+}
+
+/* 头部：图标 + 标题 + 操作 + 关闭 */
+.ld-alert__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-space-s);
+}
+
+.ld-alert__icon {
+  flex-shrink: 0;
+  font-size: var(--ld-size-7);
+  line-height: var(--ld-line-height-body-medium);
+}
+.ld-alert--info .ld-alert__icon {
+  color: var(--ld-brand-color);
+}
+.ld-alert--success .ld-alert__icon {
+  color: var(--ld-success-color);
+}
+.ld-alert--warning .ld-alert__icon {
+  color: var(--ld-warning-color);
+}
+.ld-alert--danger .ld-alert__icon {
+  color: var(--ld-error-color);
+}
+
+.ld-alert__content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--ld-space-s);
+  min-width: 0;
+}
+
+.ld-alert__title {
+  font-size: var(--ld-font-size-body-medium);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-primary);
+}
+
+/* 标题右侧操作（插槽内容由使用方控制，这里只统一字号与颜色） */
+.ld-alert__content slot > * {
+  flex-shrink: 0;
+  font-size: var(--ld-font-size-body-medium);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-brand-color);
+}
+
+.ld-alert__close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ld-space-xxs);
+  font-size: var(--ld-size-6);
+  line-height: 1;
+  color: var(--ld-text-color-secondary);
+  border-radius: var(--ld-radius-default);
+  cursor: pointer;
+  transition:
+    color var(--ld-duration-fast) var(--ld-ease),
+    background-color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-alert__close:hover {
+  color: var(--ld-text-color-primary);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* 描述：与标题左对齐（缩进 = 图标 20 + 间距 8） */
+.ld-alert__description {
+  padding-left: var(--ld-size-9);
+  font-size: var(--ld-font-size-body-medium);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-secondary);
+}
+.ld-alert__description[hidden] {
+  display: none;
+}

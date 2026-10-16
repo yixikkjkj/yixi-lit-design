@@ -1,0 +1,49 @@
+/* 徽标 */
+.ld-badge {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.ld-badge--standalone {
+  position: static;
+}
+
+.ld-badge__content,
+.ld-badge__dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  background: var(--ld-color-danger);
+  color: var(--ld-text-on-primary);
+  z-index: 1;
+}
+
+.ld-badge--standalone .ld-badge__content,
+.ld-badge--standalone .ld-badge__dot {
+  position: static;
+  transform: none;
+}
+
+.ld-badge__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--ld-space-xs);
+  font-size: var(--ld-font-size-s);
+  line-height: 1;
+  border-radius: 9px;
+  border: 1px solid var(--ld-bg-container);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.ld-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ld-bg-container);
+}

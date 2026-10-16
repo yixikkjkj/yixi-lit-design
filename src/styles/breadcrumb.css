@@ -1,0 +1,47 @@
+/* 面包屑 */
+ld-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+ld-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ld-breadcrumb-item__inner {
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-text-regular);
+  text-decoration: none;
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+
+.ld-breadcrumb-item__link {
+  cursor: pointer;
+}
+
+.ld-breadcrumb-item__link:hover {
+  color: var(--ld-color-primary);
+}
+
+.ld-breadcrumb-item__separator {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 var(--ld-space-s);
+  color: var(--ld-text-secondary);
+}
+
+/* 最后一项：无分隔符，加粗并高亮 */
+ld-breadcrumb-item:last-of-type > .ld-breadcrumb-item__separator {
+  display: none;
+}
+
+ld-breadcrumb-item:last-of-type > .ld-breadcrumb-item__inner {
+  color: var(--ld-text-primary);
+  font-weight: 600;
+}
+
+ld-breadcrumb-item:last-of-type > .ld-breadcrumb-item__link {
+  cursor: text;
+}

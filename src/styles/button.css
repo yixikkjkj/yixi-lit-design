@@ -1,0 +1,120 @@
+/* 按钮
+ * 规格对齐设计稿：中号 32 高 / 左右内边距 16 / 圆角 3
+ *               小号 24 高 / 8，大号 40 高 / 24
+ * 默认按钮在设计稿中是浅灰填充的次级按钮（bg-color-component） */
+.ld-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ld-space-s);
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-m);
+  font-size: var(--ld-font-size-m);
+  line-height: var(--ld-line-height-body-medium);
+  font-family: inherit;
+  border: 1px solid transparent;
+  border-radius: var(--ld-radius-default);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--ld-duration-fast) var(--ld-ease),
+    border-color var(--ld-duration-fast) var(--ld-ease),
+    color var(--ld-duration-fast) var(--ld-ease);
+}
+
+/* 主题 */
+.ld-btn--primary {
+  background: var(--ld-brand-color);
+  color: var(--ld-text-color-anti);
+}
+.ld-btn--primary:hover {
+  background: var(--ld-brand-color-hover);
+}
+.ld-btn--primary:active {
+  background: var(--ld-brand-color-active);
+}
+
+.ld-btn--default {
+  background: var(--ld-bg-color-component);
+  border-color: transparent;
+  color: var(--ld-text-color-primary);
+}
+.ld-btn--default:hover {
+  background: var(--ld-bg-color-component-hover);
+}
+.ld-btn--default:active {
+  background: var(--ld-bg-color-component-active);
+}
+
+.ld-btn--dashed {
+  background: var(--ld-bg-color-container);
+  border: 1px dashed var(--ld-border-level-2-color);
+  color: var(--ld-text-color-primary);
+}
+.ld-btn--dashed:hover {
+  border-color: var(--ld-brand-color);
+  color: var(--ld-brand-color);
+}
+
+.ld-btn--text {
+  padding: 0 var(--ld-space-xs);
+  background: transparent;
+  color: var(--ld-brand-color);
+}
+.ld-btn--text:hover {
+  background: var(--ld-brand-color-light);
+}
+
+/* 尺寸 */
+.ld-btn--s {
+  gap: var(--ld-space-xs);
+  height: var(--ld-height-s);
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-s);
+  line-height: var(--ld-line-height-body-small);
+}
+.ld-btn--l {
+  gap: var(--ld-size-5);
+  height: var(--ld-height-l);
+  padding: 0 var(--ld-space-l);
+  font-size: var(--ld-font-size-l);
+  line-height: var(--ld-line-height-body-large);
+}
+
+/* 形状 */
+.ld-btn--round {
+  border-radius: var(--ld-radius-round);
+}
+.ld-btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* 加载 */
+.ld-btn.is-loading {
+  pointer-events: none;
+}
+.ld-btn__loading {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ld-btn-spin 0.8s linear infinite;
+}
+@keyframes ld-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 禁用（放在主题规则之后，覆盖 hover / active） */
+.ld-btn[disabled],
+.ld-btn.is-disabled {
+  background: var(--ld-bg-color-component-disabled);
+  border-color: transparent;
+  color: var(--ld-text-color-disabled);
+  cursor: not-allowed;
+}

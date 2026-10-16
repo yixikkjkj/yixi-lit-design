@@ -1,0 +1,70 @@
+/* 折叠面板 */
+.ld-collapse {
+  border-top: 1px solid var(--ld-border-color-light);
+  border-bottom: 1px solid var(--ld-border-color-light);
+}
+
+.ld-collapse-item {
+  border-bottom: 1px solid var(--ld-border-color-light);
+}
+.ld-collapse-item:last-child {
+  border-bottom: none;
+}
+
+.ld-collapse-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--ld-height-l);
+  padding: 0 var(--ld-space-m);
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-text-primary);
+  cursor: pointer;
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-collapse-item__header:hover {
+  color: var(--ld-color-primary);
+}
+
+.ld-collapse-item.is-disabled .ld-collapse-item__header {
+  color: var(--ld-text-disabled);
+  cursor: not-allowed;
+}
+.ld-collapse-item.is-disabled .ld-collapse-item__header:hover {
+  color: var(--ld-text-disabled);
+}
+
+.ld-collapse-item__arrow {
+  font-size: var(--ld-font-size-l);
+  color: var(--ld-text-secondary);
+  transition: transform var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-collapse-item.is-active .ld-collapse-item__arrow {
+  transform: rotate(90deg);
+}
+
+/* 内容区：grid-template-rows 高度过渡 */
+.ld-collapse-item__wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-collapse-item.is-active .ld-collapse-item__wrap {
+  grid-template-rows: 1fr;
+}
+
+.ld-collapse-item__content {
+  overflow: hidden;
+  padding: 0 var(--ld-space-m);
+  color: var(--ld-text-regular);
+  font-size: var(--ld-font-size-m);
+  line-height: 1.6;
+  visibility: hidden;
+  transition:
+    visibility var(--ld-duration-normal) var(--ld-ease),
+    padding var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-collapse-item.is-active .ld-collapse-item__content {
+  visibility: visible;
+  padding: 0 var(--ld-space-m) var(--ld-space-m);
+}

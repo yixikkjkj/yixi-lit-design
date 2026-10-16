@@ -1,0 +1,116 @@
+/* 标签 */
+.ld-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-xs);
+  height: var(--ld-height-s);
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-s);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--ld-radius-s);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* 尺寸 */
+.ld-tag--s {
+  height: 20px;
+  padding: 0 var(--ld-space-xs);
+  font-size: var(--ld-font-size-s);
+}
+.ld-tag--l {
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-m);
+  font-size: var(--ld-font-size-m);
+}
+
+/* 默认类型（light 主题） */
+.ld-tag--light {
+  background: var(--ld-bg-fill);
+  color: var(--ld-text-regular);
+}
+.ld-tag--dark {
+  background: var(--ld-text-regular);
+  color: var(--ld-text-on-primary);
+}
+.ld-tag--outline {
+  background: var(--ld-bg-container);
+  border-color: var(--ld-border-color);
+  color: var(--ld-text-regular);
+}
+
+/* primary */
+.ld-tag--primary.ld-tag--light {
+  background: var(--ld-color-primary-light);
+  color: var(--ld-color-primary);
+}
+.ld-tag--primary.ld-tag--dark {
+  background: var(--ld-color-primary);
+  color: var(--ld-text-on-primary);
+}
+.ld-tag--primary.ld-tag--outline {
+  background: var(--ld-bg-container);
+  border-color: var(--ld-color-primary);
+  color: var(--ld-color-primary);
+}
+
+/* success */
+.ld-tag--success.ld-tag--light {
+  background: var(--ld-color-success-light);
+  color: var(--ld-color-success);
+}
+.ld-tag--success.ld-tag--dark {
+  background: var(--ld-color-success);
+  color: var(--ld-text-on-primary);
+}
+.ld-tag--success.ld-tag--outline {
+  background: var(--ld-bg-container);
+  border-color: var(--ld-color-success);
+  color: var(--ld-color-success);
+}
+
+/* warning */
+.ld-tag--warning.ld-tag--light {
+  background: var(--ld-color-warning-light);
+  color: var(--ld-color-warning);
+}
+.ld-tag--warning.ld-tag--dark {
+  background: var(--ld-color-warning);
+  color: var(--ld-text-on-primary);
+}
+.ld-tag--warning.ld-tag--outline {
+  background: var(--ld-bg-container);
+  border-color: var(--ld-color-warning);
+  color: var(--ld-color-warning);
+}
+
+/* danger */
+.ld-tag--danger.ld-tag--light {
+  background: var(--ld-color-danger-light);
+  color: var(--ld-color-danger);
+}
+.ld-tag--danger.ld-tag--dark {
+  background: var(--ld-color-danger);
+  color: var(--ld-text-on-primary);
+}
+.ld-tag--danger.ld-tag--outline {
+  background: var(--ld-bg-container);
+  border-color: var(--ld-color-danger);
+  color: var(--ld-color-danger);
+}
+
+/* 关闭图标 */
+.ld-tag__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ld-font-size-s);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-tag__close:hover {
+  opacity: 1;
+}

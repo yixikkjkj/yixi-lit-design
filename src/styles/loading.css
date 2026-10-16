@@ -1,0 +1,76 @@
+/* 加载 */
+.ld-loading {
+  position: relative;
+  display: block;
+}
+
+.ld-loading--bare {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+}
+.ld-loading--bare > slot {
+  display: none;
+}
+
+.ld-loading__mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ld-bg-mask);
+  opacity: 0.35;
+  z-index: 1;
+}
+
+.ld-loading__mask--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ld-z-popup);
+  opacity: 1;
+}
+
+.ld-loading__indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ld-space-xs);
+}
+
+.ld-loading__spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--ld-color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ld-loading-spin 0.8s linear infinite;
+}
+.ld-loading__spinner--s {
+  width: 14px;
+  height: 14px;
+  border-width: 1.5px;
+}
+.ld-loading__spinner--l {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+.ld-loading__text {
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-color-primary);
+}
+.ld-loading__mask .ld-loading__text {
+  color: var(--ld-text-primary);
+}
+.ld-loading__mask--fullscreen .ld-loading__text {
+  color: var(--ld-text-on-primary);
+}
+
+@keyframes ld-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

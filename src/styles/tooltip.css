@@ -1,0 +1,84 @@
+/* 文字提示 */
+.ld-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.ld-tooltip__popper {
+  position: absolute;
+  z-index: var(--ld-z-tooltip);
+  background: var(--ld-text-primary);
+  color: var(--ld-text-on-primary);
+  padding: var(--ld-space-xs) var(--ld-space-s);
+  font-size: var(--ld-font-size-s);
+  line-height: 1.5;
+  border-radius: var(--ld-radius-m);
+  white-space: nowrap;
+  box-shadow: var(--ld-shadow-m);
+  animation: ld-tooltip-fade var(--ld-duration-fast) var(--ld-ease);
+}
+
+@keyframes ld-tooltip-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ld-tooltip__arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+/* top */
+.ld-tooltip__popper--top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ld-tooltip__popper--top .ld-tooltip__arrow {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+/* bottom */
+.ld-tooltip__popper--bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ld-tooltip__popper--bottom .ld-tooltip__arrow {
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+/* left */
+.ld-tooltip__popper--left {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ld-tooltip__popper--left .ld-tooltip__arrow {
+  right: -4px;
+  top: 50%;
+  margin-top: -4px;
+}
+
+/* right */
+.ld-tooltip__popper--right {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ld-tooltip__popper--right .ld-tooltip__arrow {
+  left: -4px;
+  top: 50%;
+  margin-top: -4px;
+}

@@ -1,0 +1,36 @@
+/* 回到顶部 */
+.ld-back-top__btn {
+  position: fixed;
+  z-index: var(--ld-z-popup);
+  width: var(--ld-height-l);
+  height: var(--ld-height-l);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--ld-bg-container);
+  color: var(--ld-text-regular);
+  font-size: var(--ld-font-size-l);
+  font-family: inherit;
+  box-shadow: var(--ld-shadow-m);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--ld-duration-normal) var(--ld-ease),
+    visibility var(--ld-duration-normal) var(--ld-ease),
+    color var(--ld-duration-fast) var(--ld-ease),
+    box-shadow var(--ld-duration-fast) var(--ld-ease);
+}
+
+.ld-back-top__btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ld-back-top__btn:hover {
+  color: var(--ld-color-primary);
+  box-shadow: var(--ld-shadow-l);
+}

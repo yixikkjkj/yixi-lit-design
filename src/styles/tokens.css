@@ -1,0 +1,545 @@
+/* ============================================================
+ * 设计令牌（Design Tokens）
+ *
+ * 数值与命名对齐 Ardot 设计稿「TDesign System」组件库指引：
+ *   色阶  ← 变量集 color / basic      （品牌 / 警告 / 错误 / 成功 / 中性灰）
+ *   尺寸  ← 变量集 size               （--td-size/1..16、组件尺寸、内外边距）
+ *   圆角  ← 变量集 radius
+ *   字阶  ← 变量集 font
+ *
+ * 语义令牌分「浅色」「深色」两套：深色通过给任意祖先元素加
+ * data-ld-theme="dark" 启用（放在 <html> 或 <body> 上即可整站换肤）。
+ *
+ * 注意：每个主题块内都完整重复了一份「兼容别名」，因为 CSS 自定义属性
+ * 的 var() 替换发生在声明所在元素上，别名若只写在 :root，深色覆盖将失效。
+ *
+ * 使用者只需覆盖这里的 CSS 变量即可定制主题。
+ * ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ==========================================================
+   * 1. 基础色阶（Primitives）
+   * ========================================================== */
+
+  /* 品牌蓝 */
+  --ld-brand-color-1: #f2f3ff;
+  --ld-brand-color-2: #d9e1ff;
+  --ld-brand-color-3: #b5c7ff;
+  --ld-brand-color-4: #8eabff;
+  --ld-brand-color-5: #618dff;
+  --ld-brand-color-6: #366ef4;
+  --ld-brand-color-7: #0052d9;
+  --ld-brand-color-8: #003cab;
+  --ld-brand-color-9: #002a7c;
+  --ld-brand-color-10: #001a57;
+
+  /* 警告橙 */
+  --ld-warning-color-1: #fff1e9;
+  --ld-warning-color-2: #ffd9c2;
+  --ld-warning-color-3: #ffb98c;
+  --ld-warning-color-4: #fa9550;
+  --ld-warning-color-5: #e37318;
+  --ld-warning-color-6: #be5a00;
+  --ld-warning-color-7: #954500;
+  --ld-warning-color-8: #713300;
+  --ld-warning-color-9: #532300;
+  --ld-warning-color-10: #3b1700;
+
+  /* 错误红 */
+  --ld-error-color-1: #fff0ed;
+  --ld-error-color-2: #ffd8d2;
+  --ld-error-color-3: #ffb9b0;
+  --ld-error-color-4: #ff9285;
+  --ld-error-color-5: #f6685d;
+  --ld-error-color-6: #d54941;
+  --ld-error-color-7: #ad352f;
+  --ld-error-color-8: #881f1c;
+  --ld-error-color-9: #68070a;
+  --ld-error-color-10: #490002;
+
+  /* 成功绿 */
+  --ld-success-color-1: #e3f9e9;
+  --ld-success-color-2: #c6f3d7;
+  --ld-success-color-3: #92dab2;
+  --ld-success-color-4: #56c08d;
+  --ld-success-color-5: #2ba471;
+  --ld-success-color-6: #008858;
+  --ld-success-color-7: #006c45;
+  --ld-success-color-8: #005334;
+  --ld-success-color-9: #003b23;
+  --ld-success-color-10: #002515;
+
+  /* 中性灰（1 最浅，14 最深） */
+  --ld-gray-color-1: #f3f3f3;
+  --ld-gray-color-2: #eeeeee;
+  --ld-gray-color-3: #e8e8e8;
+  --ld-gray-color-4: #dddddd;
+  --ld-gray-color-5: #c6c6c6;
+  --ld-gray-color-6: #a6a6a6;
+  --ld-gray-color-7: #8b8b8b;
+  --ld-gray-color-8: #777777;
+  --ld-gray-color-9: #5e5e5e;
+  --ld-gray-color-10: #4b4b4b;
+  --ld-gray-color-11: #393939;
+  --ld-gray-color-12: #2c2c2c;
+  --ld-gray-color-13: #242424;
+  --ld-gray-color-14: #181818;
+
+  /* 白字阶 */
+  --ld-font-white-1: #ffffff;
+  --ld-font-white-2: rgba(255, 255, 255, 0.55);
+  --ld-font-white-3: rgba(255, 255, 255, 0.35);
+  --ld-font-white-4: rgba(255, 255, 255, 0.22);
+
+  /* 黑字阶 */
+  --ld-font-gray-1: rgba(0, 0, 0, 0.9);
+  --ld-font-gray-2: rgba(0, 0, 0, 0.6);
+  --ld-font-gray-3: rgba(0, 0, 0, 0.4);
+  --ld-font-gray-4: rgba(0, 0, 0, 0.26);
+
+  /* ==========================================================
+   * 2. 尺寸阶（--td-size/1..16）
+   * ========================================================== */
+  --ld-size-1: 2px;
+  --ld-size-2: 4px;
+  --ld-size-3: 6px;
+  --ld-size-4: 8px;
+  --ld-size-5: 12px;
+  --ld-size-6: 16px;
+  --ld-size-7: 20px;
+  --ld-size-8: 24px;
+  --ld-size-9: 28px;
+  --ld-size-10: 32px;
+  --ld-size-11: 36px;
+  --ld-size-12: 40px;
+  --ld-size-13: 48px;
+  --ld-size-14: 56px;
+  --ld-size-15: 64px;
+  --ld-size-16: 72px;
+
+  /* 组件与弹层尺寸 */
+  --ld-comp-size-xxxs: var(--ld-size-6);
+  --ld-comp-size-xxs: var(--ld-size-7);
+  --ld-comp-size-xs: var(--ld-size-8);
+  --ld-comp-size-s: var(--ld-size-9);
+  --ld-comp-size-m: var(--ld-size-10);
+  --ld-comp-size-l: var(--ld-size-11);
+  --ld-comp-size-xl: var(--ld-size-12);
+  --ld-comp-size-xxl: var(--ld-size-13);
+  --ld-comp-size-xxxl: var(--ld-size-14);
+  --ld-comp-size-xxxxl: var(--ld-size-15);
+  --ld-comp-size-xxxxxl: var(--ld-size-16);
+
+  /* 组件左右 / 上下内边距 */
+  --ld-comp-padding-lr-xxs: var(--ld-size-1);
+  --ld-comp-padding-lr-xs: var(--ld-size-2);
+  --ld-comp-padding-lr-s: var(--ld-size-4);
+  --ld-comp-padding-lr-m: var(--ld-size-5);
+  --ld-comp-padding-lr-l: var(--ld-size-6);
+  --ld-comp-padding-lr-xl: var(--ld-size-8);
+  --ld-comp-padding-lr-xxl: var(--ld-size-10);
+  --ld-comp-padding-tb-xxs: var(--ld-size-1);
+  --ld-comp-padding-tb-xs: var(--ld-size-2);
+  --ld-comp-padding-tb-s: var(--ld-size-4);
+  --ld-comp-padding-tb-m: var(--ld-size-5);
+  --ld-comp-padding-tb-l: var(--ld-size-6);
+  --ld-comp-padding-tb-xl: var(--ld-size-8);
+  --ld-comp-padding-tb-xxl: var(--ld-size-10);
+
+  /* 组件间距 */
+  --ld-comp-margin-xxs: var(--ld-size-1);
+  --ld-comp-margin-xs: var(--ld-size-2);
+  --ld-comp-margin-s: var(--ld-size-4);
+  --ld-comp-margin-m: var(--ld-size-5);
+  --ld-comp-margin-l: var(--ld-size-6);
+  --ld-comp-margin-xl: var(--ld-size-7);
+  --ld-comp-margin-xxl: var(--ld-size-8);
+  --ld-comp-margin-xxxl: var(--ld-size-10);
+  --ld-comp-margin-xxxxl: var(--ld-size-12);
+
+  /* 弹层内边距 */
+  --ld-pop-padding-s: var(--ld-size-2);
+  --ld-pop-padding-m: var(--ld-size-3);
+  --ld-pop-padding-l: var(--ld-size-4);
+  --ld-pop-padding-xl: var(--ld-size-5);
+  --ld-pop-padding-xxl: var(--ld-size-6);
+
+  /* ==========================================================
+   * 3. 圆角（--td-radius/*）
+   * ========================================================== */
+  --ld-radius-small: 2px;
+  --ld-radius-default: 3px;
+  --ld-radius-medium: 6px;
+  --ld-radius-large: 9px;
+  --ld-radius-extralarge: 12px;
+  --ld-radius-round: 999px;
+
+  /* ==========================================================
+   * 4. 字体与字阶（--td-font/*）
+   * ========================================================== */
+  --ld-font-family:
+    'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --ld-font-weight-regular: 400;
+  --ld-font-weight-semibold: 600;
+
+  /* 链接 */
+  --ld-font-size-link-small: 12px;
+  --ld-line-height-link-small: 20px;
+  --ld-font-size-link-medium: 14px;
+  --ld-line-height-link-medium: 22px;
+  --ld-font-size-link-large: 16px;
+  --ld-line-height-link-large: 24px;
+
+  /* 标记 */
+  --ld-font-size-mark-small: 12px;
+  --ld-line-height-mark-small: 20px;
+  --ld-font-size-mark-medium: 14px;
+  --ld-line-height-mark-medium: 22px;
+
+  /* 正文 */
+  --ld-font-size-body-small: 12px;
+  --ld-line-height-body-small: 20px;
+  --ld-font-size-body-medium: 14px;
+  --ld-line-height-body-medium: 22px;
+  --ld-font-size-body-large: 16px;
+  --ld-line-height-body-large: 24px;
+
+  /* 标题 */
+  --ld-font-size-title-small: 14px;
+  --ld-line-height-title-small: 22px;
+  --ld-font-size-title-medium: 16px;
+  --ld-line-height-title-medium: 24px;
+  --ld-font-size-title-large: 18px;
+  --ld-line-height-title-large: 26px;
+  --ld-font-size-title-extralarge: 20px;
+  --ld-line-height-title-extralarge: 28px;
+
+  /* 大标题 */
+  --ld-font-size-headline-small: 24px;
+  --ld-line-height-headline-small: 32px;
+  --ld-font-size-headline-medium: 28px;
+  --ld-line-height-headline-medium: 36px;
+  --ld-font-size-headline-large: 36px;
+  --ld-line-height-headline-large: 44px;
+
+  /* 展示型 */
+  --ld-font-size-display-medium: 48px;
+  --ld-line-height-display-medium: 56px;
+  --ld-font-size-display-large: 64px;
+  --ld-line-height-display-large: 72px;
+
+  /* ==========================================================
+   * 5. 语义色（浅色模式）
+   * ========================================================== */
+
+  /* 品牌 */
+  --ld-brand-color: var(--ld-brand-color-7);
+  --ld-brand-color-hover: var(--ld-brand-color-6);
+  --ld-brand-color-focus: var(--ld-brand-color-2);
+  --ld-brand-color-active: var(--ld-brand-color-8);
+  --ld-brand-color-disabled: var(--ld-brand-color-3);
+  --ld-brand-color-light: var(--ld-brand-color-1);
+  --ld-brand-color-light-hover: var(--ld-brand-color-2);
+
+  /* 状态色 */
+  --ld-warning-color: var(--ld-warning-color-5);
+  --ld-warning-color-hover: var(--ld-warning-color-4);
+  --ld-warning-color-focus: var(--ld-warning-color-2);
+  --ld-warning-color-active: var(--ld-warning-color-6);
+  --ld-warning-color-disabled: var(--ld-warning-color-3);
+  --ld-warning-color-light: var(--ld-warning-color-1);
+  --ld-warning-color-light-hover: var(--ld-warning-color-2);
+
+  --ld-error-color: var(--ld-error-color-6);
+  --ld-error-color-hover: var(--ld-error-color-5);
+  --ld-error-color-focus: var(--ld-error-color-2);
+  --ld-error-color-active: var(--ld-error-color-7);
+  --ld-error-color-disabled: var(--ld-error-color-3);
+  --ld-error-color-light: var(--ld-error-color-1);
+  --ld-error-color-light-hover: var(--ld-error-color-2);
+
+  --ld-success-color: var(--ld-success-color-5);
+  --ld-success-color-hover: var(--ld-success-color-4);
+  --ld-success-color-focus: var(--ld-success-color-2);
+  --ld-success-color-active: var(--ld-success-color-6);
+  --ld-success-color-disabled: var(--ld-success-color-3);
+  --ld-success-color-light: var(--ld-success-color-1);
+  --ld-success-color-light-hover: var(--ld-success-color-2);
+
+  /* 背景色 */
+  --ld-bg-color-page: var(--ld-gray-color-1);
+  --ld-bg-color-container: #ffffff;
+  --ld-bg-color-container-hover: var(--ld-gray-color-1);
+  --ld-bg-color-container-active: var(--ld-gray-color-3);
+  --ld-bg-color-container-select: #ffffff;
+  --ld-bg-color-secondarycontainer: var(--ld-gray-color-1);
+  --ld-bg-color-secondarycontainer-hover: var(--ld-gray-color-2);
+  --ld-bg-color-secondarycontainer-active: var(--ld-gray-color-3);
+  --ld-bg-color-component: var(--ld-gray-color-3);
+  --ld-bg-color-component-hover: var(--ld-gray-color-4);
+  --ld-bg-color-component-active: var(--ld-gray-color-6);
+  --ld-bg-color-component-disabled: var(--ld-gray-color-1);
+  --ld-bg-color-secondarycomponent: var(--ld-gray-color-4);
+  --ld-bg-color-secondarycomponent-hover: var(--ld-gray-color-5);
+  --ld-bg-color-secondarycomponent-active: var(--ld-gray-color-6);
+  --ld-bg-color-specialcomponent: #ffffff;
+
+  /* 文本色 */
+  --ld-text-color-primary: var(--ld-font-gray-1);
+  --ld-text-color-secondary: var(--ld-font-gray-2);
+  --ld-text-color-placeholder: var(--ld-font-gray-3);
+  --ld-text-color-disabled: var(--ld-font-gray-4);
+  --ld-text-color-anti: #ffffff;
+  --ld-text-color-brand: var(--ld-brand-color);
+  --ld-text-color-link: var(--ld-brand-color-8);
+  --ld-text-color-watermark: rgba(0, 0, 0, 0.1);
+
+  /* 边框与分割线 */
+  --ld-border-level-1-color: var(--ld-gray-color-3);
+  --ld-border-level-2-color: var(--ld-gray-color-4);
+  --ld-component-stroke: var(--ld-gray-color-3);
+  --ld-component-border: var(--ld-gray-color-4);
+
+  /* 遮罩 */
+  --ld-mask-active: rgba(0, 0, 0, 0.6);
+  --ld-mask-disabled: rgba(255, 255, 255, 0.6);
+  --ld-mask-background: rgba(255, 255, 255, 0.96);
+
+  /* 滚动条 */
+  --ld-scrollbar-color: rgba(0, 0, 0, 0.1);
+  --ld-scrollbar-hover-color: rgba(0, 0, 0, 0.3);
+  --ld-scroll-track-color: #ffffff;
+
+  /* 阴影（每级三层叠加，与设计稿一致） */
+  --ld-shadow-1:
+    0 1px 10px rgba(0, 0, 0, 0.05), 0 4px 5px rgba(0, 0, 0, 0.08),
+    0 2px 4px -1px rgba(0, 0, 0, 0.12);
+  --ld-shadow-2:
+    0 3px 14px 2px rgba(0, 0, 0, 0.05), 0 8px 10px 1px rgba(0, 0, 0, 0.06),
+    0 5px 5px -3px rgba(0, 0, 0, 0.1);
+  --ld-shadow-3:
+    0 6px 30px 5px rgba(0, 0, 0, 0.05), 0 16px 24px 2px rgba(0, 0, 0, 0.04),
+    0 8px 10px -5px rgba(0, 0, 0, 0.08);
+  --ld-table-shadow-color: rgba(0, 0, 0, 0.08);
+
+  /* ==========================================================
+   * 6. 兼容别名（旧版 --ld-* 名称，保持既有组件不受影响）
+   * ========================================================== */
+  --ld-color-primary: var(--ld-brand-color);
+  --ld-color-primary-hover: var(--ld-brand-color-hover);
+  --ld-color-primary-active: var(--ld-brand-color-active);
+  --ld-color-primary-light: var(--ld-brand-color-light);
+  --ld-color-success: var(--ld-success-color);
+  --ld-color-success-light: var(--ld-success-color-light);
+  --ld-color-warning: var(--ld-warning-color);
+  --ld-color-warning-light: var(--ld-warning-color-light);
+  --ld-color-danger: var(--ld-error-color);
+  --ld-color-danger-light: var(--ld-error-color-light);
+  --ld-color-info: var(--ld-text-color-secondary);
+  --ld-color-info-light: var(--ld-bg-color-secondarycontainer);
+
+  --ld-text-primary: var(--ld-text-color-primary);
+  --ld-text-regular: var(--ld-text-color-secondary);
+  --ld-text-secondary: var(--ld-text-color-placeholder);
+  --ld-text-placeholder: var(--ld-text-color-placeholder);
+  --ld-text-disabled: var(--ld-text-color-disabled);
+  --ld-text-on-primary: var(--ld-text-color-anti);
+
+  --ld-border-color: var(--ld-border-level-2-color);
+  --ld-border-color-hover: var(--ld-brand-color);
+  --ld-border-color-light: var(--ld-border-level-1-color);
+  --ld-bg-page: var(--ld-bg-color-page);
+  --ld-bg-container: var(--ld-bg-color-container);
+  --ld-bg-fill: var(--ld-bg-color-secondarycontainer);
+  --ld-bg-disabled: var(--ld-bg-color-component-disabled);
+  --ld-bg-mask: var(--ld-mask-active);
+
+  --ld-font-size-s: var(--ld-font-size-body-small);
+  --ld-font-size-m: var(--ld-font-size-body-medium);
+  --ld-font-size-l: var(--ld-font-size-body-large);
+  --ld-height-s: var(--ld-size-8);
+  --ld-height-m: var(--ld-size-10);
+  --ld-height-l: var(--ld-size-12);
+  --ld-radius-s: var(--ld-radius-default);
+  --ld-radius-m: var(--ld-radius-medium);
+  --ld-radius-l: var(--ld-radius-extralarge);
+
+  --ld-space-xxs: var(--ld-size-1);
+  --ld-space-xs: var(--ld-size-2);
+  --ld-space-s: var(--ld-size-4);
+  --ld-space-m: var(--ld-size-6);
+  --ld-space-l: var(--ld-size-8);
+  --ld-space-xl: var(--ld-size-10);
+  --ld-space-xxl: var(--ld-size-13);
+
+  --ld-shadow-s: var(--ld-shadow-1);
+  --ld-shadow-m: var(--ld-shadow-2);
+  --ld-shadow-l: var(--ld-shadow-3);
+
+  /* ==========================================================
+   * 7. 动效与层级
+   * ========================================================== */
+  --ld-duration-fast: 0.15s;
+  --ld-duration-normal: 0.25s;
+  --ld-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  --ld-z-popup: 1000;
+  --ld-z-drawer: 1100;
+  --ld-z-dialog: 1100;
+  --ld-z-message: 1200;
+  --ld-z-tooltip: 1300;
+}
+
+/* ============================================================
+ * 深色模式（设计稿变量集 basic 的 dark 模式）
+ * 用法：<html data-ld-theme="dark"> 或给任意容器加该属性
+ * ============================================================ */
+[data-ld-theme='dark'] {
+  color-scheme: dark;
+
+  /* 基础色阶：品牌 / 状态色反相（1 最深，10 最浅） */
+  --ld-brand-color-1: #1b2f51;
+  --ld-brand-color-2: #173463;
+  --ld-brand-color-3: #143975;
+  --ld-brand-color-4: #103d88;
+  --ld-brand-color-5: #0d429a;
+  --ld-brand-color-6: #054bbe;
+  --ld-brand-color-7: #2667d4;
+  --ld-brand-color-8: #4582e6;
+  --ld-brand-color-9: #699ef5;
+  --ld-brand-color-10: #96bbf8;
+
+  --ld-warning-color-1: #4f2a1d;
+  --ld-warning-color-2: #582f21;
+  --ld-warning-color-3: #733c23;
+  --ld-warning-color-4: #a75d2b;
+  --ld-warning-color-5: #cf6e2d;
+  --ld-warning-color-6: #dc7633;
+  --ld-warning-color-7: #e8935c;
+  --ld-warning-color-8: #ecbf91;
+  --ld-warning-color-9: #eed7bf;
+  --ld-warning-color-10: #f3e9dc;
+
+  --ld-error-color-1: #472324;
+  --ld-error-color-2: #5e2a2d;
+  --ld-error-color-3: #703439;
+  --ld-error-color-4: #83383e;
+  --ld-error-color-5: #a03f46;
+  --ld-error-color-6: #c64751;
+  --ld-error-color-7: #de6670;
+  --ld-error-color-8: #ec888e;
+  --ld-error-color-9: #edb1b6;
+  --ld-error-color-10: #eeced0;
+
+  --ld-success-color-1: #193a2a;
+  --ld-success-color-2: #1a4230;
+  --ld-success-color-3: #17533d;
+  --ld-success-color-4: #0d7a55;
+  --ld-success-color-5: #059465;
+  --ld-success-color-6: #43af8a;
+  --ld-success-color-7: #46bf96;
+  --ld-success-color-8: #80d2b6;
+  --ld-success-color-9: #b4e1d3;
+  --ld-success-color-10: #deede8;
+
+  /* 中性灰阶在深色下不变 */
+
+  /* 白字阶 / 黑字阶的位置互换 */
+  --ld-font-white-1: rgba(255, 255, 255, 0.9);
+
+  /* 语义色 */
+  --ld-brand-color: var(--ld-brand-color-8);
+  --ld-brand-color-hover: var(--ld-brand-color-7);
+  --ld-brand-color-focus: var(--ld-brand-color-2);
+  --ld-brand-color-active: var(--ld-brand-color-9);
+  --ld-brand-color-disabled: var(--ld-brand-color-3);
+  --ld-brand-color-light: var(--ld-brand-color-1);
+  --ld-brand-color-light-hover: var(--ld-brand-color-2);
+
+  --ld-bg-color-page: var(--ld-gray-color-14);
+  --ld-bg-color-container: var(--ld-gray-color-13);
+  --ld-bg-color-container-hover: var(--ld-gray-color-12);
+  --ld-bg-color-container-active: var(--ld-gray-color-10);
+  --ld-bg-color-container-select: var(--ld-gray-color-9);
+  --ld-bg-color-secondarycontainer: var(--ld-gray-color-12);
+  --ld-bg-color-secondarycontainer-hover: var(--ld-gray-color-11);
+  --ld-bg-color-secondarycontainer-active: var(--ld-gray-color-9);
+  --ld-bg-color-component: var(--ld-gray-color-11);
+  --ld-bg-color-component-hover: var(--ld-gray-color-10);
+  --ld-bg-color-component-active: var(--ld-gray-color-9);
+  --ld-bg-color-component-disabled: var(--ld-gray-color-12);
+  --ld-bg-color-secondarycomponent: var(--ld-gray-color-10);
+  --ld-bg-color-secondarycomponent-hover: var(--ld-gray-color-9);
+  --ld-bg-color-secondarycomponent-active: var(--ld-gray-color-8);
+  --ld-bg-color-specialcomponent: rgba(255, 255, 255, 0);
+
+  --ld-text-color-primary: var(--ld-font-white-1);
+  --ld-text-color-secondary: rgba(255, 255, 255, 0.55);
+  --ld-text-color-placeholder: rgba(255, 255, 255, 0.35);
+  --ld-text-color-disabled: rgba(255, 255, 255, 0.22);
+  --ld-text-color-anti: #ffffff;
+  --ld-text-color-brand: var(--ld-brand-color);
+  --ld-text-color-link: var(--ld-brand-color);
+  --ld-text-color-watermark: rgba(255, 255, 255, 0.1);
+
+  --ld-border-level-1-color: var(--ld-gray-color-11);
+  --ld-border-level-2-color: var(--ld-gray-color-9);
+  --ld-component-stroke: var(--ld-gray-color-11);
+  --ld-component-border: var(--ld-gray-color-9);
+
+  --ld-mask-active: rgba(0, 0, 0, 0.4);
+  --ld-mask-disabled: rgba(0, 0, 0, 0.6);
+  --ld-mask-background: rgba(36, 36, 36, 0.96);
+
+  --ld-scrollbar-color: rgba(255, 255, 255, 0.1);
+  --ld-scrollbar-hover-color: rgba(255, 255, 255, 0.3);
+  --ld-scroll-track-color: #333333;
+
+  --ld-shadow-1:
+    0 4px 6px rgba(0, 0, 0, 0.06), 0 1px 10px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.12);
+  --ld-shadow-2:
+    0 8px 10px rgba(0, 0, 0, 0.12), 0 3px 14px rgba(0, 0, 0, 0.1),
+    0 5px 5px rgba(0, 0, 0, 0.16);
+  --ld-shadow-3:
+    0 16px 24px rgba(0, 0, 0, 0.14), 0 6px 30px rgba(0, 0, 0, 0.12),
+    0 8px 10px rgba(0, 0, 0, 0.2);
+  --ld-table-shadow-color: rgba(0, 0, 0, 0.55);
+
+  /* 兼容别名（必须在本块内重复声明，理由见文件头） */
+  --ld-color-primary: var(--ld-brand-color);
+  --ld-color-primary-hover: var(--ld-brand-color-hover);
+  --ld-color-primary-active: var(--ld-brand-color-active);
+  --ld-color-primary-light: var(--ld-brand-color-light);
+  --ld-color-success: var(--ld-success-color);
+  --ld-color-success-light: var(--ld-success-color-light);
+  --ld-color-warning: var(--ld-warning-color);
+  --ld-color-warning-light: var(--ld-warning-color-light);
+  --ld-color-danger: var(--ld-error-color);
+  --ld-color-danger-light: var(--ld-error-color-light);
+  --ld-color-info: var(--ld-text-color-secondary);
+  --ld-color-info-light: var(--ld-bg-color-secondarycontainer);
+
+  --ld-text-primary: var(--ld-text-color-primary);
+  --ld-text-regular: var(--ld-text-color-secondary);
+  --ld-text-secondary: var(--ld-text-color-placeholder);
+  --ld-text-placeholder: var(--ld-text-color-placeholder);
+  --ld-text-disabled: var(--ld-text-color-disabled);
+  --ld-text-on-primary: var(--ld-text-color-anti);
+
+  --ld-border-color: var(--ld-border-level-2-color);
+  --ld-border-color-hover: var(--ld-brand-color);
+  --ld-border-color-light: var(--ld-border-level-1-color);
+  --ld-bg-page: var(--ld-bg-color-page);
+  --ld-bg-container: var(--ld-bg-color-container);
+  --ld-bg-fill: var(--ld-bg-color-secondarycontainer);
+  --ld-bg-disabled: var(--ld-bg-color-component-disabled);
+  --ld-bg-mask: var(--ld-mask-active);
+
+  --ld-shadow-s: var(--ld-shadow-1);
+  --ld-shadow-m: var(--ld-shadow-2);
+  --ld-shadow-l: var(--ld-shadow-3);
+}

@@ -1,0 +1,54 @@
+/* 进度条 */
+.ld-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+  width: 100%;
+}
+
+.ld-progress__track {
+  flex: 1;
+  background: var(--ld-bg-fill);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ld-progress__bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: var(--ld-color-primary);
+  border-radius: 999px;
+  transition: width var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-progress__bar--success {
+  background: var(--ld-color-success);
+}
+.ld-progress__bar--warning {
+  background: var(--ld-color-warning);
+}
+.ld-progress__bar--danger {
+  background: var(--ld-color-danger);
+}
+
+.ld-progress__inner-text {
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-s);
+  color: var(--ld-text-on-primary);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ld-progress__text {
+  min-width: 2.5em;
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-text-regular);
+  line-height: 1;
+  white-space: nowrap;
+}
+.ld-progress__text--success {
+  color: var(--ld-color-success);
+}
+.ld-progress__text--danger {
+  color: var(--ld-color-danger);
+}

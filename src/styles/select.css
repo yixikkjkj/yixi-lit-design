@@ -1,0 +1,145 @@
+/* 下拉选择器 */
+.ld-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.ld-select__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+  width: 100%;
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-m);
+  line-height: var(--ld-line-height-body-medium);
+  background: var(--ld-bg-color-container);
+  border: 1px solid var(--ld-border-level-2-color);
+  border-radius: var(--ld-radius-default);
+  cursor: pointer;
+  transition:
+    border-color var(--ld-duration-fast) var(--ld-ease),
+    box-shadow var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-select__trigger:hover {
+  border-color: var(--ld-border-color-hover);
+}
+.ld-select.is-open .ld-select__trigger {
+  border-color: var(--ld-brand-color);
+  box-shadow: 0 0 0 2px var(--ld-brand-color-focus);
+}
+
+.ld-select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ld-text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ld-select__placeholder {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ld-text-placeholder);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ld-select__arrow {
+  flex-shrink: 0;
+  color: var(--ld-text-secondary);
+  transition: transform var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-select.is-open .ld-select__arrow {
+  transform: rotate(180deg);
+}
+
+.ld-select__clear {
+  flex-shrink: 0;
+  color: var(--ld-text-secondary);
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-select__clear:hover {
+  color: var(--ld-text-regular);
+}
+
+/* 尺寸 */
+.ld-select--s .ld-select__trigger {
+  height: var(--ld-height-s);
+  font-size: var(--ld-font-size-s);
+}
+.ld-select--l .ld-select__trigger {
+  height: var(--ld-height-l);
+  font-size: var(--ld-font-size-l);
+}
+
+/* 禁用 */
+.ld-select.is-disabled .ld-select__trigger {
+  cursor: not-allowed;
+  background: var(--ld-bg-color-component-disabled);
+  border-color: var(--ld-border-level-2-color);
+}
+.ld-select.is-disabled .ld-select__value {
+  color: var(--ld-text-color-disabled);
+}
+
+/* 下拉面板：圆角 6 / 内边距 6 / 两级阴影，与设计稿一致 */
+.ld-select__panel {
+  position: absolute;
+  top: calc(100% + var(--ld-space-xs));
+  left: 0;
+  z-index: var(--ld-z-popup);
+  display: none;
+  width: 100%;
+  max-height: 240px;
+  padding: var(--ld-pop-padding-m);
+  overflow-y: auto;
+  background: var(--ld-bg-color-container);
+  border: 1px solid var(--ld-border-level-2-color);
+  border-radius: var(--ld-radius-medium);
+  box-shadow: var(--ld-shadow-2);
+}
+.ld-select.is-open .ld-select__panel {
+  display: block;
+}
+
+/* 选项：行高 22 + 上下留白 3 = 28，圆角 3 */
+.ld-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-space-s);
+  min-height: var(--ld-size-9);
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-m);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-primary);
+  border-radius: var(--ld-radius-default);
+  cursor: pointer;
+  transition: background-color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-option:hover {
+  background: var(--ld-bg-color-container-hover);
+}
+.ld-option.is-selected {
+  color: var(--ld-brand-color);
+  font-weight: 500;
+  background: var(--ld-brand-color-light);
+}
+.ld-option.is-disabled {
+  color: var(--ld-text-color-disabled);
+  cursor: not-allowed;
+}
+.ld-option.is-disabled:hover {
+  background: transparent;
+}
+
+.ld-option__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

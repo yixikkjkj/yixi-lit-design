@@ -1,0 +1,70 @@
+/* 组件宿主的基础排版，全部通过自定义元素标签选择器设置 */
+ld-button,
+ld-link,
+ld-divider,
+ld-back-top,
+ld-anchor,
+ld-breadcrumb,
+ld-pagination,
+ld-tabs,
+ld-steps,
+ld-step,
+ld-dropdown,
+ld-input,
+ld-textarea,
+ld-password-input,
+ld-tag,
+ld-checkbox,
+ld-checkbox-group,
+ld-radio,
+ld-radio-group,
+ld-date-picker,
+ld-select,
+ld-switch,
+ld-badge,
+ld-card,
+ld-collapse,
+ld-avatar,
+ld-avatar-group,
+ld-loading,
+ld-progress,
+ld-tooltip,
+ld-alert,
+ld-dialog,
+ld-drawer {
+  font-family: var(--ld-font-family);
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-text-primary);
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+ld-button *,
+ld-input *,
+ld-textarea *,
+ld-select *,
+ld-tabs *,
+ld-steps *,
+ld-dropdown *,
+ld-card *,
+ld-collapse *,
+ld-pagination *,
+ld-alert *,
+ld-dialog *,
+ld-drawer *,
+ld-date-picker * {
+  box-sizing: border-box;
+}
+
+/* 通用工具类 */
+.ld-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

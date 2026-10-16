@@ -1,0 +1,132 @@
+/* 步骤条
+ * 规格对齐设计稿：节点 24 / 标题 16-24 / 连接线 2px
+ * 完成与进行中取品牌色，等待为占位色，错误为错误色 */
+ld-steps {
+  display: block;
+}
+
+.ld-steps {
+  display: flex;
+  width: 100%;
+  font-family: var(--ld-font-family);
+}
+
+.ld-steps--vertical {
+  flex-direction: column;
+}
+
+ld-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ld-steps--horizontal ld-step {
+  flex: 1 1 auto;
+}
+.ld-steps--horizontal ld-step:last-child {
+  flex: 0 0 auto;
+}
+.ld-steps--vertical ld-step {
+  padding-bottom: var(--ld-size-7);
+}
+.ld-steps--vertical ld-step:last-child {
+  padding-bottom: 0;
+}
+
+/* 标题行：节点 + 标题 + 连接线 */
+.ld-steps__head {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-space-m);
+  padding: var(--ld-space-xs) 0;
+}
+
+/* 节点 */
+.ld-steps__dot {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-size-8);
+  height: var(--ld-size-8);
+  font-size: var(--ld-font-size-title-medium);
+  font-weight: var(--ld-font-weight-semibold);
+  line-height: 1;
+  border-radius: var(--ld-radius-round);
+}
+
+.is-wait .ld-steps__dot {
+  color: var(--ld-text-color-placeholder);
+  border: 1px solid var(--ld-text-color-placeholder);
+}
+.is-process .ld-steps__dot {
+  color: var(--ld-text-color-anti);
+  background: var(--ld-brand-color);
+}
+.is-finish .ld-steps__dot,
+.is-error .ld-steps__dot {
+  font-size: var(--ld-size-8);
+  color: var(--ld-brand-color);
+}
+.is-error .ld-steps__dot {
+  color: var(--ld-error-color);
+}
+
+/* 标题 */
+.ld-steps__title {
+  overflow: hidden;
+  font-size: var(--ld-font-size-title-medium);
+  line-height: var(--ld-line-height-title-medium);
+  color: var(--ld-text-color-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.is-wait .ld-steps__title {
+  color: var(--ld-text-color-secondary);
+}
+.is-disabled .ld-steps__title {
+  color: var(--ld-text-color-disabled);
+}
+
+/* 连接线 */
+.ld-steps__line {
+  flex: 1 1 auto;
+  height: 2px;
+  margin-right: var(--ld-space-m);
+  background: var(--ld-border-level-1-color);
+}
+.is-finish .ld-steps__line {
+  background: var(--ld-brand-color);
+}
+ld-step:last-child .ld-steps__line {
+  display: none;
+}
+
+/* 纵向：连接线改为沿节点中心垂直延伸 */
+.ld-steps--vertical .ld-steps__head {
+  align-items: flex-start;
+}
+.ld-steps--vertical .ld-steps__line {
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  left: 11px;
+  width: 2px;
+  height: auto;
+  margin: 0;
+}
+
+/* 描述 */
+.ld-steps__description {
+  padding-left: 40px;
+  font-size: var(--ld-font-size-body-medium);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-secondary);
+}
+.ld-steps__description[hidden] {
+  display: none;
+}
+.is-wait .ld-steps__description {
+  color: var(--ld-text-color-placeholder);
+}

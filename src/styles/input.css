@@ -1,0 +1,103 @@
+/* 输入框（ld-input / ld-password-input 共用）
+ * 规格对齐设计稿：中号 32 高 / 左右内边距 8 / 圆角 3，
+ * 悬浮与聚焦时边框转为品牌色（聚焦外圈用品牌色第 2 级） */
+.ld-input {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+  width: 100%;
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-s);
+  font-size: var(--ld-font-size-m);
+  line-height: var(--ld-line-height-body-medium);
+  background: var(--ld-bg-color-container);
+  border: 1px solid var(--ld-border-level-2-color);
+  border-radius: var(--ld-radius-default);
+  transition:
+    border-color var(--ld-duration-fast) var(--ld-ease),
+    box-shadow var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-input:hover {
+  border-color: var(--ld-border-color-hover);
+}
+.ld-input:focus-within {
+  border-color: var(--ld-brand-color);
+  box-shadow: 0 0 0 2px var(--ld-brand-color-focus);
+}
+
+.ld-input__inner {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  color: var(--ld-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.ld-input__inner::placeholder {
+  color: var(--ld-text-placeholder);
+}
+
+/* 尺寸 */
+.ld-input--s {
+  height: var(--ld-height-s);
+  font-size: var(--ld-font-size-s);
+  line-height: var(--ld-line-height-body-small);
+}
+.ld-input--l {
+  height: var(--ld-height-l);
+  padding: 0 var(--ld-size-5);
+  font-size: var(--ld-font-size-l);
+  line-height: var(--ld-line-height-body-large);
+}
+
+/* 校验状态 */
+.ld-input--error {
+  border-color: var(--ld-error-color);
+}
+.ld-input--error:focus-within {
+  border-color: var(--ld-error-color);
+  box-shadow: 0 0 0 2px var(--ld-error-color-focus);
+}
+.ld-input--warning {
+  border-color: var(--ld-warning-color);
+}
+.ld-input--warning:focus-within {
+  border-color: var(--ld-warning-color);
+  box-shadow: 0 0 0 2px var(--ld-warning-color-focus);
+}
+
+/* 禁用 */
+.ld-input.is-disabled {
+  cursor: not-allowed;
+  background: var(--ld-bg-color-component-disabled);
+  border-color: var(--ld-border-level-2-color);
+}
+.ld-input.is-disabled .ld-input__inner {
+  cursor: not-allowed;
+  color: var(--ld-text-color-disabled);
+}
+
+/* 前后缀图标 */
+.ld-input__clear,
+.ld-input__password-toggle {
+  flex-shrink: 0;
+  color: var(--ld-text-secondary);
+  cursor: pointer;
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-input__clear:hover,
+.ld-input__password-toggle:hover {
+  color: var(--ld-text-regular);
+}
+
+/* 字数统计 */
+.ld-input__count {
+  margin-top: var(--ld-space-xs);
+  font-size: var(--ld-font-size-s);
+  color: var(--ld-text-secondary);
+  text-align: right;
+}

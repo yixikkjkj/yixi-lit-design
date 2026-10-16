@@ -1,0 +1,122 @@
+/* 对话框
+ * 规格对齐设计稿：圆角 9 / 内边距 32 / 标题 16-24 / 正文 14-22
+ * 头部到正文间距 16，正文到底部间距 24 */
+ld-dialog {
+  display: contents;
+}
+
+.ld-dialog__mask {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ld-z-dialog);
+  background: var(--ld-mask-active);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-dialog__mask.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ld-dialog__panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: calc(var(--ld-z-dialog) + 1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 96px);
+  padding: var(--ld-space-xl);
+  background: var(--ld-bg-color-container);
+  border-radius: var(--ld-radius-large);
+  box-shadow: var(--ld-shadow-3);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+  pointer-events: none;
+  transition:
+    opacity var(--ld-duration-normal) var(--ld-ease),
+    transform var(--ld-duration-normal) var(--ld-ease);
+}
+.ld-dialog__panel.is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* 头部 */
+.ld-dialog__header {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+}
+.ld-dialog__header[hidden] {
+  display: none;
+}
+
+.ld-dialog__icon {
+  flex-shrink: 0;
+  font-size: var(--ld-size-8);
+  color: var(--ld-brand-color);
+}
+.ld-dialog__panel--success .ld-dialog__icon {
+  color: var(--ld-success-color);
+}
+.ld-dialog__panel--warning .ld-dialog__icon {
+  color: var(--ld-warning-color);
+}
+.ld-dialog__panel--danger .ld-dialog__icon {
+  color: var(--ld-error-color);
+}
+
+.ld-dialog__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--ld-font-size-title-medium);
+  font-weight: var(--ld-font-weight-semibold);
+  line-height: var(--ld-line-height-title-medium);
+  color: var(--ld-text-color-primary);
+}
+
+.ld-dialog__close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-size-8);
+  height: var(--ld-size-8);
+  font-size: var(--ld-font-size-title-medium);
+  color: var(--ld-text-color-secondary);
+  border-radius: var(--ld-radius-default);
+  cursor: pointer;
+  transition:
+    color var(--ld-duration-fast) var(--ld-ease),
+    background-color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-dialog__close:hover {
+  color: var(--ld-text-color-primary);
+  background: var(--ld-bg-color-container-hover);
+}
+
+/* 正文 */
+.ld-dialog__body {
+  flex: 1;
+  padding: var(--ld-space-m) 0 var(--ld-space-l);
+  overflow: auto;
+  font-size: var(--ld-font-size-body-medium);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-secondary);
+}
+
+/* 底部 */
+.ld-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ld-space-s);
+}
+.ld-dialog__footer[hidden] {
+  display: none;
+}

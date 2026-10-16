@@ -1,0 +1,83 @@
+/* 全局消息提示 */
+.ld-message-container {
+  position: fixed;
+  top: var(--ld-space-l);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--ld-z-message);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ld-space-s);
+  pointer-events: none;
+}
+
+/* 全局消息提示：行高 48 / 左右内边距 16 / 圆角 6，与设计稿一致 */
+.ld-message {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+  min-height: var(--ld-size-13);
+  padding: 0 var(--ld-space-m);
+  background: var(--ld-bg-color-container);
+  border: 1px solid var(--ld-border-level-2-color);
+  border-radius: var(--ld-radius-medium);
+  box-shadow: var(--ld-shadow-2);
+  font-size: var(--ld-font-size-m);
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-primary);
+  pointer-events: auto;
+  animation: ld-message-in var(--ld-duration-normal) var(--ld-ease);
+}
+
+.ld-message.is-leaving {
+  animation: ld-message-out var(--ld-duration-normal) var(--ld-ease) forwards;
+}
+
+.ld-message__icon {
+  font-size: var(--ld-font-size-l);
+}
+.ld-message--success .ld-message__icon {
+  color: var(--ld-color-success);
+}
+.ld-message--warning .ld-message__icon {
+  color: var(--ld-color-warning);
+}
+.ld-message--danger .ld-message__icon {
+  color: var(--ld-color-danger);
+}
+.ld-message--info .ld-message__icon {
+  color: var(--ld-color-info);
+}
+
+.ld-message__close {
+  display: inline-flex;
+  cursor: pointer;
+  color: var(--ld-text-secondary);
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-message__close:hover {
+  color: var(--ld-text-primary);
+}
+
+@keyframes ld-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ld-message-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}

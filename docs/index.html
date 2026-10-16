@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yixi-lit-design 组件文档</title>
+    <link rel="stylesheet" href="../dist/yixi-lit.css" />
+    <script type="module" src="../dist/yixi-lit.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: var(--ld-font-family);
+        color: var(--ld-text-primary);
+        background: var(--ld-bg-container);
+      }
+      .layout { display: flex; min-height: 100vh; }
+      .sidebar {
+        width: 220px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--ld-border-color-light);
+        padding: 24px 0;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+      }
+      .sidebar h1 { font-size: 16px; padding: 0 24px 16px; margin: 0; border-bottom: 1px solid var(--ld-border-color-light); }
+      .sidebar .group { padding: 12px 24px 4px; font-size: 12px; color: var(--ld-text-secondary); }
+      .sidebar a {
+        display: block;
+        padding: 6px 24px;
+        color: var(--ld-text-regular);
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .sidebar a:hover { color: var(--ld-color-primary); background: var(--ld-color-primary-light); }
+      .main { flex: 1; padding: 32px 48px 120px; max-width: 960px; }
+      h2 { font-size: 22px; margin: 48px 0 8px; scroll-margin-top: 24px; }
+      h3 { font-size: 16px; margin: 24px 0 8px; }
+      .desc { color: var(--ld-text-regular); margin: 0 0 16px; }
+      .demo {
+        border: 1px solid var(--ld-border-color-light);
+        border-radius: var(--ld-radius-m);
+        padding: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .demo.column { flex-direction: column; align-items: stretch; }
+      pre {
+        background: var(--ld-bg-fill);
+        border-radius: var(--ld-radius-m);
+        padding: 16px;
+        overflow-x: auto;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      code { font-family: 'SF Mono', Consolas, monospace; }
+      p code, td code { background: var(--ld-bg-fill); padding: 1px 6px; border-radius: 3px; font-size: 13px; }
+      table { border-collapse: collapse; width: 100%; margin: 12px 0 24px; font-size: 13px; }
+      th, td { border: 1px solid var(--ld-border-color-light); padding: 8px 12px; text-align: left; }
+      th { background: var(--ld-bg-fill); font-weight: 600; }
+      .w-240 { width: 240px; }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <nav class="sidebar">
+        <h1>yixi-lit-design</h1>
+        <div class="group">通用</div>
+        <a href="#icon">Icon 图标</a>
+        <a href="#button">Button 按钮</a>
+        <a href="#link">Link 链接</a>
+        <a href="#divider">Divider 分割线</a>
+        <div class="group">导航</div>
+        <a href="#back-top">BackTop 返回顶部</a>
+        <a href="#anchor">Anchor 锚点</a>
+        <a href="#breadcrumb">Breadcrumb 面包屑</a>
+        <a href="#pagination">Pagination 分页</a>
+        <a href="#tabs">Tabs 选项卡</a>
+        <a href="#steps">Steps 步骤条</a>
+        <a href="#dropdown">Dropdown 下拉菜单</a>
+        <div class="group">表单</div>
+        <a href="#input">Input 输入框</a>
+        <a href="#textarea">Textarea 多行文本</a>
+        <a href="#password-input">Password 密码框</a>
+        <a href="#checkbox">Checkbox 多选</a>
+        <a href="#radio">Radio 单选</a>
+        <a href="#select">Select 选择器</a>
+        <a href="#date-picker">DatePicker 日期</a>
+        <a href="#switch">Switch 开关</a>
+        <div class="group">数据展示</div>
+        <a href="#tag">Tag 标签</a>
+        <a href="#badge">Badge 徽标</a>
+        <a href="#card">Card 卡片</a>
+        <a href="#avatar">Avatar 头像</a>
+        <a href="#collapse">Collapse 折叠面板</a>
+        <a href="#progress">Progress 进度条</a>
+        <div class="group">反馈</div>
+        <a href="#alert">Alert 警告提示</a>
+        <a href="#loading">Loading 加载</a>
+        <a href="#tooltip">Tooltip 文字提示</a>
+        <a href="#message">Message 全局提示</a>
+        <a href="#dialog">Dialog 对话框</a>
+        <a href="#drawer">Drawer 抽屉</a>
+        <div class="group">主题</div>
+        <a href="#theme">深色模式</a>
+      </nav>
+
+      <main class="main">
+        <h2 style="margin-top: 0">快速开始</h2>
+        <p class="desc">组件基于 Web Components（Lit 3 + Light DOM），样式为全局 CSS，按需覆盖 CSS 变量即可定制主题。</p>
+        <pre><code>&lt;link rel="stylesheet" href="yixi-lit.css" /&gt;
+&lt;script type="module" src="yixi-lit.js"&gt;&lt;/script&gt;
+
+&lt;ld-button variant="primary"&gt;按钮&lt;/ld-button&gt;</code></pre>
+        <p class="desc">事件统一以 <code>ld-</code> 开头（如 <code>ld-change</code>），通过 <code>addEventListener</code> 监听，detail 携带数据。主题变量见 <code>src/styles/tokens.css</code>。</p>
+        <p class="desc">插槽按 Shadow DOM 的习惯书写。组件用 Light DOM 渲染，浏览器不会自动投影 <code>&lt;slot&gt;</code>，基类会在渲染后把内容搬进模板里对应的插槽，具名插槽写 <code>slot="名称"</code> 即可。</p>
+        <pre><code>&lt;ld-card title="标题"&gt;
+  &lt;p&gt;正文&lt;/p&gt;
+  &lt;div slot="footer"&gt;&lt;ld-button variant="primary"&gt;确定&lt;/ld-button&gt;&lt;/div&gt;
+&lt;/ld-card&gt;</code></pre>
+
+        <!-- ============ Icon ============ -->
+        <h2 id="icon">Icon 图标</h2>
+        <p class="desc">基于 Remix Icon 字体，name 填图标名（不带 ri- 前缀），完整图标列表见 remixicon.com。</p>
+        <div class="demo">
+          <ld-icon name="search-line"></ld-icon>
+          <ld-icon name="heart-line" size="20" color="#d54941"></ld-icon>
+          <ld-icon name="star-fill" size="24" color="#e37318"></ld-icon>
+        </div>
+        <pre><code>&lt;ld-icon name="search-line"&gt;&lt;/ld-icon&gt;
+&lt;ld-icon name="heart-line" size="20" color="#d54941"&gt;&lt;/ld-icon&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>name</td><td>string</td><td>''</td><td>图标名称（Remix Icon，不带 ri- 前缀）</td></tr>
+          <tr><td>size</td><td>string</td><td>''</td><td>尺寸，纯数字自动补 px，默认继承字体大小</td></tr>
+          <tr><td>color</td><td>string</td><td>''</td><td>颜色，默认继承文本颜色</td></tr>
+        </table>
+
+        <!-- ============ Button ============ -->
+        <h2 id="button">Button 按钮</h2>
+        <div class="demo">
+          <ld-button variant="primary">主要</ld-button>
+          <ld-button>默认</ld-button>
+          <ld-button variant="dashed">虚线</ld-button>
+          <ld-button variant="text">文字</ld-button>
+          <ld-button variant="primary" icon="search-line">图标</ld-button>
+          <ld-button variant="primary" loading>加载</ld-button>
+          <ld-button disabled>禁用</ld-button>
+          <ld-button shape="round">圆角</ld-button>
+          <ld-button size="s">小</ld-button>
+          <ld-button size="l">大</ld-button>
+        </div>
+        <pre><code>&lt;ld-button variant="primary" icon="search-line"&gt;搜索&lt;/ld-button&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>variant</td><td>'primary' | 'default' | 'dashed' | 'text'</td><td>'default'</td><td>按钮类型</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+          <tr><td>shape</td><td>'default' | 'round'</td><td>'default'</td><td>形状</td></tr>
+          <tr><td>icon</td><td>string</td><td>''</td><td>左侧图标名</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>loading</td><td>boolean</td><td>false</td><td>加载中（点击无效）</td></tr>
+          <tr><td>block</td><td>boolean</td><td>false</td><td>撑满父容器</td></tr>
+          <tr><td>type</td><td>'button' | 'submit' | 'reset'</td><td>'button'</td><td>原生 type</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><th>事件</th><th>detail</th><th>说明</th></tr>
+          <tr><td>ld-click</td><td>-</td><td>点击（禁用/加载时不触发）</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><th>名称</th><th>说明</th></tr>
+          <tr><td>默认</td><td>按钮内容</td></tr>
+        </table>
+
+        <!-- ============ Link ============ -->
+        <h2 id="link">Link 链接</h2>
+        <div class="demo">
+          <ld-link href="#" variant="primary">主要链接</ld-link>
+          <ld-link href="#" variant="danger">危险链接</ld-link>
+          <ld-link href="#" underline="always" icon="external-link-line">常显下划线</ld-link>
+          <ld-link disabled>禁用</ld-link>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>href</td><td>string</td><td>''</td><td>跳转地址</td></tr>
+          <tr><td>target</td><td>string</td><td>''</td><td>原生 target</td></tr>
+          <tr><td>variant</td><td>'' | 'primary' | 'success' | 'warning' | 'danger'</td><td>''</td><td>类型</td></tr>
+          <tr><td>underline</td><td>'hover' | 'always' | 'never'</td><td>'hover'</td><td>下划线时机</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用（渲染为 span）</td></tr>
+          <tr><td>icon</td><td>string</td><td>''</td><td>左侧图标名</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-click</td><td>-</td><td>点击</td></tr>
+        </table>
+
+        <!-- ============ Divider ============ -->
+        <h2 id="divider">Divider 分割线</h2>
+        <p class="desc">区隔内容区块，支持水平 / 垂直、实线 / 虚线，以及中间或单侧带文案。</p>
+        <div class="demo column">
+          <ld-divider></ld-divider>
+          <ld-divider dashed></ld-divider>
+          <ld-divider content-position="left">左侧文案</ld-divider>
+          <ld-divider content-position="center">居中文案</ld-divider>
+          <ld-divider content-position="right">右侧文案</ld-divider>
+          <div>行内分割：<span>已发布</span><ld-divider direction="vertical"></ld-divider><span>运营中心</span></div>
+        </div>
+        <pre><code>&lt;ld-divider&gt;&lt;/ld-divider&gt;
+&lt;ld-divider dashed content-position="left"&gt;分组标题&lt;/ld-divider&gt;
+&lt;ld-divider direction="vertical"&gt;&lt;/ld-divider&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>direction</td><td>'horizontal' | 'vertical'</td><td>'horizontal'</td><td>方向</td></tr>
+          <tr><td>dashed</td><td>boolean</td><td>false</td><td>是否虚线</td></tr>
+          <tr><td>content-position</td><td>'left' | 'center' | 'right'</td><td>'center'</td><td>文案相对分割线的位置</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>默认</td><td>分割线中间的文案（仅水平方向有效）</td></tr>
+        </table>
+
+        <!-- ============ BackTop ============ -->
+        <h2 id="back-top">BackTop 返回顶部</h2>
+        <p class="desc">页面滚动超过 visibility-height 后出现在右下角，点击平滑回顶。本页右下即可体验。</p>
+        <pre><code>&lt;ld-back-top visibility-height="300"&gt;&lt;/ld-back-top&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>visibility-height</td><td>number</td><td>200</td><td>显示阈值（px）</td></tr>
+          <tr><td>right</td><td>string</td><td>'40px'</td><td>距右距离</td></tr>
+          <tr><td>bottom</td><td>string</td><td>'40px'</td><td>距底距离</td></tr>
+          <tr><td>target</td><td>string</td><td>''</td><td>滚动容器选择器，缺省为 window</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-click</td><td>-</td><td>点击回顶时触发</td></tr>
+        </table>
+
+        <!-- ============ Anchor ============ -->
+        <h2 id="anchor">Anchor 锚点</h2>
+        <p class="desc">随页面滚动高亮当前区块，点击平滑滚动到目标。支持嵌套子链接。</p>
+        <pre><code>&lt;ld-anchor&gt;
+  &lt;ld-anchor-link href="#sec-a" label="区块 A"&gt;&lt;/ld-anchor-link&gt;
+  &lt;ld-anchor-link href="#sec-b" label="区块 B"&gt;&lt;/ld-anchor-link&gt;
+&lt;/ld-anchor&gt;</code></pre>
+        <h3>ld-anchor-link 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>href</td><td>string</td><td>''</td><td>#id 形式的目标锚点</td></tr>
+          <tr><td>label</td><td>string</td><td>''</td><td>显示文本（也可用默认插槽）</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ href }</td><td>点击链接时触发</td></tr>
+        </table>
+
+        <!-- ============ Breadcrumb ============ -->
+        <h2 id="breadcrumb">Breadcrumb 面包屑</h2>
+        <div class="demo">
+          <ld-breadcrumb separator="arrow-right-s-line">
+            <ld-breadcrumb-item href="#">首页</ld-breadcrumb-item>
+            <ld-breadcrumb-item href="#">组件</ld-breadcrumb-item>
+            <ld-breadcrumb-item>当前页</ld-breadcrumb-item>
+          </ld-breadcrumb>
+        </div>
+        <h3>ld-breadcrumb 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>separator</td><td>string</td><td>'/'</td><td>分隔符，传图标名则渲染图标</td></tr>
+        </table>
+        <h3>ld-breadcrumb-item 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>href</td><td>string</td><td>''</td><td>链接地址，无则渲染纯文本</td></tr>
+          <tr><td>target</td><td>string</td><td>''</td><td>原生 target</td></tr>
+        </table>
+
+        <!-- ============ Pagination ============ -->
+        <h2 id="pagination">Pagination 分页</h2>
+        <div class="demo column">
+          <ld-pagination total="56"></ld-pagination>
+          <ld-pagination total="500" page-size="20" current="6" page-sizes="10,20,50" show-jumper></ld-pagination>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>total</td><td>number</td><td>0</td><td>总条数</td></tr>
+          <tr><td>page-size</td><td>number</td><td>10</td><td>每页条数</td></tr>
+          <tr><td>current</td><td>number</td><td>1</td><td>当前页</td></tr>
+          <tr><td>page-sizes</td><td>string</td><td>''</td><td>每页条数选项，如 "10,20,50"</td></tr>
+          <tr><td>show-jumper</td><td>boolean</td><td>false</td><td>显示页码跳转输入框</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ current, pageSize }</td><td>切换页码</td></tr>
+          <tr><td>ld-size-change</td><td>{ pageSize, current }</td><td>切换每页条数</td></tr>
+        </table>
+
+        <!-- ============ Tabs ============ -->
+        <h2 id="tabs">Tabs 选项卡</h2>
+        <div class="demo column">
+          <ld-tabs active="a">
+            <ld-tab label="标签一" name="a">内容一</ld-tab>
+            <ld-tab label="标签二" name="b">内容二</ld-tab>
+            <ld-tab label="禁用" name="c" disabled>内容三</ld-tab>
+          </ld-tabs>
+          <ld-tabs active="x" type="card">
+            <ld-tab label="卡片一" name="x">卡片内容一</ld-tab>
+            <ld-tab label="卡片二" name="y">卡片内容二</ld-tab>
+          </ld-tabs>
+        </div>
+        <h3>ld-tabs 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>active</td><td>string</td><td>''</td><td>当前激活页签的 name</td></tr>
+          <tr><td>type</td><td>'line' | 'card'</td><td>'line'</td><td>样式类型</td></tr>
+        </table>
+        <h3>ld-tab 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>label</td><td>string</td><td>''</td><td>页签标题</td></tr>
+          <tr><td>name</td><td>string</td><td>序号</td><td>唯一标识</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用该页签</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ name }</td><td>切换页签</td></tr>
+        </table>
+
+        <!-- ============ Steps ============ -->
+        <h2 id="steps">Steps 步骤条</h2>
+        <p class="desc">展示流程进度，支持横向与纵向排列，状态由 <code>current</code> 自动推导，也可在单个步骤上手动指定。</p>
+        <div class="demo column">
+          <ld-steps current="1">
+            <ld-step title="提交申请" description="已提交"></ld-step>
+            <ld-step title="资质审核" description="进行中"></ld-step>
+            <ld-step title="完成入驻"></ld-step>
+          </ld-steps>
+          <ld-steps current="1" direction="vertical">
+            <ld-step title="下单" description="订单已创建"></ld-step>
+            <ld-step title="出库" description="仓库拣货中"></ld-step>
+            <ld-step title="签收"></ld-step>
+          </ld-steps>
+        </div>
+        <h3>ld-steps 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>current</td><td>number</td><td>0</td><td>当前步骤序号，从 0 开始</td></tr>
+          <tr><td>direction</td><td>'horizontal' | 'vertical'</td><td>'horizontal'</td><td>排列方向</td></tr>
+        </table>
+        <h3>ld-step 属性</h3>
+        <table>
+          <tr><td>title</td><td>string</td><td>''</td><td>标题</td></tr>
+          <tr><td>description</td><td>string</td><td>''</td><td>描述文案（也可用默认插槽）</td></tr>
+          <tr><td>icon</td><td>string</td><td>''</td><td>自定义节点图标名</td></tr>
+          <tr><td>status</td><td>'wait' | 'process' | 'finish' | 'error'</td><td>-</td><td>手动指定状态，缺省由父级推导</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用（标题置灰）</td></tr>
+        </table>
+
+        <!-- ============ Dropdown ============ -->
+        <h2 id="dropdown">Dropdown 下拉菜单</h2>
+        <p class="desc">点击或悬浮触发元素后弹出菜单，选中菜单项会触发 <code>ld-select</code> 并自动收起面板。</p>
+        <div class="demo">
+          <ld-dropdown>
+            <ld-button slot="trigger">更多操作</ld-button>
+            <ld-dropdown-item value="edit" icon="edit-line">编辑</ld-dropdown-item>
+            <ld-dropdown-item value="copy" icon="file-copy-line">复制</ld-dropdown-item>
+            <ld-dropdown-item value="remove" variant="error" divider>删除</ld-dropdown-item>
+          </ld-dropdown>
+          <ld-dropdown trigger="hover" placement="bottom-end">
+            <ld-button slot="trigger">悬浮展开</ld-button>
+            <ld-dropdown-item value="1">选项一</ld-dropdown-item>
+            <ld-dropdown-item value="2" disabled>禁用项</ld-dropdown-item>
+          </ld-dropdown>
+        </div>
+        <pre><code>&lt;ld-dropdown&gt;
+  &lt;ld-button slot="trigger"&gt;更多操作&lt;/ld-button&gt;
+  &lt;ld-dropdown-item value="edit"&gt;编辑&lt;/ld-dropdown-item&gt;
+  &lt;ld-dropdown-item value="remove" variant="error"&gt;删除&lt;/ld-dropdown-item&gt;
+&lt;/ld-dropdown&gt;</code></pre>
+        <h3>ld-dropdown 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>trigger</td><td>'click' | 'hover'</td><td>'click'</td><td>触发方式</td></tr>
+          <tr><td>placement</td><td>'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'</td><td>'bottom-start'</td><td>弹出位置</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+        </table>
+        <h3>ld-dropdown-item 属性</h3>
+        <table>
+          <tr><td>value</td><td>string</td><td>''</td><td>菜单项的值</td></tr>
+          <tr><td>icon</td><td>string</td><td>''</td><td>左侧图标名</td></tr>
+          <tr><td>variant</td><td>'' | 'error'</td><td>''</td><td>危险项（红色文案）</td></tr>
+          <tr><td>divider</td><td>boolean</td><td>false</td><td>下方显示分割线</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用该项</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-select</td><td>{ value }</td><td>选中菜单项（事件由菜单项冒泡而出）</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>trigger</td><td>触发元素</td></tr>
+          <tr><td>默认</td><td>若干 ld-dropdown-item</td></tr>
+        </table>
+
+        <!-- ============ Input ============ -->
+        <h2 id="input">Input 输入框</h2>
+        <div class="demo">
+          <ld-input class="w-240" placeholder="基础输入"></ld-input>
+          <ld-input class="w-240" clearable value="可清空"></ld-input>
+          <ld-input class="w-240" maxlength="20" placeholder="字数统计"></ld-input>
+          <ld-input class="w-240" status="error" value="错误状态"></ld-input>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>输入值</td></tr>
+          <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
+          <tr><td>type</td><td>string</td><td>'text'</td><td>原生输入类型</td></tr>
+          <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
+          <tr><td>clearable</td><td>boolean</td><td>false</td><td>显示清空按钮</td></tr>
+          <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+          <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-input</td><td>{ value }</td><td>每次输入</td></tr>
+          <tr><td>ld-change</td><td>{ value }</td><td>失焦或回车</td></tr>
+          <tr><td>ld-clear</td><td>-</td><td>点击清空</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>prefix</td><td>输入框内前缀</td></tr>
+          <tr><td>suffix</td><td>输入框内后缀</td></tr>
+        </table>
+
+        <!-- ============ Password ============ -->
+        <h2 id="password-input">PasswordInput 密码输入框</h2>
+        <div class="demo">
+          <ld-password-input class="w-240" placeholder="请输入密码"></ld-password-input>
+        </div>
+        <p class="desc">继承 Input 的 value / placeholder / disabled / size / status 等属性，右侧眼睛图标切换明文/密文。事件同 Input（ld-input / ld-change）。</p>
+
+        <!-- ============ Textarea ============ -->
+        <h2 id="textarea">Textarea 多行文本</h2>
+        <p class="desc">默认最小高度 54px，支持字数统计、底部提示、随内容自适应高度与拖拽调整尺寸。</p>
+        <div class="demo column">
+          <ld-textarea placeholder="请输入备注" maxlength="50" tips="不超过 50 字"></ld-textarea>
+          <ld-textarea autosize rows="2" placeholder="高度随内容自适应"></ld-textarea>
+          <ld-textarea status="error" value="校验不通过" tips="请检查输入内容"></ld-textarea>
+          <ld-textarea disabled value="禁用状态"></ld-textarea>
+        </div>
+        <pre><code>&lt;ld-textarea placeholder="请输入备注" maxlength="200"&gt;&lt;/ld-textarea&gt;
+&lt;ld-textarea autosize rows="2"&gt;&lt;/ld-textarea&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>输入值</td></tr>
+          <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
+          <tr><td>rows</td><td>number</td><td>3</td><td>默认显示行数</td></tr>
+          <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
+          <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>autosize</td><td>boolean</td><td>false</td><td>高度随内容自适应</td></tr>
+          <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
+          <tr><td>resize</td><td>'none' | 'vertical' | 'horizontal' | 'both'</td><td>'vertical'</td><td>拖拽调整尺寸的方向</td></tr>
+          <tr><td>tips</td><td>string</td><td>''</td><td>底部辅助提示文案</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-input</td><td>{ value }</td><td>每次输入</td></tr>
+          <tr><td>ld-change</td><td>{ value }</td><td>失焦</td></tr>
+        </table>
+
+        <!-- ============ Checkbox ============ -->
+        <h2 id="checkbox">Checkbox 多选</h2>
+        <div class="demo">
+          <ld-checkbox-group value="a">
+            <ld-checkbox value="a">选项 A</ld-checkbox>
+            <ld-checkbox value="b">选项 B</ld-checkbox>
+            <ld-checkbox value="c" disabled>禁用</ld-checkbox>
+          </ld-checkbox-group>
+          <ld-checkbox indeterminate>半选</ld-checkbox>
+        </div>
+        <h3>ld-checkbox 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>checked</td><td>boolean</td><td>false</td><td>是否勾选</td></tr>
+          <tr><td>indeterminate</td><td>boolean</td><td>false</td><td>半选状态</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>选项值（组内使用）</td></tr>
+        </table>
+        <h3>ld-checkbox-group 属性</h3>
+        <table>
+          <tr><td>value</td><td>string[]（属性传逗号分隔字符串）</td><td>[]</td><td>选中值数组</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>整组禁用</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change（单选）</td><td>{ checked }</td><td>勾选状态变化</td></tr>
+          <tr><td>ld-change（组）</td><td>{ value: string[] }</td><td>组选中值变化</td></tr>
+        </table>
+
+        <!-- ============ Radio ============ -->
+        <h2 id="radio">Radio 单选</h2>
+        <div class="demo">
+          <ld-radio-group value="x">
+            <ld-radio value="x">选项 X</ld-radio>
+            <ld-radio value="y">选项 Y</ld-radio>
+            <ld-radio value="z" disabled>禁用</ld-radio>
+          </ld-radio-group>
+        </div>
+        <h3>ld-radio 属性</h3>
+        <table>
+          <tr><td>checked</td><td>boolean</td><td>false</td><td>是否选中</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>选项值</td></tr>
+        </table>
+        <h3>ld-radio-group 属性</h3>
+        <table>
+          <tr><td>value</td><td>string</td><td>''</td><td>选中值</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>整组禁用</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change（组）</td><td>{ value }</td><td>选中值变化</td></tr>
+        </table>
+
+        <!-- ============ Select ============ -->
+        <h2 id="select">Select 选择器</h2>
+        <div class="demo">
+          <ld-select class="w-240" placeholder="请选择" clearable>
+            <ld-option value="bj">北京</ld-option>
+            <ld-option value="sh">上海</ld-option>
+            <ld-option value="gz">广州</ld-option>
+            <ld-option value="hk" disabled>海口（禁用）</ld-option>
+          </ld-select>
+        </div>
+        <h3>ld-select 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>选中值</td></tr>
+          <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>clearable</td><td>boolean</td><td>false</td><td>可清空</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+        </table>
+        <h3>ld-option 属性</h3>
+        <table>
+          <tr><td>value</td><td>string</td><td>''</td><td>选项值</td></tr>
+          <tr><td>label</td><td>string</td><td>默认插槽</td><td>显示文本</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用该项</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ value }</td><td>选中变化</td></tr>
+        </table>
+
+        <!-- ============ DatePicker ============ -->
+        <h2 id="date-picker">DatePicker 日期选择器</h2>
+        <div class="demo">
+          <ld-date-picker class="w-240" placeholder="选择日期" clearable></ld-date-picker>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>value</td><td>string</td><td>''</td><td>YYYY-MM-DD 格式日期</td></tr>
+          <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>clearable</td><td>boolean</td><td>false</td><td>可清空</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ value }</td><td>选中日期</td></tr>
+        </table>
+        <p class="desc">面板支持年/月切换、上下月补位日期点选、今天高亮与「今天」快捷键。</p>
+
+        <!-- ============ Switch ============ -->
+        <h2 id="switch">Switch 开关</h2>
+        <div class="demo">
+          <ld-switch checked></ld-switch>
+          <ld-switch></ld-switch>
+          <ld-switch loading></ld-switch>
+          <ld-switch size="s" checked></ld-switch>
+          <ld-switch disabled checked></ld-switch>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>checked</td><td>boolean</td><td>false</td><td>开关状态</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+          <tr><td>loading</td><td>boolean</td><td>false</td><td>加载中</td></tr>
+          <tr><td>size</td><td>'s' | 'm'</td><td>'m'</td><td>尺寸</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ checked }</td><td>状态切换</td></tr>
+        </table>
+
+        <!-- ============ Tag ============ -->
+        <h2 id="tag">Tag 标签</h2>
+        <div class="demo">
+          <ld-tag>默认</ld-tag>
+          <ld-tag variant="primary">主要</ld-tag>
+          <ld-tag variant="success">成功</ld-tag>
+          <ld-tag variant="warning">警告</ld-tag>
+          <ld-tag variant="danger">危险</ld-tag>
+          <ld-tag variant="primary" theme="dark">深色</ld-tag>
+          <ld-tag variant="primary" theme="outline">描边</ld-tag>
+          <ld-tag variant="success" closable>可关闭</ld-tag>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>variant</td><td>'' | 'primary' | 'success' | 'warning' | 'danger'</td><td>''</td><td>语义类型</td></tr>
+          <tr><td>theme</td><td>'light' | 'dark' | 'outline'</td><td>'light'</td><td>主题</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+          <tr><td>closable</td><td>boolean</td><td>false</td><td>显示关闭按钮</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-close</td><td>-</td><td>点击关闭（随后自动移除）</td></tr>
+        </table>
+
+        <!-- ============ Badge ============ -->
+        <h2 id="badge">Badge 徽标</h2>
+        <div class="demo">
+          <ld-badge value="8"><ld-button>消息</ld-button></ld-badge>
+          <ld-badge value="120" max="99"><ld-button>通知</ld-button></ld-badge>
+          <ld-badge dot><ld-icon name="bell-line" size="24"></ld-icon></ld-badge>
+          <ld-badge value="热" standalone></ld-badge>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>value</td><td>string | number</td><td>''</td><td>徽标内容</td></tr>
+          <tr><td>max</td><td>number</td><td>-</td><td>超过显示 max+</td></tr>
+          <tr><td>dot</td><td>boolean</td><td>false</td><td>仅显示红点</td></tr>
+          <tr><td>hidden</td><td>boolean</td><td>false</td><td>隐藏徽标</td></tr>
+          <tr><td>standalone</td><td>boolean</td><td>false</td><td>独立显示（无包裹内容）</td></tr>
+        </table>
+
+        <!-- ============ Collapse ============ -->
+        <h2 id="collapse">Collapse 折叠面板</h2>
+        <div class="demo column">
+          <ld-collapse active="1">
+            <ld-collapse-item title="面板一" name="1">内容一</ld-collapse-item>
+            <ld-collapse-item title="面板二" name="2">内容二</ld-collapse-item>
+            <ld-collapse-item title="禁用" name="3" disabled>内容三</ld-collapse-item>
+          </ld-collapse>
+        </div>
+        <h3>ld-collapse 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>active</td><td>string</td><td>''</td><td>展开项 name，空格分隔多个</td></tr>
+          <tr><td>accordion</td><td>boolean</td><td>false</td><td>手风琴模式</td></tr>
+        </table>
+        <h3>ld-collapse-item 属性</h3>
+        <table>
+          <tr><td>title</td><td>string</td><td>''</td><td>面板标题</td></tr>
+          <tr><td>name</td><td>string</td><td>序号</td><td>唯一标识</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-change</td><td>{ active: string[] }</td><td>展开项变化</td></tr>
+        </table>
+
+        <!-- ============ Progress ============ -->
+        <h2 id="progress">Progress 进度条</h2>
+        <div class="demo column">
+          <ld-progress percentage="40"></ld-progress>
+          <ld-progress percentage="70" status="success"></ld-progress>
+          <ld-progress percentage="30" status="danger"></ld-progress>
+          <ld-progress percentage="60" text-inside stroke-width="16"></ld-progress>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>percentage</td><td>number</td><td>0</td><td>百分比 0-100</td></tr>
+          <tr><td>status</td><td>'' | 'success' | 'warning' | 'danger'</td><td>''</td><td>状态色</td></tr>
+          <tr><td>stroke-width</td><td>number</td><td>6</td><td>条宽（px）</td></tr>
+          <tr><td>show-text</td><td>boolean</td><td>true</td><td>显示百分比文字</td></tr>
+          <tr><td>text-inside</td><td>boolean</td><td>false</td><td>文字置于条内</td></tr>
+        </table>
+
+        <!-- ============ Card ============ -->
+        <h2 id="card">Card 卡片</h2>
+        <p class="desc">承载一组相关信息，支持封面、标题/副标题、头部操作区与底部操作区。</p>
+        <div class="demo">
+          <div style="width: 340px">
+            <ld-card title="订单概览" subtitle="更新于 10 分钟前">
+              <p style="margin: 0">本月共成交 1,286 单。</p>
+              <div slot="extra"><ld-tag variant="success">正常</ld-tag></div>
+              <div slot="footer">
+                <ld-button>取消</ld-button>
+                <ld-button variant="primary">查看详情</ld-button>
+              </div>
+            </ld-card>
+          </div>
+          <div style="width: 340px">
+            <ld-card hoverable title="可悬浮卡片">
+              <p style="margin: 0">悬浮时抬起并投下阴影。</p>
+            </ld-card>
+          </div>
+        </div>
+        <pre><code>&lt;ld-card title="卡片标题" subtitle="副标题"&gt;
+  正文内容
+  &lt;div slot="footer"&gt;&lt;ld-button variant="primary"&gt;确定&lt;/ld-button&gt;&lt;/div&gt;
+&lt;/ld-card&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>title / subtitle</td><td>string</td><td>''</td><td>标题 / 副标题</td></tr>
+          <tr><td>bordered</td><td>boolean</td><td>true</td><td>是否显示边框</td></tr>
+          <tr><td>hoverable</td><td>boolean</td><td>false</td><td>悬浮抬起</td></tr>
+          <tr><td>header-bordered</td><td>boolean</td><td>true</td><td>头部下方显示分割线</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>cover</td><td>顶部封面</td></tr>
+          <tr><td>header / extra</td><td>自定义头部 / 头部右侧操作区</td></tr>
+          <tr><td>默认 / footer</td><td>正文 / 底部操作区</td></tr>
+        </table>
+
+        <!-- ============ Avatar ============ -->
+        <h2 id="avatar">Avatar 头像</h2>
+        <p class="desc">支持图片、图标与文字三种形态，尺寸小 24 / 中 32 / 大 40，图片加载失败自动回退。</p>
+        <div class="demo">
+          <ld-avatar src="https://avatars.githubusercontent.com/u/9919?s=64" alt="用户"></ld-avatar>
+          <ld-avatar>腾</ld-avatar>
+          <ld-avatar icon="user-line" size="l" shape="round"></ld-avatar>
+          <ld-avatar size="s" icon="user-line"></ld-avatar>
+          <ld-avatar-group max="3">
+            <ld-avatar>甲</ld-avatar>
+            <ld-avatar>乙</ld-avatar>
+            <ld-avatar>丙</ld-avatar>
+            <ld-avatar>丁</ld-avatar>
+            <ld-avatar>戊</ld-avatar>
+          </ld-avatar-group>
+        </div>
+        <h3>ld-avatar 属性</h3>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>src</td><td>string</td><td>''</td><td>图片地址</td></tr>
+          <tr><td>alt</td><td>string</td><td>''</td><td>图片替代文本</td></tr>
+          <tr><td>icon</td><td>string</td><td>''</td><td>图标名（无图片时生效）</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+          <tr><td>shape</td><td>'circle' | 'round'</td><td>'circle'</td><td>形状</td></tr>
+        </table>
+        <h3>ld-avatar-group 属性</h3>
+        <table>
+          <tr><td>max</td><td>number</td><td>0</td><td>最多显示数量，0 不限制</td></tr>
+          <tr><td>cascading</td><td>'left' | 'right'</td><td>'right'</td><td>叠放方向</td></tr>
+          <tr><td>size / shape</td><td>-</td><td>'m' / 'circle'</td><td>仅作用于「+N」占位头像</td></tr>
+        </table>
+
+        <!-- ============ Alert ============ -->
+        <h2 id="alert">Alert 警告提示</h2>
+        <p class="desc">页面内常驻展示的信息反馈，底色取各语义色的浅色档，可关闭、可折叠描述。</p>
+        <div class="demo column">
+          <ld-alert theme="info" title="这是一条普通提示" closable>
+            组件库的样式全部由 CSS 变量驱动。
+          </ld-alert>
+          <ld-alert theme="success" title="提交成功"></ld-alert>
+          <ld-alert theme="warning" title="库存不足">
+            仅剩 3 件，请尽快下单。
+            <span slot="operation">去补货</span>
+          </ld-alert>
+          <ld-alert theme="danger" title="支付失败">
+            银行卡余额不足，请更换支付方式。
+          </ld-alert>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>theme</td><td>'info' | 'success' | 'warning' | 'danger'</td><td>'info'</td><td>主题</td></tr>
+          <tr><td>title</td><td>string</td><td>''</td><td>标题文案</td></tr>
+          <tr><td>show-icon</td><td>boolean</td><td>true</td><td>显示前置图标</td></tr>
+          <tr><td>closable</td><td>boolean</td><td>false</td><td>显示关闭按钮</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-close</td><td>-</td><td>点击关闭按钮</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>默认</td><td>补充描述内容</td></tr>
+          <tr><td>operation</td><td>标题右侧的操作链接</td></tr>
+        </table>
+
+        <!-- ============ Loading ============ -->
+        <h2 id="loading">Loading 加载</h2>
+        <div class="demo">
+          <ld-loading></ld-loading>
+          <ld-loading size="l" text="加载中"></ld-loading>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>text</td><td>string</td><td>''</td><td>加载文案</td></tr>
+          <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
+          <tr><td>fullscreen</td><td>boolean</td><td>false</td><td>全屏遮罩模式</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>默认</td><td>被遮罩的内容（有内容时渲染遮罩层）</td></tr>
+        </table>
+
+        <!-- ============ Tooltip ============ -->
+        <h2 id="tooltip">Tooltip 文字提示</h2>
+        <div class="demo">
+          <ld-tooltip content="顶部提示"><ld-button>上</ld-button></ld-tooltip>
+          <ld-tooltip content="底部提示" placement="bottom"><ld-button>下</ld-button></ld-tooltip>
+          <ld-tooltip content="点击触发" trigger="click"><ld-button>点击</ld-button></ld-tooltip>
+        </div>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>content</td><td>string</td><td>''</td><td>提示文本</td></tr>
+          <tr><td>placement</td><td>'top' | 'bottom' | 'left' | 'right'</td><td>'top'</td><td>弹出方向</td></tr>
+          <tr><td>trigger</td><td>'hover' | 'click'</td><td>'hover'</td><td>触发方式</td></tr>
+          <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用提示</td></tr>
+        </table>
+
+        <!-- ============ Message ============ -->
+        <h2 id="message">Message 全局提示</h2>
+        <p class="desc">纯 JS API，无需写标签。从模块导入 <code>message</code> 或 <code>showMessage</code>。</p>
+        <div class="demo">
+          <ld-button onclick="window.__msg('success')">成功</ld-button>
+          <ld-button onclick="window.__msg('warning')">警告</ld-button>
+          <ld-button onclick="window.__msg('danger')">错误</ld-button>
+          <ld-button onclick="window.__msg('info')">信息</ld-button>
+        </div>
+        <pre><code>import { message, showMessage } from 'yixi-lit-design';
+
+message.success('保存成功');
+message.warning({ content: '请注意', duration: 5000 });
+showMessage({ content: '自定义', type: 'info', duration: 0, closable: true });</code></pre>
+        <h3>MessageOptions</h3>
+        <table>
+          <tr><th>字段</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>content</td><td>string</td><td>必填</td><td>提示内容</td></tr>
+          <tr><td>type</td><td>'success' | 'warning' | 'danger' | 'info'</td><td>'info'</td><td>类型</td></tr>
+          <tr><td>duration</td><td>number</td><td>3000</td><td>自动关闭毫秒数，0 不关闭</td></tr>
+          <tr><td>closable</td><td>boolean</td><td>false</td><td>显示关闭按钮</td></tr>
+        </table>
+
+        <!-- ============ Dialog ============ -->
+        <h2 id="dialog">Dialog 对话框</h2>
+        <p class="desc">居中弹出的模态浮层，宽度默认 480px，支持语义图标、遮罩点击与 ESC 关闭。</p>
+        <div class="demo">
+          <ld-button variant="primary" onclick="document.getElementById('doc-dialog').open = true">打开对话框</ld-button>
+          <ld-button onclick="document.getElementById('doc-dialog-danger').open = true">删除确认</ld-button>
+        </div>
+        <pre><code>&lt;ld-dialog title="编辑资料" open&gt;
+  正文内容
+  &lt;div slot="footer"&gt;&lt;ld-button variant="primary"&gt;保存&lt;/ld-button&gt;&lt;/div&gt;
+&lt;/ld-dialog&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>open</td><td>boolean</td><td>false</td><td>是否打开</td></tr>
+          <tr><td>title</td><td>string</td><td>''</td><td>标题</td></tr>
+          <tr><td>theme</td><td>'' | 'info' | 'success' | 'warning' | 'danger'</td><td>''</td><td>标题前的语义图标</td></tr>
+          <tr><td>width</td><td>string</td><td>'480px'</td><td>对话框宽度</td></tr>
+          <tr><td>show-close</td><td>boolean</td><td>true</td><td>显示关闭图标</td></tr>
+          <tr><td>mask</td><td>boolean</td><td>true</td><td>显示遮罩</td></tr>
+          <tr><td>mask-closable</td><td>boolean</td><td>true</td><td>点击遮罩关闭</td></tr>
+          <tr><td>close-on-esc</td><td>boolean</td><td>true</td><td>允许 ESC 关闭</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-open</td><td>-</td><td>打开时触发</td></tr>
+          <tr><td>ld-close</td><td>-</td><td>关闭（遮罩 / 图标 / ESC）时触发</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>默认 / footer</td><td>对话框正文 / 底部操作区</td></tr>
+        </table>
+
+        <!-- ============ Drawer ============ -->
+        <h2 id="drawer">Drawer 抽屉</h2>
+        <div class="demo">
+          <ld-button variant="primary" onclick="document.getElementById('doc-drawer').open = true">打开抽屉</ld-button>
+        </div>
+        <pre><code>&lt;ld-drawer title="标题" open&gt;
+  内容
+  &lt;div slot="footer"&gt;...&lt;/div&gt;
+&lt;/ld-drawer&gt;</code></pre>
+        <table>
+          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          <tr><td>open</td><td>boolean</td><td>false</td><td>是否打开</td></tr>
+          <tr><td>title</td><td>string</td><td>''</td><td>标题</td></tr>
+          <tr><td>placement</td><td>'left' | 'right'</td><td>'right'</td><td>滑出方向</td></tr>
+          <tr><td>size</td><td>string</td><td>'320px'</td><td>抽屉宽度</td></tr>
+          <tr><td>mask</td><td>boolean</td><td>true</td><td>显示遮罩</td></tr>
+          <tr><td>mask-closable</td><td>boolean</td><td>true</td><td>点击遮罩关闭</td></tr>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <tr><td>ld-open</td><td>-</td><td>打开时触发</td></tr>
+          <tr><td>ld-close</td><td>-</td><td>关闭（遮罩/图标/ESC）时触发</td></tr>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <tr><td>默认</td><td>抽屉内容</td></tr>
+          <tr><td>footer</td><td>底部操作区</td></tr>
+        </table>
+
+        <ld-drawer id="doc-drawer" title="文档示例抽屉">
+          <p>抽屉内容区域。</p>
+        </ld-drawer>
+        <ld-dialog id="doc-dialog" title="编辑资料">
+          <p style="margin: 0">对话框内容区域。</p>
+          <div slot="footer">
+            <ld-button onclick="document.getElementById('doc-dialog').open = false">取消</ld-button>
+            <ld-button variant="primary" onclick="document.getElementById('doc-dialog').open = false">保存</ld-button>
+          </div>
+        </ld-dialog>
+        <ld-dialog id="doc-dialog-danger" title="确认删除" theme="danger" width="420px">
+          删除后不可恢复，确定继续吗？
+          <div slot="footer">
+            <ld-button onclick="document.getElementById('doc-dialog-danger').open = false">取消</ld-button>
+            <ld-button variant="primary" onclick="document.getElementById('doc-dialog-danger').open = false">确定删除</ld-button>
+          </div>
+        </ld-dialog>
+
+        <!-- ============ 主题 ============ -->
+        <h2 id="theme">深色模式</h2>
+        <p class="desc">令牌分浅色与深色两套，给 <code>&lt;html&gt;</code> 或任意祖先容器加上 <code>data-ld-theme="dark"</code> 即可整体换肤，无需改动任何组件用法。</p>
+        <div class="demo">
+          <ld-button variant="primary" onclick="document.documentElement.dataset.ldTheme = document.documentElement.dataset.ldTheme === 'dark' ? '' : 'dark'">切换深色模式</ld-button>
+        </div>
+        <pre><code>&lt;html data-ld-theme="dark"&gt;
+  ...
+&lt;/html&gt;
+
+// 运行时切换
+document.documentElement.dataset.ldTheme = 'dark';</code></pre>
+        <h3>令牌速查</h3>
+        <table>
+          <tr><th>类别</th><th>示例</th><th>说明</th></tr>
+          <tr><td>色阶</td><td><code>--ld-brand-color-1</code> ~ <code>10</code></td><td>品牌 / 警告 / 错误 / 成功各 10 级，中性灰 14 级</td></tr>
+          <tr><td>语义色</td><td><code>--ld-brand-color</code>、<code>--ld-bg-color-container</code>、<code>--ld-text-color-primary</code></td><td>随主题切换自动变化</td></tr>
+          <tr><td>尺寸</td><td><code>--ld-size-1</code> ~ <code>16</code>、<code>--ld-height-s/m/l</code></td><td>2 / 4 / 6 … 72 的尺寸阶与控件高度</td></tr>
+          <tr><td>圆角</td><td><code>--ld-radius-default</code>、<code>--ld-radius-medium</code>、<code>--ld-radius-round</code></td><td>2 / 3 / 6 / 9 / 12 / 999</td></tr>
+          <tr><td>字阶</td><td><code>--ld-font-size-body-medium</code>、<code>--ld-line-height-title-medium</code></td><td>正文字号与行高成对提供</td></tr>
+          <tr><td>阴影</td><td><code>--ld-shadow-1</code> ~ <code>3</code></td><td>三级，每级三层叠加</td></tr>
+        </table>
+        <ld-back-top></ld-back-top>
+      </main>
+    </div>
+
+    <script type="module">
+      import { message } from '../dist/yixi-lit.js';
+      window.__msg = (type) => message[type]('这是一条' + type + '提示');
+    </script>
+  </body>
+</html>

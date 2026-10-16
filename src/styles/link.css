@@ -1,0 +1,61 @@
+/* 链接 */
+.ld-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-xs);
+  font-size: var(--ld-font-size-m);
+  line-height: 1.5;
+  color: var(--ld-text-regular);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-link:hover {
+  color: var(--ld-color-primary);
+}
+
+/* 类型 */
+.ld-link--primary {
+  color: var(--ld-color-primary);
+}
+.ld-link--primary:hover {
+  color: var(--ld-color-primary-hover);
+}
+.ld-link--primary:active {
+  color: var(--ld-color-primary-active);
+}
+
+.ld-link--success {
+  color: var(--ld-color-success);
+}
+.ld-link--warning {
+  color: var(--ld-color-warning);
+}
+.ld-link--danger {
+  color: var(--ld-color-danger);
+}
+
+/* 下划线 */
+.ld-link--underline-hover:hover .ld-link__text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ld-link--underline-always .ld-link__text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ld-link--underline-never .ld-link__text {
+  text-decoration: none;
+}
+
+/* 禁用 */
+.ld-link.is-disabled,
+.ld-link.is-disabled:hover,
+.ld-link.is-disabled:active {
+  color: var(--ld-text-disabled);
+  cursor: not-allowed;
+}
+.ld-link.is-disabled:hover .ld-link__text,
+.ld-link.is-disabled .ld-link__text {
+  text-decoration: none;
+}

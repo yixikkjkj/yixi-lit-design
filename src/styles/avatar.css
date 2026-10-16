@@ -1,0 +1,104 @@
+/* 头像
+ * 规格对齐设计稿：小 24 / 中 32 / 大 40，圆形或圆角矩形（3px）
+ * 底色取品牌色第 2 级，内容取品牌主色 */
+ld-avatar {
+  display: inline-block;
+  vertical-align: middle;
+}
+ld-avatar[hidden] {
+  display: none;
+}
+
+ld-avatar-group {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ld-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--ld-brand-color-2);
+  color: var(--ld-brand-color);
+  user-select: none;
+}
+
+/* 形状 */
+.ld-avatar--circle {
+  border-radius: var(--ld-radius-round);
+}
+.ld-avatar--round {
+  border-radius: var(--ld-radius-default);
+}
+
+/* 尺寸 */
+.ld-avatar--s {
+  width: var(--ld-size-8);
+  height: var(--ld-size-8);
+  font-size: var(--ld-font-size-body-small);
+}
+.ld-avatar--m {
+  width: var(--ld-size-10);
+  height: var(--ld-size-10);
+  font-size: var(--ld-font-size-body-medium);
+}
+.ld-avatar--l {
+  width: var(--ld-size-12);
+  height: var(--ld-size-12);
+  font-size: var(--ld-font-size-body-large);
+}
+
+.ld-avatar__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 图标：小 16 / 中 20 / 大 24 */
+.ld-avatar--s .ld-avatar__icon {
+  font-size: var(--ld-size-6);
+}
+.ld-avatar--m .ld-avatar__icon {
+  font-size: var(--ld-size-7);
+}
+.ld-avatar--l .ld-avatar__icon {
+  font-size: var(--ld-size-8);
+}
+
+.ld-avatar__text {
+  font-weight: var(--ld-font-weight-regular);
+  line-height: 1;
+}
+
+/* 头像组：叠放并带一圈背景色描边，保证层级可辨 */
+.ld-avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+.ld-avatar-group ld-avatar:not(:first-child) {
+  margin-left: -8px;
+}
+.ld-avatar-group.is-cascading-left {
+  flex-direction: row-reverse;
+}
+.ld-avatar-group.is-cascading-left ld-avatar:not(:first-child) {
+  margin-right: -8px;
+  margin-left: 0;
+}
+.ld-avatar-group ld-avatar,
+.ld-avatar-group__rest {
+  box-shadow: 0 0 0 2px var(--ld-bg-color-container);
+}
+.ld-avatar-group ld-avatar:first-child {
+  box-shadow: none;
+}
+.ld-avatar-group.is-cascading-left ld-avatar:last-child {
+  box-shadow: none;
+}
+.ld-avatar-group__rest {
+  flex-shrink: 0;
+  margin-left: -8px;
+}

@@ -1,0 +1,32 @@
+{
+  "name": "yixi-lit-design",
+  "version": "0.1.0",
+  "description": "基于 Lit（Light DOM + 全局 CSS）的轻量 Web Components 组件库",
+  "type": "module",
+  "main": "dist/yixi-lit.js",
+  "exports": {
+    ".": "./dist/yixi-lit.js",
+    "./styles.css": "./dist/yixi-lit.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rspack serve --mode development",
+    "build": "rspack build --mode production",
+    "lint": "oxlint src demo docs",
+    "format": "oxfmt src demo docs",
+    "format:check": "oxfmt --check src demo docs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^1.3.9",
+    "@rspack/core": "^1.3.9",
+    "oxfmt": "^0.2.0",
+    "oxlint": "^1.4.0",
+    "typescript": "^5.7.2"
+  }
+}

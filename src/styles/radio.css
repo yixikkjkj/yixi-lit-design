@@ -1,0 +1,64 @@
+/* 单选框 */
+.ld-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-s);
+  font-size: var(--ld-font-size-m);
+  color: var(--ld-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.ld-radio__circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: var(--ld-bg-container);
+  border: 1px solid var(--ld-border-color);
+  border-radius: 50%;
+  transition:
+    background-color var(--ld-duration-fast) var(--ld-ease),
+    border-color var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-radio:hover .ld-radio__circle {
+  border-color: var(--ld-color-primary);
+}
+
+.ld-radio__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--ld-text-on-primary);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform var(--ld-duration-fast) var(--ld-ease);
+}
+
+.ld-radio.is-checked .ld-radio__circle {
+  background: var(--ld-color-primary);
+  border-color: var(--ld-color-primary);
+}
+.ld-radio.is-checked .ld-radio__dot {
+  transform: scale(1);
+}
+
+.ld-radio.is-disabled {
+  cursor: not-allowed;
+  color: var(--ld-text-disabled);
+}
+.ld-radio.is-disabled .ld-radio__circle {
+  background: var(--ld-bg-disabled);
+  border-color: var(--ld-border-color-light);
+}
+.ld-radio.is-disabled.is-checked .ld-radio__circle {
+  background: var(--ld-text-disabled);
+  border-color: var(--ld-text-disabled);
+}
+
+/* 单选框组 */
+.ld-radio-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--ld-space-m);
+}

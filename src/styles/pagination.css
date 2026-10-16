@@ -1,0 +1,107 @@
+/* 分页 */
+ld-pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ld-space-xs);
+}
+
+.ld-pagination__btn,
+.ld-pagination__item {
+  min-width: var(--ld-height-m);
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--ld-radius-default);
+  background: var(--ld-bg-fill);
+  color: var(--ld-text-regular);
+  font-size: var(--ld-font-size-m);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--ld-duration-fast) var(--ld-ease),
+    color var(--ld-duration-fast) var(--ld-ease);
+}
+
+.ld-pagination__btn:hover:not([disabled]),
+.ld-pagination__item:hover {
+  color: var(--ld-color-primary);
+}
+
+.ld-pagination__item.is-active,
+.ld-pagination__item.is-active:hover {
+  background: var(--ld-color-primary);
+  color: var(--ld-text-on-primary);
+  font-weight: 600;
+}
+
+.ld-pagination__btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ld-pagination__more {
+  padding: 0 var(--ld-space-xs);
+  color: var(--ld-text-secondary);
+  user-select: none;
+}
+
+.ld-pagination__total {
+  margin-left: var(--ld-space-xs);
+  color: var(--ld-text-regular);
+  white-space: nowrap;
+}
+
+.ld-pagination__sizes {
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-xs);
+  border: 1px solid var(--ld-border-color);
+  border-radius: var(--ld-radius-default);
+  background: var(--ld-bg-container);
+  color: var(--ld-text-regular);
+  font-size: var(--ld-font-size-m);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ld-pagination__sizes:hover {
+  border-color: var(--ld-border-color-hover);
+}
+
+.ld-pagination__sizes:focus-visible {
+  outline: none;
+  border-color: var(--ld-color-primary);
+}
+
+.ld-pagination__jumper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-xs);
+  color: var(--ld-text-regular);
+  white-space: nowrap;
+}
+
+.ld-pagination__jumper-input {
+  width: 48px;
+  height: var(--ld-height-m);
+  padding: 0 var(--ld-space-xs);
+  border: 1px solid var(--ld-border-color);
+  border-radius: var(--ld-radius-default);
+  background: var(--ld-bg-container);
+  color: var(--ld-text-primary);
+  font-size: var(--ld-font-size-m);
+  font-family: inherit;
+  text-align: center;
+}
+
+.ld-pagination__jumper-input:hover {
+  border-color: var(--ld-border-color-hover);
+}
+
+.ld-pagination__jumper-input:focus-visible {
+  outline: none;
+  border-color: var(--ld-color-primary);
+}

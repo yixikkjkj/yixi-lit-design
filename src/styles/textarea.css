@@ -1,0 +1,98 @@
+/* 多行文本框
+ * 规格对齐设计稿：最小高度 54 / 内边距 5 8 / 圆角 3
+ * 悬浮与聚焦时边框转品牌色，底部为提示与字数统计（12/20） */
+ld-textarea {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+}
+
+.ld-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-space-xs);
+  width: 100%;
+  font-family: var(--ld-font-family);
+  font-size: var(--ld-font-size-m);
+}
+
+.ld-textarea__box {
+  display: flex;
+  background: var(--ld-bg-color-container);
+  border: 1px solid var(--ld-border-level-2-color);
+  border-radius: var(--ld-radius-default);
+  transition:
+    border-color var(--ld-duration-fast) var(--ld-ease),
+    box-shadow var(--ld-duration-fast) var(--ld-ease);
+}
+.ld-textarea__box:hover {
+  border-color: var(--ld-border-color-hover);
+}
+.ld-textarea__box:focus-within {
+  border-color: var(--ld-brand-color);
+  box-shadow: 0 0 0 2px var(--ld-brand-color-focus);
+}
+
+.ld-textarea__inner {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 54px;
+  padding: 5px var(--ld-space-s);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: var(--ld-line-height-body-medium);
+  color: var(--ld-text-color-primary);
+  background: transparent;
+  border: none;
+  border-radius: inherit;
+  outline: none;
+}
+.ld-textarea__inner::placeholder {
+  color: var(--ld-text-color-placeholder);
+}
+
+/* 校验状态 */
+.ld-textarea--error .ld-textarea__box {
+  border-color: var(--ld-error-color);
+}
+.ld-textarea--error .ld-textarea__box:focus-within {
+  border-color: var(--ld-error-color);
+  box-shadow: 0 0 0 2px var(--ld-error-color-focus);
+}
+.ld-textarea--warning .ld-textarea__box {
+  border-color: var(--ld-warning-color);
+}
+.ld-textarea--warning .ld-textarea__box:focus-within {
+  border-color: var(--ld-warning-color);
+  box-shadow: 0 0 0 2px var(--ld-warning-color-focus);
+}
+
+/* 禁用 */
+.ld-textarea.is-disabled .ld-textarea__box {
+  background: var(--ld-bg-color-component-disabled);
+}
+.ld-textarea.is-disabled .ld-textarea__inner {
+  color: var(--ld-text-color-disabled);
+  cursor: not-allowed;
+}
+.ld-textarea.is-autosize .ld-textarea__inner {
+  overflow: hidden;
+}
+
+/* 底部提示与字数统计 */
+.ld-textarea__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-space-xs);
+  font-size: var(--ld-font-size-body-small);
+  line-height: var(--ld-line-height-body-small);
+  color: var(--ld-text-color-secondary);
+}
+.ld-textarea__footer[hidden] {
+  display: none;
+}
+.ld-textarea__count {
+  flex-shrink: 0;
+  margin-left: auto;
+}

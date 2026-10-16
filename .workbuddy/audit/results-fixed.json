@@ -1,0 +1,158 @@
+{
+  "environment": "happy-dom; production ESM; group and overlapping-overlay checks force named requestUpdate to isolate secondary defects",
+  "results": [
+    {
+      "name": "Production class fields shadow Lit reactive accessors",
+      "defect": false,
+      "observed": {
+        "checkedProperty": true,
+        "ariaCheckedAfterClick": "true",
+        "checkedClassAfterClick": true
+      }
+    },
+    {
+      "name": "External input value assignment does not render",
+      "defect": false,
+      "observed": {
+        "hostValue": "updated by consumer",
+        "innerValue": "updated by consumer"
+      }
+    },
+    {
+      "name": "Example drawer open assignment does not render",
+      "defect": false,
+      "observed": {
+        "openProperty": true,
+        "panelOpenClass": true
+      }
+    },
+    {
+      "name": "Dynamic content is not projected",
+      "defect": true,
+      "observed": {
+        "parent": "LD-BUTTON",
+        "insideButton": false
+      }
+    },
+    {
+      "name": "Removed original content is resurrected",
+      "defect": true,
+      "observed": {
+        "connected": true
+      }
+    },
+    {
+      "name": "Tabs navigation follows the panels in DOM",
+      "defect": true,
+      "observed": {
+        "children": [
+          "LD-TAB",
+          "LD-TAB",
+          "DIV"
+        ],
+        "panelBeforeNavigation": true
+      }
+    },
+    {
+      "name": "Tab label change leaves parent navigation stale",
+      "defect": true,
+      "observed": {
+        "navText": "A\n              \n            \n              \n                B"
+      }
+    },
+    {
+      "name": "checkbox group remains disabled after re-enable",
+      "defect": true,
+      "observed": {
+        "groupDisabled": false,
+        "childDisabled": true
+      }
+    },
+    {
+      "name": "radio group remains disabled after re-enable",
+      "defect": true,
+      "observed": {
+        "groupDisabled": false,
+        "childDisabled": true
+      }
+    },
+    {
+      "name": "Outer group overwrites nested group selection",
+      "defect": true,
+      "observed": {
+        "nestedValue": "inner",
+        "nestedChecked": false
+      }
+    },
+    {
+      "name": "Initially open drawer does not lock scroll or handle Escape",
+      "defect": true,
+      "observed": {
+        "overflowAfterOpen": "",
+        "openAfterEscape": true
+      }
+    },
+    {
+      "name": "Initially open dialog does not lock scroll or handle Escape",
+      "defect": true,
+      "observed": {
+        "overflowAfterOpen": "",
+        "openAfterEscape": true
+      }
+    },
+    {
+      "name": "Overlapping drawers corrupt body scroll lock",
+      "defect": true,
+      "observed": {
+        "overflowWhileSecondOpen": "",
+        "overflowAfterBothClosed": "hidden"
+      }
+    },
+    {
+      "name": "Host form attributes are not forwarded",
+      "defect": true,
+      "observed": {
+        "submittedFields": [],
+        "innerName": "",
+        "innerRequired": false
+      }
+    },
+    {
+      "name": "Composition confirmation Enter emits change",
+      "defect": true,
+      "observed": {
+        "changeCount": 1
+      }
+    },
+    {
+      "name": "Dynamic named footer is not projected",
+      "defect": true,
+      "observed": {
+        "parent": "LD-CARD",
+        "inFooterSlot": false
+      }
+    },
+    {
+      "name": "Main custom interactive surfaces have no tab stop",
+      "defect": true,
+      "observed": {
+        "checkboxFocusable": false,
+        "radioFocusable": false,
+        "selectFocusable": false,
+        "dateFocusable": false,
+        "tabTabIndex": -1
+      }
+    },
+    {
+      "name": "Referenced icons missing from bundled font CSS",
+      "defect": true,
+      "observed": {
+        "missing": [
+          "d-arrow-left",
+          "d-arrow-right",
+          "check-circle-fill"
+        ]
+      }
+    }
+  ]
+}
