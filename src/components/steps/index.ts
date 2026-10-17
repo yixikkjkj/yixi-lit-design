@@ -1,6 +1,6 @@
 import { html } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type StepsDirection = "horizontal" | "vertical"
 export type StepStatus = "wait" | "process" | "finish" | "error"
@@ -18,7 +18,6 @@ export type StepStatus = "wait" | "process" | "finish" | "error"
  * </ld-steps>
  * ```
  */
-@customElement("ld-step")
 export class LdStep extends LdElement {
   /** 标题 */
   @property({ type: String }) title = ""
@@ -92,7 +91,6 @@ export class LdStep extends LdElement {
  * </ld-steps>
  * ```
  */
-@customElement("ld-steps")
 export class LdSteps extends LdElement {
   /** 当前步骤序号，从 0 开始 */
   @property({ type: Number }) current = 0
@@ -127,8 +125,6 @@ export class LdSteps extends LdElement {
   }
 }
 
-define("ld-step", LdStep)
-define("ld-steps", LdSteps)
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -1,6 +1,6 @@
 import { html } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 回到顶部组件：滚动超过一定高度后出现，点击平滑滚动回顶部。
@@ -14,7 +14,6 @@ import { LdElement, define } from "../../base.js"
  * <ld-back-top target=".scroll-container"></ld-back-top>
  * ```
  */
-@customElement("ld-back-top")
 export class LdBackTop extends LdElement {
   /** 滚动超过该高度（px）后显示按钮 */
   @property({ type: Number, attribute: "visibility-height" }) visibilityHeight =
@@ -92,7 +91,6 @@ export class LdBackTop extends LdElement {
   }
 }
 
-define("ld-back-top", LdBackTop)
 
 declare global {
   interface HTMLElementTagNameMap {

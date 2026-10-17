@@ -1,18 +1,19 @@
-import { defineConfig } from '@rspack/cli';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { defineConfig } from "@rspack/cli"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   entry: {
-    'yixi-lit': './src/index.ts',
+    index: "./src/all.ts",
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
+    path: path.resolve(__dirname, "dist/browser"),
+    filename: "[name].js",
+    publicPath: "auto",
     module: true,
-    library: { type: 'module' },
+    library: { type: "module" },
     clean: true,
   },
   experiments: {
@@ -20,39 +21,50 @@ export default defineConfig({
     css: true,
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
     extensionAlias: {
-      '.js': ['.ts', '.js'],
+      ".js": [".ts", ".js"],
     },
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'builtin:swc-loader',
+        loader: "builtin:swc-loader",
         options: {
           jsc: {
-            parser: { syntax: 'typescript', decorators: true },
-            transform: { legacyDecorator: true, decoratorMetadata: false },
+            target: "es2021",
+            parser: { syntax: "typescript", decorators: true },
+            transform: {
+              legacyDecorator: true,
+              decoratorMetadata: false,
+              // Match tsconfig.json: Lit's reactive setters must not be shadowed.
+              useDefineForClassFields: false,
+            },
           },
         },
-        type: 'javascript/auto',
+        type: "javascript/auto",
       },
       {
         test: /\.css$/,
-        type: 'css',
+        type: "css",
       },
     ],
   },
   devServer: {
+    devMiddleware: { publicPath: "/dist/browser/" },
     static: [
-      { directory: __dirname, publicPath: '/', watch: true },
-      { directory: path.resolve(__dirname, 'dist'), publicPath: '/dist', watch: true },
+      { directory: __dirname, publicPath: "/", watch: true },
+      {
+        directory: path.resolve(__dirname, "dist"),
+        publicPath: "/dist",
+        watch: true,
+      },
     ],
     port: 8080,
     hot: false,
     liveReload: true,
-    open: '/demo/index.html',
+    open: "/demo/index.html",
   },
-  devtool: 'source-map',
-});
+  devtool: "source-map",
+})

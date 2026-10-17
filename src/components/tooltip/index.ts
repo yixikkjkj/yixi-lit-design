@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type TooltipPlacement = "top" | "bottom" | "left" | "right"
 export type TooltipTrigger = "hover" | "click"
@@ -15,7 +15,6 @@ export type TooltipTrigger = "hover" | "click"
  * <ld-tooltip content="点击显示" trigger="click" placement="bottom"><ld-button>点我</ld-button></ld-tooltip>
  * ```
  */
-@customElement("ld-tooltip")
 export class LdTooltip extends LdElement {
   /** 提示文本 */
   @property({ type: String }) content = ""
@@ -102,7 +101,6 @@ export class LdTooltip extends LdElement {
   }
 }
 
-define("ld-tooltip", LdTooltip)
 
 declare global {
   interface HTMLElementTagNameMap {

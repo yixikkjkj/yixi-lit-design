@@ -1,6 +1,5 @@
 import { html } from "lit"
-import { customElement, state } from "lit/decorators.js"
-import { define } from "../../base.js"
+import { state } from "lit/decorators.js"
 import { LdInput } from "../input/index.js"
 
 /**
@@ -16,7 +15,6 @@ import { LdInput } from "../input/index.js"
  * <ld-password-input placeholder="请输入密码"></ld-password-input>
  * ```
  */
-@customElement("ld-password-input")
 export class LdPasswordInput extends LdInput {
   /** 密码是否可见 */
   @state() private visible = false
@@ -41,7 +39,6 @@ export class LdPasswordInput extends LdInput {
   }
 }
 
-define("ld-password-input", LdPasswordInput)
 
 declare global {
   interface HTMLElementTagNameMap {

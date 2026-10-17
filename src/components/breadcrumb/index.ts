@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /** 判断分隔符是否为图标名（如 arrow-right-s-line） */
 function isIconName(separator: string): boolean {
@@ -18,7 +18,6 @@ function isIconName(separator: string): boolean {
  * <ld-breadcrumb-item>当前页</ld-breadcrumb-item>
  * ```
  */
-@customElement("ld-breadcrumb-item")
 export class LdBreadcrumbItem extends LdElement {
   /** 跳转链接，缺省渲染为纯文本 */
   @property({ type: String }) href = ""
@@ -65,7 +64,6 @@ export class LdBreadcrumbItem extends LdElement {
  * <ld-breadcrumb separator="arrow-right-s-line">...</ld-breadcrumb>
  * ```
  */
-@customElement("ld-breadcrumb")
 export class LdBreadcrumb extends LdElement {
   /** 分隔符，默认为 "/"，也可传 Remix Icon 名称（如 arrow-right-s-line） */
   @property({ type: String }) separator = "/"
@@ -92,8 +90,6 @@ export class LdBreadcrumb extends LdElement {
   }
 }
 
-define("ld-breadcrumb-item", LdBreadcrumbItem)
-define("ld-breadcrumb", LdBreadcrumb)
 
 declare global {
   interface HTMLElementTagNameMap {

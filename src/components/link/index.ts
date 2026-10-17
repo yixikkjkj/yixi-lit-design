@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type LinkVariant = "" | "primary" | "success" | "warning" | "danger"
 export type LinkUnderline = "hover" | "always" | "never"
@@ -18,7 +18,6 @@ export type LinkUnderline = "hover" | "always" | "never"
  * <ld-link icon="link" disabled>禁用链接</ld-link>
  * ```
  */
-@customElement("ld-link")
 export class LdLink extends LdElement {
   /** 链接地址 */
   @property({ type: String }) href = ""
@@ -74,7 +73,6 @@ export class LdLink extends LdElement {
   }
 }
 
-define("ld-link", LdLink)
 
 declare global {
   interface HTMLElementTagNameMap {

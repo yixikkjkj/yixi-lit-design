@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 复选框组件。
@@ -14,7 +14,6 @@ import { LdElement, define } from "../../base.js"
  * <ld-checkbox indeterminate>半选状态</ld-checkbox>
  * ```
  */
-@customElement("ld-checkbox")
 export class LdCheckbox extends LdElement {
   /** 是否勾选 */
   @property({ type: Boolean }) checked = false
@@ -62,7 +61,6 @@ export class LdCheckbox extends LdElement {
   }
 }
 
-define("ld-checkbox", LdCheckbox)
 
 /**
  * 复选框组，管理一组 ld-checkbox 的勾选值。
@@ -78,7 +76,6 @@ define("ld-checkbox", LdCheckbox)
  * </ld-checkbox-group>
  * ```
  */
-@customElement("ld-checkbox-group")
 export class LdCheckboxGroup extends LdElement {
   /** 勾选的值数组（属性形式接收逗号分隔字符串） */
   @property({
@@ -137,7 +134,6 @@ export class LdCheckboxGroup extends LdElement {
   }
 }
 
-define("ld-checkbox-group", LdCheckboxGroup)
 
 declare global {
   interface HTMLElementTagNameMap {

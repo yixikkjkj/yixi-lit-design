@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /** 滚动定位判定的顶部偏移量（px） */
 const SCROLL_OFFSET = 100
@@ -16,7 +16,6 @@ const SCROLL_OFFSET = 100
  * <ld-anchor-link href="#basic" label="基础用法"></ld-anchor-link>
  * ```
  */
-@customElement("ld-anchor-link")
 export class LdAnchorLink extends LdElement {
   /** 目标锚点，#xxx 形式 */
   @property({ type: String }) href = ""
@@ -71,7 +70,6 @@ export class LdAnchorLink extends LdElement {
  * </ld-anchor>
  * ```
  */
-@customElement("ld-anchor")
 export class LdAnchor extends LdElement {
   /** 当前高亮锚点的 href */
   @state() private activeHref = ""
@@ -162,8 +160,6 @@ export class LdAnchor extends LdElement {
   }
 }
 
-define("ld-anchor-link", LdAnchorLink)
-define("ld-anchor", LdAnchor)
 
 declare global {
   interface HTMLElementTagNameMap {

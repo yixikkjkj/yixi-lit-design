@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type AvatarSize = "s" | "m" | "l"
 export type AvatarShape = "circle" | "round"
@@ -17,7 +17,6 @@ export type AvatarShape = "circle" | "round"
  * <ld-avatar icon="user-line" size="l" shape="round"></ld-avatar>
  * ```
  */
-@customElement("ld-avatar")
 export class LdAvatar extends LdElement {
   /** 图片地址 */
   @property({ type: String }) src = ""
@@ -81,7 +80,6 @@ export class LdAvatar extends LdElement {
  * </ld-avatar-group>
  * ```
  */
-@customElement("ld-avatar-group")
 export class LdAvatarGroup extends LdElement {
   /** 最多显示的头像数量，0 表示不限制 */
   @property({ type: Number }) max = 0
@@ -137,8 +135,6 @@ export class LdAvatarGroup extends LdElement {
   }
 }
 
-define("ld-avatar", LdAvatar)
-define("ld-avatar-group", LdAvatarGroup)
 
 declare global {
   interface HTMLElementTagNameMap {

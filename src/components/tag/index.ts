@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type TagVariant = "" | "primary" | "success" | "warning" | "danger"
 export type TagTheme = "light" | "dark" | "outline"
@@ -19,7 +19,6 @@ export type TagSize = "s" | "m" | "l"
  * <ld-tag variant="danger" closable>可关闭</ld-tag>
  * ```
  */
-@customElement("ld-tag")
 export class LdTag extends LdElement {
   /** 类型 */
   @property({ type: String }) variant: TagVariant = ""
@@ -59,7 +58,6 @@ export class LdTag extends LdElement {
   }
 }
 
-define("ld-tag", LdTag)
 
 declare global {
   interface HTMLElementTagNameMap {

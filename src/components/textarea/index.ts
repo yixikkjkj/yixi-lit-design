@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, query } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, query } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type TextareaStatus = "" | "error" | "warning"
 export type TextareaResize = "none" | "vertical" | "horizontal" | "both"
@@ -17,7 +17,6 @@ export type TextareaResize = "none" | "vertical" | "horizontal" | "both"
  * <ld-textarea autosize rows="2" value="高度随内容自适应"></ld-textarea>
  * ```
  */
-@customElement("ld-textarea")
 export class LdTextarea extends LdElement {
   /** 绑定值 */
   @property({ type: String }) value = ""
@@ -113,7 +112,6 @@ export class LdTextarea extends LdElement {
   }
 }
 
-define("ld-textarea", LdTextarea)
 
 declare global {
   interface HTMLElementTagNameMap {

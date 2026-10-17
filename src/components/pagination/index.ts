@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 type PageItem = number | "..."
 
@@ -16,7 +16,6 @@ type PageItem = number | "..."
  * <ld-pagination total="500" page-size="20" current="3" page-sizes="10,20,50" show-jumper></ld-pagination>
  * ```
  */
-@customElement("ld-pagination")
 export class LdPagination extends LdElement {
   /** 总条数（必填） */
   @property({ type: Number }) total = 0
@@ -169,7 +168,6 @@ export class LdPagination extends LdElement {
   }
 }
 
-define("ld-pagination", LdPagination)
 
 declare global {
   interface HTMLElementTagNameMap {

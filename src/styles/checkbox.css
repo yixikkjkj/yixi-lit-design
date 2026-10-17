@@ -1,21 +1,31 @@
 /* 复选框 */
+ld-checkbox {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
 .ld-checkbox {
   display: inline-flex;
   align-items: center;
   gap: var(--ld-space-s);
   font-size: var(--ld-font-size-m);
+  min-height: var(--ld-line-height-body-medium);
+  line-height: var(--ld-line-height-body-medium);
   color: var(--ld-text-primary);
   cursor: pointer;
   user-select: none;
 }
 
 .ld-checkbox__box {
+  box-sizing: border-box;
+  flex: 0 0 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 16px;
   height: 16px;
   font-size: 12px;
+  line-height: 1;
   color: var(--ld-text-on-primary);
   background: var(--ld-bg-container);
   border: 1px solid var(--ld-border-color);

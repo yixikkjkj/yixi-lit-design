@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 徽标组件，用于展示消息数量、状态点等标记。
@@ -14,7 +14,6 @@ import { LdElement, define } from "../../base.js"
  * <ld-badge value="99+" standalone></ld-badge>
  * ```
  */
-@customElement("ld-badge")
 export class LdBadge extends LdElement {
   /** 显示值（数字或字符串） */
   @property({ type: String }) value: string | number = ""
@@ -58,7 +57,6 @@ export class LdBadge extends LdElement {
   }
 }
 
-define("ld-badge", LdBadge)
 
 declare global {
   interface HTMLElementTagNameMap {

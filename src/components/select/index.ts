@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 import type { InputSize } from "../input/index.js"
 
 /**
@@ -13,7 +13,6 @@ import type { InputSize } from "../input/index.js"
  * <ld-option value="beijing" label="北京"></ld-option>
  * ```
  */
-@customElement("ld-option")
 export class LdOption extends LdElement {
   /** 选项值 */
   @property({ type: String }) value = ""
@@ -52,7 +51,6 @@ export class LdOption extends LdElement {
   }
 }
 
-define("ld-option", LdOption)
 
 /**
  * 下拉选择器组件。
@@ -68,7 +66,6 @@ define("ld-option", LdOption)
  * </ld-select>
  * ```
  */
-@customElement("ld-select")
 export class LdSelect extends LdElement {
   /** 当前选中的值 */
   @property({ type: String }) value = ""
@@ -181,7 +178,6 @@ export class LdSelect extends LdElement {
   }
 }
 
-define("ld-select", LdSelect)
 
 declare global {
   interface HTMLElementTagNameMap {

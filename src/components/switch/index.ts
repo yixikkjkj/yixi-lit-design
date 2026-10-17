@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type SwitchSize = "s" | "m"
 
@@ -15,7 +15,6 @@ export type SwitchSize = "s" | "m"
  * <ld-switch size="s" loading></ld-switch>
  * ```
  */
-@customElement("ld-switch")
 export class LdSwitch extends LdElement {
   /** 是否开启 */
   @property({ type: Boolean }) checked = false
@@ -63,7 +62,6 @@ export class LdSwitch extends LdElement {
   }
 }
 
-define("ld-switch", LdSwitch)
 
 declare global {
   interface HTMLElementTagNameMap {

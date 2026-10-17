@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type LoadingSize = "s" | "m" | "l"
 
@@ -15,7 +15,6 @@ export type LoadingSize = "s" | "m" | "l"
  * <ld-loading size="s"></ld-loading>
  * ```
  */
-@customElement("ld-loading")
 export class LdLoading extends LdElement {
   /** 加载文案 */
   @property({ type: String }) text = ""
@@ -74,7 +73,6 @@ export class LdLoading extends LdElement {
   }
 }
 
-define("ld-loading", LdLoading)
 
 declare global {
   interface HTMLElementTagNameMap {

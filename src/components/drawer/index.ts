@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type DrawerPlacement = "left" | "right"
 
@@ -20,7 +20,6 @@ export type DrawerPlacement = "left" | "right"
  * </ld-drawer>
  * ```
  */
-@customElement("ld-drawer")
 export class LdDrawer extends LdElement {
   /** 是否打开 */
   @property({ type: Boolean }) open = false
@@ -121,7 +120,6 @@ export class LdDrawer extends LdElement {
   }
 }
 
-define("ld-drawer", LdDrawer)
 
 declare global {
   interface HTMLElementTagNameMap {

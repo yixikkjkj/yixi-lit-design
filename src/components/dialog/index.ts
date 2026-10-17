@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type DialogTheme = "" | "info" | "success" | "warning" | "danger"
 
@@ -30,7 +30,6 @@ const THEME_ICONS: Record<string, string> = {
  * </ld-dialog>
  * ```
  */
-@customElement("ld-dialog")
 export class LdDialog extends LdElement {
   /** 是否打开 */
   @property({ type: Boolean }) open = false
@@ -161,7 +160,6 @@ export class LdDialog extends LdElement {
   }
 }
 
-define("ld-dialog", LdDialog)
 
 declare global {
   interface HTMLElementTagNameMap {

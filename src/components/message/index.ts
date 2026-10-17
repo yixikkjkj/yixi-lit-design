@@ -1,3 +1,5 @@
+import { registerMessage } from "./register.js"
+
 /**
  * 全局消息提示（纯 JS API，无自定义元素）。
  *
@@ -27,7 +29,7 @@ export interface MessageOptions {
 }
 
 const TYPE_ICONS: Record<MessageType, string> = {
-  success: "check-circle-fill",
+  success: "checkbox-circle-fill",
   warning: "error-warning-fill",
   danger: "close-circle-fill",
   info: "information-fill",
@@ -60,6 +62,7 @@ function close(el: HTMLElement) {
  * 显示一条全局消息提示。
  */
 export function showMessage(options: MessageOptions | string): void {
+  registerMessage()
   const opts: Required<Omit<MessageOptions, "content">> & Pick<MessageOptions, "content"> =
     typeof options === "string"
       ? { content: options, type: "info", duration: 3000, closable: false }

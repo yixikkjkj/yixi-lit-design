@@ -1,6 +1,6 @@
 import { html } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 图标组件，基于 Remix Icon 字体。
@@ -13,7 +13,6 @@ import { LdElement, define } from "../../base.js"
  *
  * 可用图标名称参考 https://remixicon.com （去掉 `ri-` 前缀填写）。
  */
-@customElement("ld-icon")
 export class LdIcon extends LdElement {
   /** 图标名称，对应 Remix Icon 类名（无需 `ri-` 前缀） */
   @property({ type: String }) name = ""
@@ -37,7 +36,6 @@ export class LdIcon extends LdElement {
   }
 }
 
-define("ld-icon", LdIcon)
 
 declare global {
   interface HTMLElementTagNameMap {

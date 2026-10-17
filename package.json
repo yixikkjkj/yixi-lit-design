@@ -3,21 +3,48 @@
   "version": "0.1.0",
   "description": "基于 Lit（Light DOM + 全局 CSS）的轻量 Web Components 组件库",
   "type": "module",
-  "main": "dist/yixi-lit.js",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./dist/yixi-lit.js",
-    "./styles.css": "./dist/yixi-lit.css"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./all": {
+      "types": "./dist/all.d.ts",
+      "import": "./dist/all.js",
+      "default": "./dist/all.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*/auto.d.ts",
+      "import": "./dist/components/*/auto.js",
+      "default": "./dist/components/*/auto.js"
+    },
+    "./styles.css": {
+      "types": "./dist/styles/index.css.d.ts",
+      "default": "./dist/styles/index.css"
+    },
+    "./styles/common.css": {
+      "types": "./dist/styles/common.css.d.ts",
+      "default": "./dist/styles/common.css"
+    },
+    "./styles/*.css": {
+      "types": "./dist/components/*/style.css.d.ts",
+      "default": "./dist/components/*/style.css"
+    }
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "rspack serve --mode development",
-    "build": "rspack build --mode production",
+    "build": "node scripts/build.mjs",
     "lint": "oxlint src demo docs",
     "format": "oxfmt src demo docs",
     "format:check": "oxfmt --check src demo docs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:tree-shaking": "npm run build && node scripts/test-tree-shaking.mjs",
+    "test:browser-build": "node scripts/test-browser-build.mjs"
   },
   "dependencies": {
     "lit": "^3.2.1"
@@ -28,5 +55,15 @@
     "oxfmt": "^0.2.0",
     "oxlint": "^1.4.0",
     "typescript": "^5.7.2"
-  }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./dist/all.js",
+    "./dist/components/*/auto.js",
+    "**/*.css",
+    "./dist/browser/*.js",
+    "./src/all.ts",
+    "./src/components/*/auto.ts"
+  ]
 }

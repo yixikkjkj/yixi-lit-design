@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type TabsType = "line" | "card"
 
@@ -14,7 +14,6 @@ export type TabsType = "line" | "card"
  * <ld-tab label="用户管理" name="user">用户管理内容</ld-tab>
  * ```
  */
-@customElement("ld-tab")
 export class LdTab extends LdElement {
   /** 页签标题 */
   @property({ type: String }) label = ""
@@ -44,7 +43,6 @@ export class LdTab extends LdElement {
  * <ld-tabs type="card">...</ld-tabs>
  * ```
  */
-@customElement("ld-tabs")
 export class LdTabs extends LdElement {
   /** 当前激活页签的 name，缺省为第一个页签 */
   @property({ type: String }) active = ""
@@ -152,8 +150,6 @@ export class LdTabs extends LdElement {
   }
 }
 
-define("ld-tab", LdTab)
-define("ld-tabs", LdTabs)
 
 declare global {
   interface HTMLElementTagNameMap {

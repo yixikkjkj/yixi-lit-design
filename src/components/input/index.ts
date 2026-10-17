@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type InputSize = "s" | "m" | "l"
 export type InputStatus = "" | "error" | "warning"
@@ -20,7 +20,6 @@ export type InputStatus = "" | "error" | "warning"
  * <ld-input status="error"><span slot="prefix">￥</span></ld-input>
  * ```
  */
-@customElement("ld-input")
 export class LdInput extends LdElement {
   /** 绑定值 */
   @property({ type: String }) value = ""
@@ -146,7 +145,6 @@ export class LdInput extends LdElement {
   }
 }
 
-define("ld-input", LdInput)
 
 declare global {
   interface HTMLElementTagNameMap {

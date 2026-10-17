@@ -1,6 +1,6 @@
 import { html } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 折叠面板容器，与 `ld-collapse-item` 配合使用。
@@ -19,7 +19,6 @@ import { LdElement, define } from "../../base.js"
  * </ld-collapse>
  * ```
  */
-@customElement("ld-collapse")
 export class LdCollapse extends LdElement {
   /** 当前展开项的 name，空格分隔多个 */
   @property({ type: String }) active = ""
@@ -71,7 +70,6 @@ export class LdCollapse extends LdElement {
  * <ld-collapse-item title="面板标题" name="1">面板内容</ld-collapse-item>
  * ```
  */
-@customElement("ld-collapse-item")
 export class LdCollapseItem extends LdElement {
   /** 面板标题 */
   @property({ type: String }) title = ""
@@ -146,8 +144,6 @@ export class LdCollapseItem extends LdElement {
   }
 }
 
-define("ld-collapse", LdCollapse)
-define("ld-collapse-item", LdCollapseItem)
 
 declare global {
   interface HTMLElementTagNameMap {

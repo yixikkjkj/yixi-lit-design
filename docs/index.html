@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>yixi-lit-design 组件文档</title>
-    <link rel="stylesheet" href="../dist/yixi-lit.css" />
-    <script type="module" src="../dist/yixi-lit.js"></script>
+    <link rel="stylesheet" href="../dist/browser/index.css" />
+    <script type="module" src="../dist/browser/index.js"></script>
     <style>
       * { box-sizing: border-box; }
       body {
@@ -74,7 +74,6 @@
         <a href="#icon">Icon 图标</a>
         <a href="#button">Button 按钮</a>
         <a href="#link">Link 链接</a>
-        <a href="#divider">Divider 分割线</a>
         <div class="group">导航</div>
         <a href="#back-top">BackTop 返回顶部</a>
         <a href="#anchor">Anchor 锚点</a>
@@ -95,7 +94,6 @@
         <div class="group">数据展示</div>
         <a href="#tag">Tag 标签</a>
         <a href="#badge">Badge 徽标</a>
-        <a href="#card">Card 卡片</a>
         <a href="#avatar">Avatar 头像</a>
         <a href="#collapse">Collapse 折叠面板</a>
         <a href="#progress">Progress 进度条</a>
@@ -113,16 +111,24 @@
       <main class="main">
         <h2 style="margin-top: 0">快速开始</h2>
         <p class="desc">组件基于 Web Components（Lit 3 + Light DOM），样式为全局 CSS，按需覆盖 CSS 变量即可定制主题。</p>
-        <pre><code>&lt;link rel="stylesheet" href="yixi-lit.css" /&gt;
-&lt;script type="module" src="yixi-lit.js"&gt;&lt;/script&gt;
+        <p class="desc">使用构建工具时推荐按需导入，自动加载组件、内部依赖与样式：</p>
+        <pre><code>import 'yixi-lit-design/components/button';
+import { message } from 'yixi-lit-design/components/message';</code></pre>
+        <p class="desc">也可从无自动注册、无 CSS 的主入口导入注册函数，生产构建会 tree shake 未使用组件：</p>
+        <pre><code>import { registerButton } from 'yixi-lit-design';
+import 'yixi-lit-design/styles/button.css';
+registerButton();</code></pre>
+        <p class="desc">无构建工具时使用全量浏览器包（本演示页使用此方式）：</p>
+        <pre><code>&lt;link rel="stylesheet" href="dist/browser/index.css" /&gt;
+&lt;script type="module" src="dist/browser/index.js"&gt;&lt;/script&gt;
 
 &lt;ld-button variant="primary"&gt;按钮&lt;/ld-button&gt;</code></pre>
         <p class="desc">事件统一以 <code>ld-</code> 开头（如 <code>ld-change</code>），通过 <code>addEventListener</code> 监听，detail 携带数据。主题变量见 <code>src/styles/tokens.css</code>。</p>
         <p class="desc">插槽按 Shadow DOM 的习惯书写。组件用 Light DOM 渲染，浏览器不会自动投影 <code>&lt;slot&gt;</code>，基类会在渲染后把内容搬进模板里对应的插槽，具名插槽写 <code>slot="名称"</code> 即可。</p>
-        <pre><code>&lt;ld-card title="标题"&gt;
+        <pre><code>&lt;ld-dialog title="标题"&gt;
   &lt;p&gt;正文&lt;/p&gt;
   &lt;div slot="footer"&gt;&lt;ld-button variant="primary"&gt;确定&lt;/ld-button&gt;&lt;/div&gt;
-&lt;/ld-card&gt;</code></pre>
+&lt;/ld-dialog&gt;</code></pre>
 
         <!-- ============ Icon ============ -->
         <h2 id="icon">Icon 图标</h2>
@@ -198,31 +204,6 @@
         <h3>事件</h3>
         <table>
           <tr><td>ld-click</td><td>-</td><td>点击</td></tr>
-        </table>
-
-        <!-- ============ Divider ============ -->
-        <h2 id="divider">Divider 分割线</h2>
-        <p class="desc">区隔内容区块，支持水平 / 垂直、实线 / 虚线，以及中间或单侧带文案。</p>
-        <div class="demo column">
-          <ld-divider></ld-divider>
-          <ld-divider dashed></ld-divider>
-          <ld-divider content-position="left">左侧文案</ld-divider>
-          <ld-divider content-position="center">居中文案</ld-divider>
-          <ld-divider content-position="right">右侧文案</ld-divider>
-          <div>行内分割：<span>已发布</span><ld-divider direction="vertical"></ld-divider><span>运营中心</span></div>
-        </div>
-        <pre><code>&lt;ld-divider&gt;&lt;/ld-divider&gt;
-&lt;ld-divider dashed content-position="left"&gt;分组标题&lt;/ld-divider&gt;
-&lt;ld-divider direction="vertical"&gt;&lt;/ld-divider&gt;</code></pre>
-        <table>
-          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
-          <tr><td>direction</td><td>'horizontal' | 'vertical'</td><td>'horizontal'</td><td>方向</td></tr>
-          <tr><td>dashed</td><td>boolean</td><td>false</td><td>是否虚线</td></tr>
-          <tr><td>content-position</td><td>'left' | 'center' | 'right'</td><td>'center'</td><td>文案相对分割线的位置</td></tr>
-        </table>
-        <h3>插槽</h3>
-        <table>
-          <tr><td>默认</td><td>分割线中间的文案（仅水平方向有效）</td></tr>
         </table>
 
         <!-- ============ BackTop ============ -->
@@ -560,19 +541,34 @@
 
         <!-- ============ DatePicker ============ -->
         <h2 id="date-picker">DatePicker 日期选择器</h2>
+        <p class="desc">支持单日和双月日期区间选择。区间在第二次点选后提交，反向选择自动排序；Esc 或点击外部取消未完成的选择。</p>
         <div class="demo">
           <ld-date-picker class="w-240" placeholder="选择日期" clearable></ld-date-picker>
+          <ld-date-picker class="w-240" value="2026-10-17" clearable></ld-date-picker>
+          <ld-date-picker class="w-240" value="2026-10-17" disabled></ld-date-picker>
         </div>
+        <div class="demo">
+          <ld-date-picker style="width: 320px" range clearable></ld-date-picker>
+          <ld-date-picker style="width: 320px" range value="2026-10-26,2026-11-05" clearable></ld-date-picker>
+          <ld-date-picker style="width: 320px" range value="2026-10-01,2026-10-07" disabled></ld-date-picker>
+        </div>
+        <pre><code>&lt;ld-date-picker range value="2026-10-26,2026-11-05" clearable&gt;&lt;/ld-date-picker&gt;
+
+// JavaScript 中区间值使用数组
+picker.range = true;
+picker.value = ['2026-10-26', '2026-11-05'];
+picker.addEventListener('ld-change', (event) =&gt; console.log(event.detail.value));</code></pre>
         <table>
           <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
-          <tr><td>value</td><td>string</td><td>''</td><td>YYYY-MM-DD 格式日期</td></tr>
-          <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
+          <tr><td>value</td><td>string | [string, string] | []</td><td>''</td><td>单日为 YYYY-MM-DD；区间为两个日期的数组，HTML 属性使用逗号分隔</td></tr>
+          <tr><td>range</td><td>boolean</td><td>false</td><td>日期区间模式，显示连续两个月</td></tr>
+          <tr><td>placeholder</td><td>string</td><td>''</td><td>默认按模式显示「请选择日期」或「请选择日期区间」</td></tr>
           <tr><td>disabled</td><td>boolean</td><td>false</td><td>禁用</td></tr>
           <tr><td>clearable</td><td>boolean</td><td>false</td><td>可清空</td></tr>
         </table>
         <h3>事件</h3>
         <table>
-          <tr><td>ld-change</td><td>{ value }</td><td>选中日期</td></tr>
+          <tr><td>ld-change</td><td>{ value }</td><td>单日选中或区间选择完成时触发；清空单日返回 ''，清空区间返回 []</td></tr>
         </table>
         <p class="desc">面板支持年/月切换、上下月补位日期点选、今天高亮与「今天」快捷键。</p>
 
@@ -681,44 +677,6 @@
           <tr><td>text-inside</td><td>boolean</td><td>false</td><td>文字置于条内</td></tr>
         </table>
 
-        <!-- ============ Card ============ -->
-        <h2 id="card">Card 卡片</h2>
-        <p class="desc">承载一组相关信息，支持封面、标题/副标题、头部操作区与底部操作区。</p>
-        <div class="demo">
-          <div style="width: 340px">
-            <ld-card title="订单概览" subtitle="更新于 10 分钟前">
-              <p style="margin: 0">本月共成交 1,286 单。</p>
-              <div slot="extra"><ld-tag variant="success">正常</ld-tag></div>
-              <div slot="footer">
-                <ld-button>取消</ld-button>
-                <ld-button variant="primary">查看详情</ld-button>
-              </div>
-            </ld-card>
-          </div>
-          <div style="width: 340px">
-            <ld-card hoverable title="可悬浮卡片">
-              <p style="margin: 0">悬浮时抬起并投下阴影。</p>
-            </ld-card>
-          </div>
-        </div>
-        <pre><code>&lt;ld-card title="卡片标题" subtitle="副标题"&gt;
-  正文内容
-  &lt;div slot="footer"&gt;&lt;ld-button variant="primary"&gt;确定&lt;/ld-button&gt;&lt;/div&gt;
-&lt;/ld-card&gt;</code></pre>
-        <table>
-          <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
-          <tr><td>title / subtitle</td><td>string</td><td>''</td><td>标题 / 副标题</td></tr>
-          <tr><td>bordered</td><td>boolean</td><td>true</td><td>是否显示边框</td></tr>
-          <tr><td>hoverable</td><td>boolean</td><td>false</td><td>悬浮抬起</td></tr>
-          <tr><td>header-bordered</td><td>boolean</td><td>true</td><td>头部下方显示分割线</td></tr>
-        </table>
-        <h3>插槽</h3>
-        <table>
-          <tr><td>cover</td><td>顶部封面</td></tr>
-          <tr><td>header / extra</td><td>自定义头部 / 头部右侧操作区</td></tr>
-          <tr><td>默认 / footer</td><td>正文 / 底部操作区</td></tr>
-        </table>
-
         <!-- ============ Avatar ============ -->
         <h2 id="avatar">Avatar 头像</h2>
         <p class="desc">支持图片、图标与文字三种形态，尺寸小 24 / 中 32 / 大 40，图片加载失败自动回退。</p>
@@ -825,7 +783,7 @@
           <ld-button onclick="window.__msg('danger')">错误</ld-button>
           <ld-button onclick="window.__msg('info')">信息</ld-button>
         </div>
-        <pre><code>import { message, showMessage } from 'yixi-lit-design';
+        <pre><code>import { message, showMessage } from 'yixi-lit-design/components/message';
 
 message.success('保存成功');
 message.warning({ content: '请注意', duration: 5000 });
@@ -945,7 +903,7 @@ document.documentElement.dataset.ldTheme = 'dark';</code></pre>
     </div>
 
     <script type="module">
-      import { message } from '../dist/yixi-lit.js';
+      import { message } from '../dist/browser/index.js';
       window.__msg = (type) => message[type]('这是一条' + type + '提示');
     </script>
   </body>

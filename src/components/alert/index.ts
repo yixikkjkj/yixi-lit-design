@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type AlertTheme = "info" | "success" | "warning" | "danger"
 
@@ -26,7 +26,6 @@ const THEME_ICONS: Record<AlertTheme, string> = {
  * </ld-alert>
  * ```
  */
-@customElement("ld-alert")
 export class LdAlert extends LdElement {
   /** 主题 */
   @property({ type: String }) theme: AlertTheme = "info"
@@ -92,7 +91,6 @@ export class LdAlert extends LdElement {
   }
 }
 
-define("ld-alert", LdAlert)
 
 declare global {
   interface HTMLElementTagNameMap {

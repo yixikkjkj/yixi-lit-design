@@ -1,6 +1,6 @@
 import { html } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 /**
  * 单选框组件。
@@ -13,7 +13,6 @@ import { LdElement, define } from "../../base.js"
  * <ld-radio value="a">选项 A</ld-radio>
  * ```
  */
-@customElement("ld-radio")
 export class LdRadio extends LdElement {
   /** 是否选中 */
   @property({ type: Boolean }) checked = false
@@ -48,7 +47,6 @@ export class LdRadio extends LdElement {
   }
 }
 
-define("ld-radio", LdRadio)
 
 /**
  * 单选框组，管理一组 ld-radio 的选中值。
@@ -64,7 +62,6 @@ define("ld-radio", LdRadio)
  * </ld-radio-group>
  * ```
  */
-@customElement("ld-radio-group")
 export class LdRadioGroup extends LdElement {
   /** 当前选中的值 */
   @property({ type: String }) value = ""
@@ -111,7 +108,6 @@ export class LdRadioGroup extends LdElement {
   }
 }
 
-define("ld-radio-group", LdRadioGroup)
 
 declare global {
   interface HTMLElementTagNameMap {

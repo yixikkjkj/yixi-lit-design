@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property, state } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type DropdownTrigger = "click" | "hover"
 export type DropdownPlacement = "bottom-start" | "bottom-end" | "top-start" | "top-end"
@@ -18,7 +18,6 @@ export type DropdownItemVariant = "" | "error"
  * <ld-dropdown-item value="remove" variant="error" divider>删除</ld-dropdown-item>
  * ```
  */
-@customElement("ld-dropdown-item")
 export class LdDropdownItem extends LdElement {
   /** 菜单项的值 */
   @property({ type: String }) value = ""
@@ -76,7 +75,6 @@ export class LdDropdownItem extends LdElement {
  * </ld-dropdown>
  * ```
  */
-@customElement("ld-dropdown")
 export class LdDropdown extends LdElement {
   /** 触发方式 */
   @property({ type: String }) trigger: DropdownTrigger = "click"
@@ -178,8 +176,6 @@ export class LdDropdown extends LdElement {
   }
 }
 
-define("ld-dropdown", LdDropdown)
-define("ld-dropdown-item", LdDropdownItem)
 
 declare global {
   interface HTMLElementTagNameMap {

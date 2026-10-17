@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type ButtonVariant = "primary" | "default" | "dashed" | "text"
 export type ButtonSize = "s" | "m" | "l"
@@ -19,7 +19,6 @@ export type ButtonShape = "default" | "round"
  * <ld-button loading>提交中</ld-button>
  * ```
  */
-@customElement("ld-button")
 export class LdButton extends LdElement {
   /** 按钮类型 */
   @property({ type: String }) variant: ButtonVariant = "default"
@@ -81,7 +80,6 @@ export class LdButton extends LdElement {
   }
 }
 
-define("ld-button", LdButton)
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>yixi-lit-design 组件示例</title>
-    <link rel="stylesheet" href="../dist/yixi-lit.css" />
-    <script type="module" src="../dist/yixi-lit.js"></script>
+    <link rel="stylesheet" href="../dist/browser/index.css" />
+    <script type="module" src="../dist/browser/index.js"></script>
     <style>
       body {
         margin: 0;
@@ -42,14 +42,29 @@
         border-radius: var(--ld-radius-m);
         margin-bottom: 8px;
       }
+      .demo-separator {
+        border: 0;
+        border-top: 1px solid var(--ld-border-color-light);
+        margin: 24px 0;
+      }
       .w-300 {
         width: 300px;
+      }
+      .date-example {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: min(100%, 340px);
+      }
+      .date-example > span, .date-result {
+        font-size: 13px;
+        color: var(--ld-text-secondary);
       }
     </style>
   </head>
   <body>
     <h1>yixi-lit-design 组件示例</h1>
-    <p>本页加载 <code>dist/yixi-lit.js</code> 与 <code>dist/yixi-lit.css</code>，展示全部组件的交互效果。</p>
+    <p>本页加载 <code>dist/browser/index.js</code> 与 <code>dist/browser/index.css</code>，展示全部组件的交互效果。</p>
     <div class="row">
       <span>深色模式</span>
       <ld-switch id="theme-switch" size="s"></ld-switch>
@@ -103,22 +118,6 @@
       </ld-breadcrumb>
     </div>
 
-    <h2>Divider 分割线</h2>
-    <div class="card">
-      <p>上方为普通分割线</p>
-      <ld-divider></ld-divider>
-      <p>带文案的分割线：</p>
-      <ld-divider content-position="left">左侧标题</ld-divider>
-      <ld-divider dashed content-position="right">右侧标题</ld-divider>
-      <p>
-        行内分割：<span>已发布</span>
-        <ld-divider direction="vertical"></ld-divider>
-        <span>2026-10-16</span>
-        <ld-divider direction="vertical" dashed></ld-divider>
-        <span>运营中心</span>
-      </p>
-    </div>
-
     <h2>Tabs 选项卡</h2>
     <div class="card">
       <ld-tabs active="a">
@@ -140,7 +139,7 @@
         <ld-step title="资质审核" description="预计 1 个工作日"></ld-step>
         <ld-step title="完成入驻"></ld-step>
       </ld-steps>
-      <ld-divider></ld-divider>
+      <hr class="demo-separator" />
       <ld-steps current="2" direction="vertical">
         <ld-step title="下单" description="订单已创建"></ld-step>
         <ld-step title="出库" description="仓库拣货中"></ld-step>
@@ -179,6 +178,9 @@
       </div>
       <div class="row">
         <ld-checkbox indeterminate>半选状态</ld-checkbox>
+        <ld-checkbox>未选中</ld-checkbox>
+        <ld-checkbox checked>已选中</ld-checkbox>
+        <ld-checkbox checked disabled>禁用选中</ld-checkbox>
       </div>
       <div class="row">
         <ld-radio-group value="x">
@@ -189,7 +191,7 @@
       </div>
     </div>
 
-    <h2>Select 选择器 / DatePicker 日期选择器 / Switch 开关</h2>
+    <h2>Select 选择器 / Switch 开关</h2>
     <div class="card">
       <div class="row">
         <ld-select class="w-300" placeholder="请选择城市" clearable>
@@ -199,7 +201,6 @@
           <ld-option value="sz">深圳</ld-option>
           <ld-option value="hk" disabled>海口（禁用）</ld-option>
         </ld-select>
-        <ld-date-picker class="w-300" placeholder="请选择日期" clearable></ld-date-picker>
       </div>
       <div class="row">
         <ld-switch checked></ld-switch>
@@ -208,6 +209,24 @@
         <ld-switch size="s" checked></ld-switch>
         <ld-switch disabled checked></ld-switch>
       </div>
+    </div>
+
+    <h2>DatePicker 日期选择器</h2>
+    <div class="card">
+      <h3>单个日期</h3>
+      <div class="row">
+        <div class="date-example"><span>基础选择 / 可清空</span><ld-date-picker clearable></ld-date-picker></div>
+        <div class="date-example"><span>预设日期</span><ld-date-picker value="2026-10-17" clearable></ld-date-picker></div>
+        <div class="date-example"><span>禁用状态</span><ld-date-picker value="2026-10-17" disabled></ld-date-picker></div>
+      </div>
+      <h3>日期区间</h3>
+      <p>依次选择开始与结束日期，支持跨月和反向点选。选择结束日期前可预览区间，按 Esc 或点击外部取消本次选择。</p>
+      <div class="row">
+        <div class="date-example"><span>空白区间 / 可清空</span><ld-date-picker id="date-range" range clearable></ld-date-picker></div>
+        <div class="date-example"><span>跨月预设区间</span><ld-date-picker range value="2026-10-26,2026-11-05" clearable></ld-date-picker></div>
+        <div class="date-example"><span>禁用区间</span><ld-date-picker range value="2026-10-01,2026-10-07" disabled></ld-date-picker></div>
+      </div>
+      <p class="date-result" id="date-range-result" aria-live="polite">尚未选择区间</p>
     </div>
 
     <h2>Dropdown 下拉菜单</h2>
@@ -261,26 +280,8 @@
       </ld-collapse>
     </div>
 
-    <h2>Card 卡片 / Avatar 头像</h2>
+    <h2>Avatar 头像</h2>
     <div class="card">
-      <div class="row" style="align-items: stretch">
-        <div style="width: 360px">
-          <ld-card title="订单概览" subtitle="更新于 10 分钟前">
-            <p style="margin: 0">本月共成交 1,286 单，环比增长 12.4%。</p>
-            <div slot="extra"><ld-tag variant="success" theme="light">正常</ld-tag></div>
-            <div slot="footer">
-              <ld-button>取消</ld-button>
-              <ld-button variant="primary">查看详情</ld-button>
-            </div>
-          </ld-card>
-        </div>
-        <div style="width: 360px">
-          <ld-card hoverable title="可悬浮卡片" header-bordered>
-            <p style="margin: 0">悬浮时整张卡片抬起并投下阴影。</p>
-          </ld-card>
-        </div>
-      </div>
-      <ld-divider></ld-divider>
       <div class="row">
         <ld-avatar src="https://avatars.githubusercontent.com/u/9919?s=64" alt="用户"></ld-avatar>
         <ld-avatar>腾</ld-avatar>
@@ -410,7 +411,7 @@
     <ld-back-top></ld-back-top>
 
     <script type="module">
-      import { message } from '../dist/yixi-lit.js';
+      import { message } from '../dist/browser/index.js';
 
       document.getElementById('msg-success').addEventListener('ld-click', () => message.success('操作成功'));
       document.getElementById('msg-warning').addEventListener('ld-click', () => message.warning('请注意检查输入'));
@@ -458,6 +459,11 @@
 
       document.addEventListener('ld-change', (e) => {
         console.log('[ld-change]', e.target.tagName, e.detail);
+      });
+      document.getElementById('date-range').addEventListener('ld-change', (e) => {
+        document.getElementById('date-range-result').textContent = e.detail.value.length
+          ? `已选择：${e.detail.value[0]} 至 ${e.detail.value[1]}`
+          : '已清空区间';
       });
     </script>
   </body>

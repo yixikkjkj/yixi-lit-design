@@ -56,6 +56,11 @@
   border-color: var(--ld-brand-color);
   color: var(--ld-brand-color);
 }
+.ld-btn--dashed:active:not(:disabled) {
+  background: var(--ld-brand-color-active);
+  border-color: var(--ld-brand-color-active);
+  color: var(--ld-text-color-anti);
+}
 
 .ld-btn--text {
   padding: 0 var(--ld-space-xs);

@@ -1,6 +1,6 @@
 import { html, nothing } from "lit"
-import { customElement, property } from "lit/decorators.js"
-import { LdElement, define } from "../../base.js"
+import { property } from "lit/decorators.js"
+import { LdElement } from "../../base.js"
 
 export type ProgressStatus = "" | "success" | "warning" | "danger"
 
@@ -14,7 +14,6 @@ export type ProgressStatus = "" | "success" | "warning" | "danger"
  * <ld-progress percentage="60" text-inside stroke-width="16"></ld-progress>
  * ```
  */
-@customElement("ld-progress")
 export class LdProgress extends LdElement {
   /** 百分比（0-100） */
   @property({ type: Number }) percentage = 0
@@ -71,7 +70,6 @@ export class LdProgress extends LdElement {
   }
 }
 
-define("ld-progress", LdProgress)
 
 declare global {
   interface HTMLElementTagNameMap {
