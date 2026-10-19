@@ -144,6 +144,10 @@ docs/component-spec.md # 组件开发规范（贡献者指南）
 
 完整 API 文档请打开 `docs/index.html`，交互示例见 `demo/index.html`。
 
+示例页左侧提供组件目录与搜索，右侧展示组件效果、可复制的示例代码、输入参数和类型格式表格，以及事件与插槽说明。支持浅色 / 深色模式和小屏布局。
+
+`npm run dev` 默认打开 `http://localhost:8080/demo/index.html`。修改 `src` 中的组件 / 样式会重新编译并刷新；修改 `demo` 中的 HTML、CSS、JS 会刷新示例页。`docs` 仍可通过 `/docs/index.html` 访问，修改文档不会触发示例页刷新，需手动刷新文档页查看最新内容；磁盘上的 `dist` 也不重复监听。
+
 ## 约定
 
 - 组件标签统一 `ld-` 前缀（如 `<ld-button>`）

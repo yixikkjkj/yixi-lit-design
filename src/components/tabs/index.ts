@@ -50,11 +50,27 @@ export class LdTabs extends LdElement {
   @property({ type: String }) type: TabsType = "line"
 
   /** 子级变化时重新渲染导航条 */
-  private mo = new MutationObserver(() => this.requestUpdate())
+  private mo = new MutationObserver((records) => {
+    if (
+      records.some((record) =>
+        record.type === "attributes"
+          ? (record.target as Element).closest("ld-tabs") === this
+          : [...record.addedNodes, ...record.removedNodes].some(
+              (node) => node instanceof Element && node.matches("ld-tab"),
+            ),
+      )
+    )
+      this.requestUpdate()
+  })
 
   connectedCallback() {
     super.connectedCallback()
-    this.mo.observe(this, { childList: true })
+    this.mo.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["label", "name", "disabled"],
+    })
   }
 
   disconnectedCallback() {
@@ -73,7 +89,9 @@ export class LdTabs extends LdElement {
   }
 
   private get tabs(): LdTab[] {
-    return Array.from(this.querySelectorAll("ld-tab"))
+    return Array.from(this.querySelectorAll("ld-tab")).filter(
+      (tab) => tab.closest("ld-tabs") === this,
+    )
   }
 
   /** 页签的实际 name（缺省用序号） */
@@ -146,10 +164,10 @@ export class LdTabs extends LdElement {
           }
         </div>
       </div>
+      <div class="ld-tabs__panels"><slot></slot></div>
     `
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

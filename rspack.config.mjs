@@ -54,11 +54,14 @@ export default defineConfig({
   devServer: {
     devMiddleware: { publicPath: "/dist/browser/" },
     static: [
-      { directory: __dirname, publicPath: "/", watch: true },
+      // Serve docs on demand, but only demo assets should trigger live reload.
+      { directory: path.resolve(__dirname, "demo"), publicPath: "/demo", watch: true },
+      { directory: path.resolve(__dirname, "docs"), publicPath: "/docs", watch: false },
       {
         directory: path.resolve(__dirname, "dist"),
         publicPath: "/dist",
-        watch: true,
+        // Browser bundles are already watched through Rspack's module graph.
+        watch: false,
       },
     ],
     port: 8080,
