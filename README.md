@@ -16,10 +16,16 @@
 
 ### 安装与构建
 
+开发环境需要 Node.js `^20.19.0 || >=22.12.0`，推荐使用 Node.js 24 LTS。
+
 ```bash
 npm install
 npm run build      # 产出 ESM、类型声明、按需样式及 dist/browser/ 全量浏览器包
 ```
+
+当前工具链为 Rspack 2、TypeScript 7、Oxlint 1 和 Oxfmt 0.73。`package-lock.json` 与 `pnpm-lock.yaml` 同步维护，选择 npm 或 pnpm 安装即可。
+
+Oxfmt 已支持 VS Code 扩展使用的 `--lsp`。升级依赖后，在命令面板运行 `Oxc: Restart oxfmt Server`；如编辑器仍持有旧依赖，运行 `Developer: Reload Window`。可执行 `npm run test:formatter-lsp` 验证语言服务启动及项目格式配置。
 
 ### 按需使用（推荐）
 
@@ -106,6 +112,7 @@ message.success('操作成功');
 | `npm run typecheck` | TypeScript 类型检查                              |
 | `npm run test:tree-shaking` | 构建并验证组件裁剪、CSS/字体、注册依赖及消费者类型 |
 | `npm run test:browser-build` | 验证 demo 的开发 / 生产编译产物中 Lit 响应式属性正常工作 |
+| `npm run test:formatter-lsp` | 验证 Oxfmt LSP 初始化、格式化和项目配置读取 |
 
 ## 目录结构
 

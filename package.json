@@ -1,5 +1,7 @@
 {
   "name": "yixi-lit-design",
+  "author": "yixikkjkj",
+  "license": "MIT",
   "version": "0.1.0",
   "description": "基于 Lit（Light DOM + 全局 CSS）的轻量 Web Components 组件库",
   "type": "module",
@@ -39,22 +41,26 @@
   "scripts": {
     "dev": "rspack serve --mode development",
     "build": "node scripts/build.mjs",
-    "lint": "oxlint src demo docs",
+    "lint": "oxlint -c oxlint.json src demo docs",
     "format": "oxfmt src demo docs",
     "format:check": "oxfmt --check src demo docs",
     "typecheck": "tsc --noEmit",
     "test:tree-shaking": "npm run build && node scripts/test-tree-shaking.mjs",
-    "test:browser-build": "node scripts/test-browser-build.mjs"
+    "test:browser-build": "node scripts/test-browser-build.mjs",
+    "test:formatter-lsp": "node scripts/test-formatter-lsp.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run typecheck && npm run lint"
   },
   "dependencies": {
-    "lit": "^3.2.1"
+    "lit": "^3.3.3"
   },
   "devDependencies": {
-    "@rspack/cli": "^1.3.9",
-    "@rspack/core": "^1.3.9",
-    "oxfmt": "^0.2.0",
-    "oxlint": "^1.4.0",
-    "typescript": "^5.7.2"
+    "@rspack/cli": "^2.2.9",
+    "@rspack/core": "^2.2.9",
+    "@rspack/dev-server": "^2.2.1",
+    "oxfmt": "^0.73.0",
+    "oxlint": "^1.88.0",
+    "typescript": "^7.0.2"
   },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

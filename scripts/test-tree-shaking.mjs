@@ -18,7 +18,6 @@ async function bundle(name, source) {
     context: root,
     entry,
     output: { path: output, filename: "index.js", module: true },
-    experiments: { outputModule: true, css: true },
     module: { rules: [{ test: /\.css$/, type: "css" }] },
     performance: false,
     devtool: false,
@@ -202,6 +201,7 @@ try {
     process.execPath,
     [
       path.join(root, "node_modules/typescript/bin/tsc"),
+      "--ignoreConfig",
       "--noEmit",
       "--strict",
       "--noUncheckedSideEffectImports",

@@ -16,10 +16,6 @@ export default defineConfig({
     library: { type: "module" },
     clean: true,
   },
-  experiments: {
-    outputModule: true,
-    css: true,
-  },
   resolve: {
     extensions: [".ts", ".js"],
     extensionAlias: {
