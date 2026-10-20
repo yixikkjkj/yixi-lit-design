@@ -147,7 +147,8 @@ registerButton();</code></pre>
           <tr><td>color</td><td>string</td><td>''</td><td>颜色，默认继承文本颜色</td></tr>
         </table>
 
-        <!-- ============ Button ============ -->
+        <p class="desc">Lit 批量属性绑定可使用本库 spread 指令，写法为 <code>html`&lt;ld-button ${spread(props)}&gt;保存&lt;/ld-button&gt;`</code>。它作用于宿主元素；内部原生控件仅透传文档列出的属性。完整绑定规则见 README。</p>
+<!-- ============ Button ============ -->
         <h2 id="button">Button 按钮</h2>
         <div class="demo">
           <ld-button variant="primary">主要</ld-button>
@@ -172,6 +173,9 @@ registerButton();</code></pre>
           <tr><td>loading</td><td>boolean</td><td>false</td><td>加载中（点击无效）</td></tr>
           <tr><td>block</td><td>boolean</td><td>false</td><td>撑满父容器</td></tr>
           <tr><td>type</td><td>'button' | 'submit' | 'reset'</td><td>'button'</td><td>原生 type</td></tr>
+          <tr><td>name / value / form</td><td>string</td><td>''</td><td>原生表单字段名、提交值、所属表单 ID</td></tr>
+          <tr><td>formaction / formmethod / formenctype / formtarget</td><td>string</td><td>-</td><td>原生提交目标、方法、编码与窗口</td></tr>
+          <tr><td>formnovalidate</td><td>boolean</td><td>false</td><td>该提交按钮跳过原生校验</td></tr>
         </table>
         <h3>事件</h3>
         <table>
@@ -401,9 +405,15 @@ registerButton();</code></pre>
           <tr><td>value</td><td>string</td><td>''</td><td>输入值</td></tr>
           <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
           <tr><td>type</td><td>string</td><td>'text'</td><td>原生输入类型</td></tr>
+          <tr><td>min / max / step</td><td>string | number</td><td>-</td><td>原生范围与步长，支持 0；依输入 type 生效</td></tr>
+          <tr><td>pattern / list</td><td>string</td><td>-</td><td>正则校验 / datalist ID</td></tr>
           <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
           <tr><td>clearable</td><td>boolean</td><td>false</td><td>显示清空按钮</td></tr>
           <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>name / form</td><td>string</td><td>''</td><td>原生表单字段名 / 所属表单 ID</td></tr>
+          <tr><td>required</td><td>boolean</td><td>false</td><td>原生必填校验</td></tr>
+          <tr><td>minlength</td><td>number</td><td>-</td><td>最小输入长度</td></tr>
+          <tr><td>autocomplete / inputmode / enterkeyhint</td><td>string</td><td>-</td><td>自动填充、软键盘与回车键提示</td></tr>
           <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
           <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
         </table>
@@ -424,7 +434,7 @@ registerButton();</code></pre>
         <div class="demo">
           <ld-password-input class="w-240" placeholder="请输入密码"></ld-password-input>
         </div>
-        <p class="desc">继承 Input 的 value / placeholder / disabled / size / status 等属性，右侧眼睛图标切换明文/密文。事件同 Input（ld-input / ld-change）。</p>
+        <p class="desc">继承 Input 的全部输入属性，包括 name / form / required / minlength / pattern / autocomplete，右侧眼睛图标切换明文/密文。事件同 Input（ld-input / ld-change）。</p>
 
         <!-- ============ Textarea ============ -->
         <h2 id="textarea">Textarea 多行文本</h2>
@@ -444,6 +454,10 @@ registerButton();</code></pre>
           <tr><td>rows</td><td>number</td><td>3</td><td>默认显示行数</td></tr>
           <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
           <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>name / form</td><td>string</td><td>''</td><td>原生表单字段名 / 所属表单 ID</td></tr>
+          <tr><td>required</td><td>boolean</td><td>false</td><td>原生必填校验</td></tr>
+          <tr><td>minlength</td><td>number</td><td>-</td><td>最小输入长度</td></tr>
+          <tr><td>autocomplete / inputmode / enterkeyhint</td><td>string</td><td>-</td><td>自动填充、软键盘与回车键提示</td></tr>
           <tr><td>autosize</td><td>boolean</td><td>false</td><td>高度随内容自适应</td></tr>
           <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
           <tr><td>resize</td><td>'none' | 'vertical' | 'horizontal' | 'both'</td><td>'vertical'</td><td>拖拽调整尺寸的方向</td></tr>

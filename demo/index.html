@@ -82,6 +82,7 @@
           <tr><td>size</td><td>string</td><td>''</td><td>尺寸，纯数字自动补 px，默认继承字体大小</td></tr>
           <tr><td>color</td><td>string</td><td>''</td><td>颜色，默认继承文本颜色</td></tr>
         </table></div></section>
+<p class="desc">Lit 批量属性绑定可使用本库 spread 指令，写法为 <code>html`&lt;ld-button ${spread(props)}&gt;保存&lt;/ld-button&gt;`</code>。它作用于宿主元素；内部原生控件仅透传文档列出的属性。完整绑定规则见 README。</p>
 <section class="component-section" id="button" aria-labelledby="title-button"><header class="component-heading"><h2 id="title-button">Button 按钮</h2><a class="permalink" href="#button" aria-label="Button 按钮 固定链接">#</a></header><div class="example"><h3 class="example-heading">展示</h3><div class="demo-preview">
           <ld-button variant="primary">主要</ld-button>
           <ld-button>默认</ld-button>
@@ -115,6 +116,9 @@
           <tr><td>loading</td><td>boolean</td><td>false</td><td>加载中（点击无效）</td></tr>
           <tr><td>block</td><td>boolean</td><td>false</td><td>撑满父容器</td></tr>
           <tr><td>type</td><td>'button' | 'submit' | 'reset'</td><td>'button'</td><td>原生 type</td></tr>
+          <tr><td>name / value / form</td><td>string</td><td>''</td><td>原生表单字段名、提交值、所属表单 ID</td></tr>
+          <tr><td>formaction / formmethod / formenctype / formtarget</td><td>string</td><td>-</td><td>原生提交目标、方法、编码与窗口</td></tr>
+          <tr><td>formnovalidate</td><td>boolean</td><td>false</td><td>该提交按钮跳过原生校验</td></tr>
         </table></div>
         <h3>事件</h3>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Button 按钮 参数与格式表格"><table>
@@ -355,9 +359,15 @@
           <tr><td>value</td><td>string</td><td>''</td><td>输入值</td></tr>
           <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
           <tr><td>type</td><td>string</td><td>'text'</td><td>原生输入类型</td></tr>
+          <tr><td>min / max / step</td><td>string | number</td><td>-</td><td>原生范围与步长，支持 0；依输入 type 生效</td></tr>
+          <tr><td>pattern / list</td><td>string</td><td>-</td><td>正则校验 / datalist ID</td></tr>
           <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
           <tr><td>clearable</td><td>boolean</td><td>false</td><td>显示清空按钮</td></tr>
           <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>name / form</td><td>string</td><td>''</td><td>原生表单字段名 / 所属表单 ID</td></tr>
+          <tr><td>required</td><td>boolean</td><td>false</td><td>原生必填校验</td></tr>
+          <tr><td>minlength</td><td>number</td><td>-</td><td>最小输入长度</td></tr>
+          <tr><td>autocomplete / inputmode / enterkeyhint</td><td>string</td><td>-</td><td>自动填充、软键盘与回车键提示</td></tr>
           <tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>尺寸</td></tr>
           <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
         </table></div>
@@ -376,7 +386,7 @@
           <ld-password-input class="w-240" placeholder="请输入密码"></ld-password-input>
         <ld-password-input class="w-240" value="password" disabled></ld-password-input></div><details class="source-code"><summary>示例代码</summary><div class="example-code"><div class="code-toolbar"><span>HTML</span><button type="button" class="copy-code">复制代码</button></div><pre><code>  &lt;ld-password-input class="w-240" placeholder="请输入密码"&gt;&lt;/ld-password-input&gt;
 &lt;ld-password-input class="w-240" value="password" disabled&gt;&lt;/ld-password-input&gt;</code></pre></div></details></div>
-        <p class="desc">继承 Input 的 value / placeholder / disabled / size / status 等属性，右侧眼睛图标切换明文/密文。事件同 Input（ld-input / ld-change）。</p><h3>输入参数</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">属性</th><th scope="col">类型</th><th scope="col">默认值</th><th scope="col">说明</th></tr><tr><td>value</td><td>string</td><td>''</td><td>密码值</td></tr><tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr><tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr><tr><td>clearable</td><td>boolean</td><td>false</td><td>显示清空按钮</td></tr><tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度</td></tr><tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>控件尺寸</td></tr><tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr></table></div><h3>事件</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">事件</th><th scope="col">detail 格式</th><th scope="col">说明</th></tr><tr><td>ld-input</td><td>{ value: string }</td><td>每次输入</td></tr><tr><td>ld-change</td><td>{ value: string }</td><td>失焦或回车</td></tr><tr><td>ld-clear</td><td>-</td><td>点击清空</td></tr></table></div><h3>插槽</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">名称</th><th scope="col">说明</th></tr><tr><td>prefix / suffix</td><td>输入框前缀 / 后缀</td></tr></table></div></section>
+        <p class="desc">继承 Input 的全部输入属性，包括 name / form / required / minlength / pattern / autocomplete，右侧眼睛图标切换明文/密文。事件同 Input（ld-input / ld-change）。</p><h3>输入参数</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">属性</th><th scope="col">类型</th><th scope="col">默认值</th><th scope="col">说明</th></tr><tr><td>value</td><td>string</td><td>''</td><td>密码值</td></tr><tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr><tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr><tr><td>clearable</td><td>boolean</td><td>false</td><td>显示清空按钮</td></tr><tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度</td></tr><tr><td>size</td><td>'s' | 'm' | 'l'</td><td>'m'</td><td>控件尺寸</td></tr><tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr></table></div><h3>事件</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">事件</th><th scope="col">detail 格式</th><th scope="col">说明</th></tr><tr><td>ld-input</td><td>{ value: string }</td><td>每次输入</td></tr><tr><td>ld-change</td><td>{ value: string }</td><td>失焦或回车</td></tr><tr><td>ld-clear</td><td>-</td><td>点击清空</td></tr></table></div><h3>插槽</h3><div class="table-scroll" tabindex="0" role="region" aria-label="PasswordInput 密码输入框 参数与格式表格"><table><tr><th scope="col">名称</th><th scope="col">说明</th></tr><tr><td>prefix / suffix</td><td>输入框前缀 / 后缀</td></tr></table></div></section>
 <section class="component-section" id="textarea" aria-labelledby="title-textarea"><header class="component-heading"><h2 id="title-textarea">Textarea 多行文本</h2><a class="permalink" href="#textarea" aria-label="Textarea 多行文本 固定链接">#</a></header><p class="desc">默认最小高度 54px，支持字数统计、底部提示、随内容自适应高度与拖拽调整尺寸。</p>
         <div class="example"><h3 class="example-heading">展示</h3><div class="demo-preview column">
           <ld-textarea placeholder="请输入备注" maxlength="50" tips="不超过 50 字"></ld-textarea>
@@ -396,6 +406,10 @@
           <tr><td>rows</td><td>number</td><td>3</td><td>默认显示行数</td></tr>
           <tr><td>disabled / readonly</td><td>boolean</td><td>false</td><td>禁用 / 只读</td></tr>
           <tr><td>maxlength</td><td>number</td><td>-</td><td>最大长度（显示字数统计）</td></tr>
+          <tr><td>name / form</td><td>string</td><td>''</td><td>原生表单字段名 / 所属表单 ID</td></tr>
+          <tr><td>required</td><td>boolean</td><td>false</td><td>原生必填校验</td></tr>
+          <tr><td>minlength</td><td>number</td><td>-</td><td>最小输入长度</td></tr>
+          <tr><td>autocomplete / inputmode / enterkeyhint</td><td>string</td><td>-</td><td>自动填充、软键盘与回车键提示</td></tr>
           <tr><td>autosize</td><td>boolean</td><td>false</td><td>高度随内容自适应</td></tr>
           <tr><td>status</td><td>'' | 'error' | 'warning'</td><td>''</td><td>校验状态</td></tr>
           <tr><td>resize</td><td>'none' | 'vertical' | 'horizontal' | 'both'</td><td>'vertical'</td><td>拖拽调整尺寸的方向</td></tr>

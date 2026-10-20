@@ -17,6 +17,11 @@
       "import": "./dist/all.js",
       "default": "./dist/all.js"
     },
+    "./directives/spread": {
+      "types": "./dist/directives/spread.d.ts",
+      "import": "./dist/directives/spread.js",
+      "default": "./dist/directives/spread.js"
+    },
     "./components/*": {
       "types": "./dist/components/*/auto.d.ts",
       "import": "./dist/components/*/auto.js",
@@ -47,6 +52,7 @@
     "typecheck": "tsc --noEmit",
     "test:tree-shaking": "npm run build && node scripts/test-tree-shaking.mjs",
     "test:browser-build": "node scripts/test-browser-build.mjs",
+    "test:native-props": "node scripts/test-native-props.mjs",
     "test:formatter-lsp": "node scripts/test-formatter-lsp.mjs",
     "prepack": "npm run build",
     "prepublishOnly": "npm run typecheck && npm run lint"

@@ -65,6 +65,57 @@ message.success('操作成功');
 
 如果只导入 `LdButton` 等组件类，标签不会自动注册；一般使用 `registerButton()`，组件类导出用于类型引用、自定义继承等场景。
 
+### 批量绑定属性（Lit / JavaScript）
+
+Lit 模板使用元素指令实现类似 JSX `{...props}` 的批量绑定：
+
+```ts
+import { html } from 'lit';
+import { spread } from 'yixi-lit-design/directives/spread';
+import 'yixi-lit-design/components/input';
+import 'yixi-lit-design/components/button';
+
+const inputProps = {
+  name: 'quantity',
+  type: 'number',
+  required: true,
+  min: 0,
+  max: 100,
+  step: 1,
+  autocomplete: 'off',
+  '.value': '2',
+  '@ld-input': (event: CustomEvent<{ value: string }>) => console.log(event.detail.value),
+};
+const buttonProps = { variant: 'primary', '?disabled': false, '@ld-click': () => console.log('保存') };
+
+const view = html`
+  <ld-input ${spread(inputProps)}></ld-input>
+  <ld-button ${spread(buttonProps)}>保存</ld-button>
+`;
+```
+
+`spread` 也可以从主入口导入，支持原生 `<input>` / `<button>` 等元素。它是本库提供的指令，并非 Lit 内置语法；原生 HTML 不解析 JSX 的 `{...props}`。
+
+| 对象键 | 行为 |
+| --- | --- |
+| `name`、`min` 等普通键 | 写入 HTML attribute；`null` / `undefined` / Lit `nothing` 移除属性 |
+| `required: true/false` | 布尔值控制属性存在与否；`aria-*` / `data-*` 保留字符串 `'true'` / `'false'` |
+| `'.value'`、`'.options'` | 写入 DOM property，可传对象 / 数组，使用大小写敏感的 property 名 |
+| `'?disabled'` | 显式控制布尔属性 |
+| `'@click'`、`'@ld-input'` | 绑定事件函数或 `handleEvent` 对象，支持 `capture` / `once` / `passive`；函数的 `this` 与 Lit 事件绑定一致 |
+
+对象变化后需要重新渲染；Lit 组件内修改对象时优先替换对象引用，或调用 `requestUpdate()`。删除键、给 `spread()` 传入 `null` / `undefined`，或移除指令时，会清理事件并恢复对应绑定前的值。不要用多个指令或显式绑定同时控制同一属性。
+
+批量绑定只作用于指定的元素，不会自动把宿主上的所有属性复制到内部控件。本库已为 Input（含 PasswordInput）透传 `name`、`form`、`required`、`minlength`、`min/max/step`、`pattern`、`autocomplete`、`inputmode`、`enterkeyhint`、`list`；Textarea 支持对应的文本输入属性；Button 支持 `name/value/form` 和 `formaction/formmethod/formenctype/formtarget/formnovalidate`。原生约束是否生效取决于输入 `type`，例如 `min/max/step` 适用于 number/date 等类型。
+
+原生 JavaScript 可以直接批量赋值组件 property：
+
+```js
+const input = document.querySelector('ld-input');
+Object.assign(input, { name: 'email', type: 'email', required: true, autocomplete: 'email' });
+input.addEventListener('ld-input', (event) => console.log(event.detail.value));
+```
+
 ### 日期与日期区间
 
 日期选择器支持单日和双月区间模式：
@@ -112,6 +163,7 @@ message.success('操作成功');
 | `npm run typecheck` | TypeScript 类型检查                              |
 | `npm run test:tree-shaking` | 构建并验证组件裁剪、CSS/字体、注册依赖及消费者类型 |
 | `npm run test:browser-build` | 验证 demo 的开发 / 生产编译产物中 Lit 响应式属性正常工作 |
+| `npm run test:native-props` | 在真实 Chrome/Edge 中验证原生属性、表单校验与 spread 更新 / 清理；可用 `BROWSER_BIN` 指定浏览器 |
 | `npm run test:formatter-lsp` | 验证 Oxfmt LSP 初始化、格式化和项目配置读取 |
 
 ## 目录结构
