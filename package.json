@@ -2,7 +2,7 @@
   "name": "yixi-lit-design",
   "author": "yixikkjkj",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "基于 Lit（Light DOM + 全局 CSS）的轻量 Web Components 组件库",
   "type": "module",
   "main": "./dist/index.js",
