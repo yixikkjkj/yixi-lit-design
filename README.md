@@ -7,7 +7,7 @@
 - **Light DOM 渲染**：组件不创建 Shadow Root，样式完全由全局 CSS 驱动，使用者可以自由覆盖任何样式
 - **插槽按 Shadow DOM 习惯书写**：`<slot>` 在 Light DOM 下不会自动投影，基类 `LdElement` 会在渲染后把使用方写的内容搬进模板里对应的 `<slot>`，因此 `<ld-dialog><div slot="footer">…</div></ld-dialog>` 这类写法直接可用
 - **CSS 变量主题**：颜色、尺寸、圆角、间距等全部是 CSS 变量（见 `src/styles/tokens.css`），覆盖变量即换肤
-- **图标字体内置**：Remix Icon 字体随包分发，全量入口即含；按需引入时通过 `styles/icons.css` 单独加载图标样式
+- **图标按需加载**：`<ld-icon>` 内联 SVG 渲染，系统图标（关闭、箭头等）内联零请求，其他图标按需加载单个 SVG，可通过 `registerIconLibrary` 自托管
 - **TypeScript 开发**：完整的类型声明与 `HTMLElementTagNameMap` 增强
 - **Tree shaking / 按需加载**：发布保留模块边界的 ESM；主入口无自动注册和样式副作用，按需入口自动加载组件、内部依赖和样式
 - **现代化工具链**：Rspack 构建、oxlint + oxfmt 代码质量
@@ -63,11 +63,18 @@ message.success('操作成功');
 
 注册函数可重复调用，包含组件内部依赖。`message` / `showMessage` 在调用时注册所需的 Icon。每个 `styles/<组件名>.css` 已包含公共样式与内部依赖样式，无需另引入 tokens、base 或 icon；`styles/common.css` 可用于单独加载公共样式。
 
-图标样式不在组件样式里。使用 `<ld-icon>` 或含图标的组件（Button 的 loading、Select 的箭头等）时，额外引入一次图标样式：
+图标无需额外样式。`<ld-icon>` 以内联 SVG 渲染：组件内部依赖的系统图标（关闭、箭头、勾选、日历等）已随包内联，零网络请求；其他图标默认按需从 Remix Icon（Iconify CDN）加载单个 SVG。内网或离线场景可注册自定义图标库替换来源：
 
 ```ts
-import 'yixi-lit-design/styles/icons.css';
+import { registerIconLibrary } from 'yixi-lit-design';
+
+// 自托管：把 SVG 文件放在 /icons/<name>.svg
+registerIconLibrary('remix', {
+  resolver: name => `/icons/${name}.svg`,
+});
 ```
+
+旧的图标字体（Remix Icon 全集）仍保留为可选入口 `styles/icons.css`，供直接写 `<i class="ri-...">` 的存量代码使用；`<ld-icon>` 不再依赖它。
 
 如果只导入 `LdButton` 等组件类，标签不会自动注册；一般使用 `registerButton()`，组件类导出用于类型引用、自定义继承等场景。
 
@@ -137,7 +144,7 @@ input.addEventListener('ld-input', (event) => console.log(event.detail.value));
 
 保留 ES Modules（不要在构建前转成 CommonJS），使用生产构建即可。Rspack 使用 `mode: 'production'`，已有 CSS 处理配置的项目不需要额外的 tree shaking 插件。组件库已准确标记 CSS 和自动注册入口的 `sideEffects`，不要覆盖成 `false`。
 
-JavaScript tree shaking 不会分析 HTML 标签或按选择器裁剪 CSS。需要按需样式时使用上述组件入口或 `styles/<组件名>.css`；`styles.css` 是全量样式。图标样式（Remix Icon 全集，约 145KB / gzip 后约 19KB）已从组件样式中剥离，按需引入时用 `styles/icons.css` 单独加载，不用图标则完全不会进包。
+JavaScript tree shaking 不会分析 HTML 标签或按选择器裁剪 CSS。需要按需样式时使用上述组件入口或 `styles/<组件名>.css`；`styles.css` 是全量样式。图标改为 SVG 后不再携带字体与图标全集：组件样式不含任何图标资源，系统图标内联在 JS 中，其他图标按需加载单个 SVG；`styles/icons.css` 只服务直接用 `<i class="ri-...">` 的存量代码。
 
 ### 全量使用 / 无构建工具
 
@@ -183,8 +190,8 @@ src/
     tokens.css         # 设计令牌（CSS 变量）
     index.css          # 样式入口（引入所有组件样式）
     common.css         # 公共样式（tokens + base）
-    icons.css          # 图标字体样式（可选，按需引入时单独加载）
-    iconfont/          # Remix Icon 字体文件
+    icons.css          # 旧图标字体样式（可选，仅存量 <i class="ri-..."> 代码需要）
+    iconfont/          # Remix Icon 字体文件（随 icons.css 一起使用）
     <name>.css         # 各组件样式
   components/
     <name>/index.ts    # 组件类 / API，不在模块顶层注册

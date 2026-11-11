@@ -1,5 +1,4 @@
 /** Full registration and styles for standalone browser use. */
-import "./styles/icons.css"
 import "./components/alert/auto.js"
 import "./components/anchor/auto.js"
 import "./components/avatar/auto.js"

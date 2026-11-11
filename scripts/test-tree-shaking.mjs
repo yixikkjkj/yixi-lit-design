@@ -158,7 +158,9 @@ try {
   const componentNames = await readdir(path.join(root, "src/components"))
   // Message has no element to register; its unused API can be removed even in /all.
   assert.ok(full.activeComponents.size >= componentNames.length - 1)
-  assert.match(full.css, /@font-face/)
+  // Icons render as inline SVG now; the font is legacy-only (styles/icons.css).
+  assert.doesNotMatch(full.css, /@font-face|\.ri-/)
+  assert.match(full.js, /checkbox-circle-fill/)
   assert.ok(automatic.js.length < full.js.length / 2)
   assert.ok(automatic.css.length < full.css.length)
 

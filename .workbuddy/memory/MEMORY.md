@@ -30,7 +30,8 @@ Light DOM 下浏览器不投影 `<slot>`，基类 `LdElement`（src/base.ts）�
 
 ## CSS 按需架构（2026-11-11 起生效）
 
-- **图标字体已与组件样式解耦**：`icon/style.css` 不再引 remixicon；按需用户用图标需显式 `import 'yixi-lit-design/styles/icons.css'`。新增含图标能力时不要把 remixicon 加回组件依赖链。
-- **浏览器全量包（rspack 入口 src/all.ts）的样式走组件 auto.js 链，不经过 styles/index.css**：往全量包加全局样式（如 icons.css）必须直接加在 all.ts，否则全量包静默丢失。
-- **test-tree-shaking.mjs 是按需行为的守卫**：改样式依赖结构时同步改它的断言（按需不含 @font-face/.ri-、引 icons.css 才 emit 字体）。
-- 规划余下三步：② ld-icon 改 SVG（Shoelace resolver 模式）③ 组件样式 `@layer` ④ CSS 裁剪断言细化；细节见 2026-11-11.md 日志。
+- **图标已改内联 SVG（第 2 步完成）**：`ld-icon` 渲染 `<svg><path>`，数据存 path `d` 数组（`icon/system.ts` 内联 13 个系统图标零请求，`icon/registry.ts` 的 registerIconLibrary 按需 fetch，默认 resolver 走 Iconify `api.iconify.design/ri/<name>.svg`）。字体仅存 `styles/icons.css` 兼容入口（存量 `<i class="ri-">` 用），all.ts 不再带字体。新增内部图标：跑 `scripts/generate-system-icons.mjs`。
+- **两个必记的 SVG 渲染坑**：① `unsafeHTML` 插 `<path>` 会进 XHTML 命名空间、浏览器不渲染，必须用 lit 的 `svg`` ``模板标签渲染 path；② `ld-icon` 宿主 `inline-flex; width:1em` 会 flex-shrink 压扁 svg，`ld-icon > svg` 必须 `flex-shrink:0`。
+- **浏览器全量包（rspack 入口 src/all.ts）的样式走组件 auto.js 链，不经过 styles/index.css**：往全量包加全局样式必须直接加在 all.ts，否则全量包静默丢失。
+- **test-tree-shaking.mjs 是按需行为的守卫**：按需产物不含 @font-face/.ri-，全量包同样不含（SVG 化后），引 icons.css 才 emit 字体。
+- 规划余下两步：③ 组件样式 `@layer ld-components` 解决按需层叠顺序 ④ CSS 裁剪断言细化；细节见 2026-11-11.md 日志。
