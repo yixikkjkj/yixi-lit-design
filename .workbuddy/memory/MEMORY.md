@@ -27,3 +27,10 @@ Light DOM 下浏览器不投影 `<slot>`，基类 `LdElement`（src/base.ts）�
 - 构建/检查命令：npm run build / lint / format / typecheck。
 - 示例页 demo/index.html、文档页 docs/index.html 都引用 dist/ 产物，改源码后需 npm run build。
 - 设计令牌：优先语义层（`--ld-brand-color`、`--ld-text-color-primary`），其次基础层（`--ld-brand-color-7`、`--ld-size-6`），最后才是兼容别名（`--ld-text-regular` 等）。新增令牌要在 `:root` 与 `[data-ld-theme='dark']` 两处都写。
+
+## CSS 按需架构（2026-11-11 起生效）
+
+- **图标字体已与组件样式解耦**：`icon/style.css` 不再引 remixicon；按需用户用图标需显式 `import 'yixi-lit-design/styles/icons.css'`。新增含图标能力时不要把 remixicon 加回组件依赖链。
+- **浏览器全量包（rspack 入口 src/all.ts）的样式走组件 auto.js 链，不经过 styles/index.css**：往全量包加全局样式（如 icons.css）必须直接加在 all.ts，否则全量包静默丢失。
+- **test-tree-shaking.mjs 是按需行为的守卫**：改样式依赖结构时同步改它的断言（按需不含 @font-face/.ri-、引 icons.css 才 emit 字体）。
+- 规划余下三步：② ld-icon 改 SVG（Shoelace resolver 模式）③ 组件样式 `@layer` ④ CSS 裁剪断言细化；细节见 2026-11-11.md 日志。

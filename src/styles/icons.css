@@ -1,0 +1,4 @@
+/* 图标字体可选入口：按需引入组件时，若使用 <ld-icon> 或带图标的组件，
+ * 需额外引入本文件（全量入口 styles.css 已包含，无需重复引入）。
+ * 图标全集约 145KB（gzip 后约 19KB），后续版本将提供 SVG 按需方案。 */
+@import './iconfont/remixicon.css';

@@ -3,3 +3,11 @@ dist/
 *.log
 .DS_Store
 npm-audit-cache/
+
+# 测试脚本在项目根用 mkdtemp 创建的临时目录（见 scripts/test-*.mjs）
+.browser-build-test-*/
+.native-props-test-*/
+.tree-shaking-test-*/
+
+# npm pack 产物
+*.tgz

@@ -35,6 +35,10 @@
       "types": "./dist/styles/common.css.d.ts",
       "default": "./dist/styles/common.css"
     },
+    "./styles/icons.css": {
+      "types": "./dist/styles/icons.css.d.ts",
+      "default": "./dist/styles/icons.css"
+    },
     "./styles/*.css": {
       "types": "./dist/components/*/style.css.d.ts",
       "default": "./dist/components/*/style.css"

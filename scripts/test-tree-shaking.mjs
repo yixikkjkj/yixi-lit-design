@@ -102,16 +102,31 @@ try {
     assert.doesNotMatch(result.js, /ld-(dialog|drawer|date-picker|select)/)
     assert.match(result.css, /\.ld-btn/)
     assert.match(result.css, /--ld-brand-color/)
-    assert.match(result.css, /@font-face/)
+    // Icon styles are decoupled from component styles: an on-demand import
+    // must not pull the icon font. Load styles/icons.css explicitly instead.
+    assert.doesNotMatch(result.css, /@font-face|\.ri-/)
+    assert.equal(
+      (await readdir(result.output)).some((file) => /\.(woff2|ttf)$/.test(file)),
+      false,
+      "Icon font must not be emitted without styles/icons.css",
+    )
     assert.doesNotMatch(
       result.css,
       /\.ld-(dialog|drawer|date-picker|select)[\s.{:#-]/,
     )
-    assert.ok(
-      (await readdir(result.output)).some((file) => file.endsWith(".woff2")),
-      "Icon font assets must be emitted",
-    )
   }
+
+  const withIcons = await bundle(
+    "icons",
+    'import "yixi-lit-design/components/button"; import "yixi-lit-design/styles/icons.css";',
+  )
+  onlyComponents(withIcons, ["button", "icon"])
+  assert.match(withIcons.css, /@font-face/)
+  assert.match(withIcons.css, /\.ri-/)
+  assert.ok(
+    (await readdir(withIcons.output)).some((file) => file.endsWith(".woff2")),
+    "Icon font assets must be emitted with styles/icons.css",
+  )
 
   const plain = await bundle(
     "switch",
@@ -143,6 +158,7 @@ try {
   const componentNames = await readdir(path.join(root, "src/components"))
   // Message has no element to register; its unused API can be removed even in /all.
   assert.ok(full.activeComponents.size >= componentNames.length - 1)
+  assert.match(full.css, /@font-face/)
   assert.ok(automatic.js.length < full.js.length / 2)
   assert.ok(automatic.css.length < full.css.length)
 
@@ -195,7 +211,7 @@ try {
     .join("\n")
   await writeFile(
     path.join(temporary, "consumer.ts"),
-    `${typeImports}\nimport "yixi-lit-design/all";\nimport "yixi-lit-design/styles.css";\nimport "yixi-lit-design/styles/common.css";\nimport { registerButton, LdButton } from "yixi-lit-design";\nregisterButton();\nconst button: LdButton = document.createElement("ld-button");\nbutton.variant = "primary";\n`,
+    `${typeImports}\nimport "yixi-lit-design/all";\nimport "yixi-lit-design/styles.css";\nimport "yixi-lit-design/styles/common.css";\nimport "yixi-lit-design/styles/icons.css";\nimport { registerButton, LdButton } from "yixi-lit-design";\nregisterButton();\nconst button: LdButton = document.createElement("ld-button");\nbutton.variant = "primary";\n`,
   )
   execFileSync(
     process.execPath,
