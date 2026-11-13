@@ -2,7 +2,7 @@
   "name": "yixi-lit-design",
   "author": "yixikkjkj",
   "license": "MIT",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "基于 Lit（Light DOM + 全局 CSS）的轻量 Web Components 组件库",
   "type": "module",
   "main": "./dist/index.js",
@@ -35,6 +35,10 @@
       "types": "./dist/styles/common.css.d.ts",
       "default": "./dist/styles/common.css"
     },
+    "./styles/layers.css": {
+      "types": "./dist/styles/layers.css.d.ts",
+      "default": "./dist/styles/layers.css"
+    },
     "./styles/icons.css": {
       "types": "./dist/styles/icons.css.d.ts",
       "default": "./dist/styles/icons.css"
@@ -58,6 +62,7 @@
     "test:browser-build": "node scripts/test-browser-build.mjs",
     "test:native-props": "node scripts/test-native-props.mjs",
     "test:formatter-lsp": "node scripts/test-formatter-lsp.mjs",
+    "test:cascade-layers": "node scripts/test-cascade-layers.mjs",
     "prepack": "npm run build",
     "prepublishOnly": "npm run typecheck && npm run lint"
   },

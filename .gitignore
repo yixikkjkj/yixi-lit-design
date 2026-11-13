@@ -8,6 +8,7 @@ npm-audit-cache/
 .browser-build-test-*/
 .native-props-test-*/
 .tree-shaking-test-*/
+.cascade-layers-test-*/
 
 # npm pack 产物
 *.tgz

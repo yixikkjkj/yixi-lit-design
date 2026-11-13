@@ -202,6 +202,40 @@ async function run() {
     'External form association works',
   );
 
+  // Value write-back must not touch the native input when the value is unchanged:
+  // any programmatic value assignment clears the browser dirty flag and silently
+  // disables minlength validation (tooShort only applies to user-edited values).
+  const minLengthHost = document.createElement('ld-input');
+  minLengthHost.minlength = 8;
+  container.append(minLengthHost);
+  await minLengthHost.updateComplete;
+  const minLengthInput = minLengthHost.querySelector('input');
+  const valueDescriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+  let valueWrites = 0;
+  Object.defineProperty(minLengthInput, 'value', {
+    configurable: true,
+    get() {
+      return valueDescriptor.get.call(this);
+    },
+    set(next) {
+      valueWrites++;
+      valueDescriptor.set.call(this, next);
+    },
+  });
+  minLengthInput.value = 'abc';
+  minLengthInput.dispatchEvent(new Event('input', { bubbles: true }));
+  await minLengthHost.updateComplete;
+  check(
+    valueWrites === 1 && minLengthHost.value === 'abc',
+    'Typing does not rewrite the native value (keeps minlength validation)',
+  );
+  minLengthHost.value = 'abcdefgh';
+  await minLengthHost.updateComplete;
+  check(
+    valueWrites === 2 && minLengthInput.value === 'abcdefgh',
+    'External value changes are still written through',
+  );
+
   const submit = document.createElement('ld-button');
   Object.assign(submit, {
     type: 'submit',

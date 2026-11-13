@@ -33,5 +33,20 @@ Light DOM 下浏览器不投影 `<slot>`，基类 `LdElement`（src/base.ts）�
 - **图标已改内联 SVG（第 2 步完成）**：`ld-icon` 渲染 `<svg><path>`，数据存 path `d` 数组（`icon/system.ts` 内联 13 个系统图标零请求，`icon/registry.ts` 的 registerIconLibrary 按需 fetch，默认 resolver 走 Iconify `api.iconify.design/ri/<name>.svg`）。字体仅存 `styles/icons.css` 兼容入口（存量 `<i class="ri-">` 用），all.ts 不再带字体。新增内部图标：跑 `scripts/generate-system-icons.mjs`。
 - **两个必记的 SVG 渲染坑**：① `unsafeHTML` 插 `<path>` 会进 XHTML 命名空间、浏览器不渲染，必须用 lit 的 `svg`` ``模板标签渲染 path；② `ld-icon` 宿主 `inline-flex; width:1em` 会 flex-shrink 压扁 svg，`ld-icon > svg` 必须 `flex-shrink:0`。
 - **浏览器全量包（rspack 入口 src/all.ts）的样式走组件 auto.js 链，不经过 styles/index.css**：往全量包加全局样式必须直接加在 all.ts，否则全量包静默丢失。
-- **test-tree-shaking.mjs 是按需行为的守卫**：按需产物不含 @font-face/.ri-，全量包同样不含（SVG 化后），引 icons.css 才 emit 字体。
-- 规划余下两步：③ 组件样式 `@layer ld-components` 解决按需层叠顺序 ④ CSS 裁剪断言细化；细节见 2026-11-11.md 日志。
+- **test-tree-shaking.mjs 是按需行为的守卫**：按需产物不含 @font-face/.ri-，全量包同样不含（SVG 化后），引 icons.css 才 emit 字体；另断言三个层（ld-tokens < ld-base < ld-components）顺序固定、所有库规则都在层内。
+- **CSS 裁剪的判据是「模块图 ↔ CSS 产物双向对齐」，不是查某个类名存在**（2026-11-13 完成）：从 `src/styles/<组件>.css` 派生「只属于一个组件的类名」做探针（27/29 个组件有，icon/password-input 没有），正向断言进入模块图的组件样式必须在产物里、负向断言未进入的组件类名一个都不许出现。探针类名必须连 BEM 下划线一起提取（`/\.ld-[a-z0-9_-]+/`）——只取到 `.ld-dialog` 会被产物里的 `.ld-dialog__mask` 挡住（边界检查不允后接 `_`/`-`），6 个基类写在标签选择器上的组件会全部误报。已双向反向验证：注入跨组件 `@import` 报「样式泄漏」，摘掉组件自身样式报「样式缺失」。
+- 四步改造已全部完成（剥离图标字体 → ld-icon 改 SVG → @layer 分层 → 裁剪断言细化）；细节见 2026-11-11/12/13.md 日志。
+
+## CSS 层叠层（2026-11-12 起）
+
+- 全部库样式包在 `@layer` 里，层序由 `src/styles/layers.css` 单点声明：`ld-tokens, ld-base, ld-components`（tokens 低于 base，base 低于组件）。
+- `common.css` 与 `index.css` 首行都引 layers.css，因此按需入口链自动带层序声明；新增样式文件必须照样包进对应层，否则会变成「未分层」而压过组件层。
+- `package.json` 的 `./styles/*.css` 通配映射到 `dist/components/*/style.css`，不是 `dist/styles/`。新增独立样式入口（如 layers/common/icons）必须写显式 exports 条目，否则解析失败。
+- 收益两条：① 多组件按需引入时层序与 import 顺序无关；② 使用方未分层 CSS 天然优先，覆盖不用 `!important`。**代价：浏览器基线抬到 Chrome 99+/Safari 15.4+/Firefox 97+**，更旧的浏览器会整段忽略层内规则。
+- 同一层内部的规则顺序仍随 import 变化（层叠层固有语义），组件类名前缀互不重叠所以无实际影响；不要试图对比两组件不同 import 顺序的产物字节相等。
+- 验证入口：`npm run test:cascade-layers`（真实 Chrome 断言层序 + 消费方未分层样式胜出）。已做反向验证：把产物层包裹剥掉，该测试立刻失败。
+
+## 表单控件 value 绑定铁律（2026-11-12）
+
+- 内部 `<input>/<textarea>` 的值绑定必须用 lit `live(this.value)`，禁止裸 `.value=${...}`：程序化赋值会清浏览器 dirty 标志，导致 `minlength`/`tooShort` 等仅对用户编辑生效的校验被静默失效（ld-input 曾因此不可用）。
+- 验证此类问题必须用 CDP Input.insertText 真实键入；`dispatchEvent(new Event('input'))` 模拟不置 dirty，结论会完全相反。

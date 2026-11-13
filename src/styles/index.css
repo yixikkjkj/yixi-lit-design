@@ -1,4 +1,5 @@
 /* 组件库全局样式入口：使用方只需引入这一个 css 文件 */
+@import './layers.css';
 @import './tokens.css';
 @import './icons.css';
 @import './base.css';

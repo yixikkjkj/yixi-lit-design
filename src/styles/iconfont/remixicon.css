@@ -1,3 +1,4 @@
+@layer ld-components {
 /*
 * Remix Icon v4.6.0
 * https://remixicon.com
@@ -3097,4 +3098,4 @@
 .ri-no-credit-card-line:before { content: "\f5f0"; }
 .ri-service-bell-fill:before { content: "\f5f1"; }
 .ri-service-bell-line:before { content: "\f5f2"; }
-
+}

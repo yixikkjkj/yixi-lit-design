@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { live } from 'lit/directives/live.js';
 import { property, query } from 'lit/decorators.js';
 import { LdElement } from '../../base.js';
 import { spread } from '../../directives/spread.js';
@@ -93,7 +94,7 @@ export class LdTextarea extends LdElement {
           <textarea
             class="ld-textarea__inner"
             ${spread({ autocomplete: this.autocomplete, enterkeyhint: this.enterkeyhint })}
-            .value=${this.value}
+            .value=${live(this.value)}
             placeholder=${this.placeholder}
             rows=${this.rows}
             ?disabled=${this.disabled}

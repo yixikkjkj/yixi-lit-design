@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { access, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -31,6 +32,8 @@ for (const candidate of candidates) {
 }
 if (!browser) throw new Error('Set BROWSER_BIN to a Chrome/Chromium/Edge executable');
 const temporary = await mkdtemp(path.join(root, '.native-props-test-'));
+// Chrome 退出时仍可能占用 profile，放进项目临时目录会导致删不掉并静默残留
+const profileDir = path.join(os.tmpdir(), `ld-native-props-${process.pid}-${Date.now()}`);
 let server;
 try {
   const compiler = rspack({
@@ -76,7 +79,7 @@ try {
         '--disable-gpu',
         '--no-first-run',
         '--no-default-browser-check',
-        `--user-data-dir=${path.join(temporary, 'profile')}`,
+        `--user-data-dir=${profileDir}`,
         '--dump-dom',
         '--virtual-time-budget=10000',
         `http://127.0.0.1:${server.address().port}/`,
@@ -91,4 +94,8 @@ try {
   assert.equal(path.dirname(temporary), path.resolve(root), 'Unsafe test cleanup parent');
   assert.ok(path.basename(temporary).startsWith('.native-props-test-'), 'Unsafe test cleanup name');
   await rm(temporary, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+  // 系统临时目录里的 profile 删不掉也不算失败，OS 会回收
+  await rm(profileDir, { recursive: true, force: true, maxRetries: 2, retryDelay: 200 }).catch(
+    () => {},
+  );
 }

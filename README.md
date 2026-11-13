@@ -5,6 +5,7 @@
 ## 特性
 
 - **Light DOM 渲染**：组件不创建 Shadow Root，样式完全由全局 CSS 驱动，使用者可以自由覆盖任何样式
+- **样式走 CSS 层叠层**：所有样式包在 `ld-tokens` / `ld-base` / `ld-components` 三层里，层序固定，覆盖库样式不写 `!important` 也生效，按需引入多个组件不受 import 顺序影响
 - **插槽按 Shadow DOM 习惯书写**：`<slot>` 在 Light DOM 下不会自动投影，基类 `LdElement` 会在渲染后把使用方写的内容搬进模板里对应的 `<slot>`，因此 `<ld-dialog><div slot="footer">…</div></ld-dialog>` 这类写法直接可用
 - **CSS 变量主题**：颜色、尺寸、圆角、间距等全部是 CSS 变量（见 `src/styles/tokens.css`），覆盖变量即换肤
 - **图标按需加载**：`<ld-icon>` 内联 SVG 渲染，系统图标（关闭、箭头等）内联零请求，其他图标按需加载单个 SVG，可通过 `registerIconLibrary` 自托管
@@ -146,6 +147,34 @@ input.addEventListener('ld-input', (event) => console.log(event.detail.value));
 
 JavaScript tree shaking 不会分析 HTML 标签或按选择器裁剪 CSS。需要按需样式时使用上述组件入口或 `styles/<组件名>.css`；`styles.css` 是全量样式。图标改为 SVG 后不再携带字体与图标全集：组件样式不含任何图标资源，系统图标内联在 JS 中，其他图标按需加载单个 SVG；`styles/icons.css` 只服务直接用 `<i class="ri-...">` 的存量代码。
 
+### 样式层叠顺序（@layer）
+
+库的所有样式都包在 CSS 层叠层里，层序固定，由 `src/styles/layers.css` 一次性声明：
+
+```css
+@layer ld-tokens, ld-base, ld-components;
+```
+
+名字 | 内容
+---|---
+`ld-tokens` | 设计令牌（`--ld-*` 自定义属性）
+`ld-base` | 自定义元素宿主的基础排版
+`ld-components` | 各组件样式、图标样式、图标字体兼容类
+
+由此得到两个确定的结论：
+
+1. **按需引入多个组件时，结果与 import 顺序无关**。层与层之间只比层序、不比选择器特异性，`ld-base` 永远低于 `ld-components`，加载顺序怎么变都一样。
+2. **你自己的未分层 CSS 天然优先于库样式**，覆盖不需要 `!important`，也不需要堆高特异性：
+
+```css
+/* 普通 CSS，不写 !important 也能覆盖库里的 .ld-btn */
+.ld-btn { border-radius: 8px; }
+```
+
+需要注意：层序由「首次出现的顺序」决定，`styles/layers.css` 必须先于任何组件样式引入。通过包名引入时全部自动处理——`styles.css`、`components/<组件名>`、`styles/<组件名>.css`、`styles/common.css` 都会先加载 `layers.css`。只有绕开包入口、直接按文件路径引用 `dist/styles/<组件名>.css`（例如用 `<link>` 手工引入）时，才需要自己先引一次 `dist/styles/layers.css`。另外不要在项目里复用 `ld-` 开头的层名，否则会并入库的层序。
+
+浏览器基线：层叠层自 2022 年起进入正式标准，Chrome 99+、Safari 15.4+、Firefox 97+ 支持。更旧的浏览器会整段忽略层内规则，这与 Lit 3 本身的浏览器要求一致。
+
 ### 全量使用 / 无构建工具
 
 在应用构建工具中可用 `import 'yixi-lit-design/all'` 注册并加载全部组件和样式；此入口用于明确需要全量组件的情况。
@@ -187,9 +216,10 @@ src/
   index.ts             # 无自动注册或 CSS 的主入口
   all.ts               # 全量注册与样式入口
   styles/
+    layers.css         # 层序声明（@layer ld-tokens, ld-base, ld-components）
     tokens.css         # 设计令牌（CSS 变量）
     index.css          # 样式入口（引入所有组件样式）
-    common.css         # 公共样式（tokens + base）
+    common.css         # 公共样式（layers + tokens + base）
     icons.css          # 旧图标字体样式（可选，仅存量 <i class="ri-..."> 代码需要）
     iconfont/          # Remix Icon 字体文件（随 icons.css 一起使用）
     <name>.css         # 各组件样式

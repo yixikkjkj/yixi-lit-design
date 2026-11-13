@@ -119,6 +119,7 @@ import { message } from 'yixi-lit-design/components/message';</code></pre>
 import 'yixi-lit-design/styles/button.css';
 registerButton();</code></pre>
         <p class="desc">图标无需额外样式：内联 SVG 渲染，系统图标随包内联，其他图标按需加载单个 SVG（默认走 Remix Icon / Iconify CDN），可用 <code>registerIconLibrary</code> 自托管。旧的 <code>styles/icons.css</code> 仅存量 <code>&lt;i class="ri-..."&gt;</code> 代码需要。</p>
+        <p class="desc">所有样式都包在 CSS 层叠层里，层序固定为 <code>ld-tokens &lt; ld-base &lt; ld-components</code>：按需引入多个组件时结果与 import 顺序无关，自己的样式不写 <code>!important</code> 也能覆盖库样式。</p>
         <p class="desc">无构建工具时使用全量浏览器包（本演示页使用此方式）：</p>
         <pre><code>&lt;link rel="stylesheet" href="dist/browser/index.css" /&gt;
 &lt;script type="module" src="dist/browser/index.js"&gt;&lt;/script&gt;

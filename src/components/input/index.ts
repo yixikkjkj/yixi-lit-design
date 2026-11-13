@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { live } from 'lit/directives/live.js';
 import { property, state } from 'lit/decorators.js';
 import { LdElement } from '../../base.js';
 import { spread } from '../../directives/spread.js';
@@ -129,7 +130,7 @@ export class LdInput extends LdElement {
             autocomplete: this.autocomplete,
             enterkeyhint: this.enterkeyhint,
           })}
-          .value=${this.value}
+          .value=${live(this.value)}
           placeholder=${this.placeholder}
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
